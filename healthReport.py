@@ -1,9 +1,35 @@
 import streamlit as st
 from fpdf import FPDF
 import fitz  # PyMuPDF
+from PIL import Image
 
 # Path to the PDF template
 template_pdf_path = "1st Optimal Treatment Plan.pdf"
+
+# Load and display the logo
+logo_path = "1st-Optimal-Logo-Dark (500x500 px).png"  # Replace with your actual logo file path
+st.image(logo_path, width=500)  # Adjust width as needed
+st.title("1st Optimal Treatment Plan Generator")
+
+# Brand color styles
+st.markdown(
+    """
+    <style>
+        h1 {
+            color: #06B6D4;
+        }
+        .subheader {
+            color: #737373;
+        }
+        .light-bg {
+            background-color: #EBEBEB;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Membership data with descriptions, indication, and monthly prices
 memberships = [
@@ -239,9 +265,8 @@ lifestyle_recommendations = [
 
 # Streamlit UI setup
 st.title("1st Optimal Treatment Plan Generator")
-st.header("Select Products for Your Report")
-
 # Selection widgets
+st.subheader("Select Products for Your Report")
 selected_membership = st.multiselect("Membership", [item['name'] for item in memberships], max_selections=1)
 selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in diagnostic_tests], max_selections=5)
 selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=5)
@@ -251,16 +276,10 @@ selected_supplements = st.multiselect("Supplements", [item['name'] for item in s
 def merge_pdfs(template_path, generated_path, output_path):
     with fitz.open(template_path) as template_pdf:
         output_pdf = fitz.open()
-        # Add first 2 pages from the template PDF
-        for page_num in range(2):  # Adjust if you need more pages
-            template_page = template_pdf[page_num]
+        for page_num in range(2):  # Add first 2 pages from template
             output_pdf.insert_pdf(template_pdf, from_page=page_num, to_page=page_num)
-
-        # Append generated PDF content
         with fitz.open(generated_path) as generated_pdf:
             output_pdf.insert_pdf(generated_pdf)
-
-        # Save the combined PDF
         output_pdf.save(output_path)
 
 # PDF generation function
@@ -268,27 +287,29 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
     generated_pdf_path = "generated_content.pdf"
     output_pdf_path = "final_treatment_plan.pdf"
 
-    # Create a new PDF for generated content
     pdf = FPDF()
     pdf.set_auto_page_break(auto=True, margin=20)
     pdf.add_page()
 
-    # Register fonts without deprecated parameters
+    # Register fonts
     pdf.add_font("DejaVu", "", "DejaVuSans.ttf")
     pdf.add_font("DejaVu", "B", "DejaVuSans-Bold.ttf")
     pdf.add_font("DejaVu", "I", "DejaVuSans-Oblique.ttf")
 
+    # Primary color for headers
+    pdf.set_text_color(6, 182, 212)
     pdf.set_font("DejaVu", "B", 16)
     pdf.cell(0, 10, "1st Optimal Treatment Plan", new_x="LMARGIN", new_y="NEXT", align="C")
     pdf.ln(10)
 
-    # Function to add each section with refined layout
     def add_section(title, items, data_source):
-        pdf.set_fill_color(230, 230, 250)
+        pdf.set_fill_color(230, 230, 250)  # Light background color
+        pdf.set_text_color(6, 182, 212)  # Primary color for section titles
         pdf.set_font("DejaVu", "B", 14)
         pdf.cell(0, 10, title, new_x="LMARGIN", new_y="NEXT", align="L", fill=True)
         pdf.ln(5)
 
+        pdf.set_text_color(115, 115, 115)  # Secondary color for text
         pdf.set_font("DejaVu", "", 12)
         for item_name in items:
             item = next((x for x in data_source if x['name'] == item_name), None)
@@ -296,54 +317,45 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
                 pdf.set_font("DejaVu", "B", 12)
                 pdf.cell(0, 8, f"{item['name']}", new_x="LMARGIN", new_y="NEXT")
 
-                # Description
                 pdf.set_font("DejaVu", "B", 10)
                 pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
                 pdf.set_font("DejaVu", "", 10)
                 pdf.multi_cell(0, 6, f"  {item['description']}")
                 pdf.ln(3)
 
-                # Indication
                 pdf.set_font("DejaVu", "B", 10)
                 pdf.cell(0, 6, "Indication:", new_x="LMARGIN", new_y="NEXT")
                 pdf.set_font("DejaVu", "", 10)
                 pdf.multi_cell(0, 6, f"  {item['indication']}")
                 pdf.ln(3)
 
-                # Price
                 pdf.set_font("DejaVu", "B", 10)
                 pdf.cell(0, 6, "Price:", new_x="LMARGIN", new_y="NEXT")
                 pdf.set_font("DejaVu", "", 10)
                 pdf.multi_cell(0, 6, f"  {item['price']}")
 
-                # Adding a separator line for visual clarity
                 pdf.ln(3)
                 pdf.cell(0, 1, "", new_x="LMARGIN", new_y="NEXT")
                 pdf.set_draw_color(180, 180, 180)
                 pdf.line(10, pdf.get_y(), 200, pdf.get_y())
                 pdf.ln(5)
 
-    # Add sections for each category
+    # Add sections
     add_section("Membership", selected_membership, memberships)
     add_section("Diagnostic Testing", selected_tests, diagnostic_tests)
     add_section("Medications", selected_medications, medications)
     add_section("Supplements", selected_supplements, supplements)
 
-    # Lifestyle Recommendations section with improved spacing
     pdf.set_fill_color(230, 230, 250)
     pdf.set_font("DejaVu", "B", 14)
     pdf.cell(0, 10, "Lifestyle Recommendations", new_x="LMARGIN", new_y="NEXT", align="L", fill=True)
     pdf.ln(5)
     pdf.set_font("DejaVu", "", 12)
-
     for recommendation in lifestyle_recommendations:
         pdf.multi_cell(0, 8, f"• {recommendation}")
         pdf.ln(2)
 
-    # Save generated content PDF
     pdf.output(generated_pdf_path)
-
-    # Merge the template and generated content PDFs
     merge_pdfs(template_pdf_path, generated_pdf_path, output_pdf_path)
 
     return output_pdf_path
