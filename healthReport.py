@@ -7,8 +7,7 @@ template_pdf_path = "1st Optimal Treatment Plan.pdf"
 
 # Membership data with descriptions, indication, and monthly prices
 memberships = [
-    {"name": "All in PT Membership", "description": "", "indication": "Comprehensive physical training and monitoring.", "price": "USD 200.00/month"},
-    {"name": "M and M Training and Nutrition", "description": "", "indication": "Includes both personalized training and nutrition plans for optimal health.", "price": "USD 325.00/month"},
+    {"name": "Coaching Partnership", "description": "", "indication": "Comprehensive physical training and monitoring.", "price": "USD 200.00/month"},
     {"name": "Performance Care Membership - (T1)", "description": "", "indication": "Ideal for individuals focused on performance enhancement and recovery.", "price": "USD 49.00/month"},
     {"name": "Guided Hormone Care Membership - (T2)", "description": "", "indication": "Hormone care tailored to your lab results for hormonal balance.", "price": "USD 99.00/month"},
     {"name": "Weight Loss Care Membership - (T3)", "description": "", "indication": "Targeted for individuals aiming for sustainable weight loss.", "price": "USD 129.00/month"},
