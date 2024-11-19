@@ -58,7 +58,7 @@ medications = [
     {"name": "Tesamorelin", "description": "A growth hormone-releasing hormone analog that promotes the release of growth hormone, often used to reduce abdominal fat in adults.", "indication": "Recommended for reducing visceral fat, particularly in individuals with growth hormone deficiencies."},
     {"name": "Testosterone Capsule", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
     {"name": "Testosterone Cream", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
-    {"name": "Testosterone Cypionate Injection", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
+    {"name": "Testosterone Cypionate", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
     {"name": "Trizepitide", "description": "Helps in weight management and blood sugar control through multiple pathways.", "indication": "Recommended for elevated blood sugar or insulin resistance."}
 ]
 
@@ -136,45 +136,24 @@ supplements = [
     },
 ]
 
-
-lifestyle_recommendations = [
-    "Follow CDC Exercise Guidelines: Engage in at least 150 minutes of moderate-intensity aerobic activity per week.",
-    "Prioritize Sleep Quality and Quantity: Aim for 7–9 hours of quality sleep per night.",
-    "Optimize Nutrient Intake: Follow a balanced diet with essential nutrients for hormone health.",
-    "Incorporate Resistance Training: Perform strength training 2-3 times per week with compound movements.",
-    "Manage Stress Levels: Incorporate daily stress management practices like mindfulness or breathing exercises.",
-    "Limit Alcohol and Avoid Smoking: Limit alcohol intake and quit smoking for optimal hormone balance.",
-    "Maintain a Healthy Weight: Aim for a BMI in the range of 18.5–24.9 to support hormone health.",
-    "Stay Hydrated: Aim for 3.7 liters/day for men and 2.7 liters/day for women.",
-    "Reduce Sugar and Processed Foods: Limit added sugars to less than 10% of daily calories.",
-    "Get Regular Sun Exposure or Supplement Vitamin D: Aim for adequate sun exposure or supplement as needed.",
-]
-# Load and display the logo
-logo_path = "1st-Optimal-Logo-Dark (500x500 px).png"  # Replace with your actual logo file path
-st.image(logo_path, width=500)  # Adjust width as needed
-
-# Streamlit UI setup
-st.title("1st Optimal Treatment Plan Generator")
-st.subheader("Select Products for Your Report")
-
-# Selection Widgets
-selected_membership = st.multiselect("Membership", [item['name'] for item in memberships], max_selections=1)
-selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in diagnostic_tests], max_selections=5)
-selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=5)
-selected_supplements = st.multiselect("Supplements", [item['name'] for item in supplements], max_selections=10)
-
-# Show popup for the Guided Hormone Care (PLUS) Membership description
-if "Guided Hormone Care (PLUS) Membership - Member (T4)" in selected_membership:
-    st.info(memberships[-1]["description"])
-
 # Function to merge PDFs
 def merge_pdfs(template_path, generated_path, output_path):
     with fitz.open(template_path) as template_pdf:
         output_pdf = fitz.open()
-        for page_num in range(2):  # Add first 2 pages from template
+
+        # Add first 2 pages from template
+        for page_num in range(2):
             output_pdf.insert_pdf(template_pdf, from_page=page_num, to_page=page_num)
+
+        # Append the generated content PDF
         with fitz.open(generated_path) as generated_pdf:
             output_pdf.insert_pdf(generated_pdf)
+
+        # Append the last 6 pages from the template
+        total_pages = len(template_pdf)
+        for page_num in range(total_pages - 6, total_pages):
+            output_pdf.insert_pdf(template_pdf, from_page=page_num, to_page=page_num)
+
         output_pdf.save(output_path)
 
 # PDF generation function
@@ -210,12 +189,13 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
                 if item:
                     pdf.set_font("DejaVu", "B", 12)
                     pdf.cell(0, 8, f"{item['name']}", new_x="LMARGIN", new_y="NEXT")
+
                     pdf.set_font("DejaVu", "B", 10)
                     pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
                     pdf.set_font("DejaVu", "", 10)
                     pdf.multi_cell(0, 6, f"  {item.get('description', 'No description available.')}")
-                    pdf.ln(3)
 
+                    pdf.ln(3)
                     pdf.set_font("DejaVu", "B", 10)
                     pdf.cell(0, 6, "Indication:", new_x="LMARGIN", new_y="NEXT")
                     pdf.set_font("DejaVu", "", 10)
@@ -228,7 +208,7 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
                         pdf.set_font("DejaVu", "", 10)
                         pdf.multi_cell(0, 6, f"  {item.get('price', 'TBD')}")
                         pdf.ln(3)
-
+                        
                     pdf.cell(0, 1, "", new_x="LMARGIN", new_y="NEXT")
                     pdf.set_draw_color(180, 180, 180)
                     pdf.line(10, pdf.get_y(), 200, pdf.get_y())
@@ -239,24 +219,32 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
         add_section("Medications", selected_medications, medications, show_price=False)
         add_section("Supplements", selected_supplements, supplements, show_price=False)
 
-        pdf.set_fill_color(230, 230, 250)
-        pdf.set_font("DejaVu", "B", 14)
-        pdf.cell(0, 10, "Lifestyle Recommendations", new_x="LMARGIN", new_y="NEXT", align="L", fill=True)
-        pdf.ln(5)
-        pdf.set_font("DejaVu", "", 12)
-        for recommendation in lifestyle_recommendations:
-            pdf.multi_cell(0, 8, f"• {recommendation}")
-            pdf.ln(2)
-
+        # Save generated content PDF
         pdf.output(generated_pdf_path)
+
+        # Merge template, generated content, and additional pages
         merge_pdfs(template_pdf_path, generated_pdf_path, output_pdf_path)
 
         return output_pdf_path
     except Exception as e:
         st.error(f"Error generating PDF: {e}")
         return None
+# Load and display the logo
+logo_path = "1st-Optimal-Logo-Dark (500x500 px).png"  # Replace with your actual logo file path
+st.image(logo_path, width=500)  # Adjust width as needed
 
-# Button to generate PDF
+# Streamlit UI
+st.title("1st Optimal Treatment Plan Generator")
+st.subheader("Select Products for Your Report")
+
+selected_membership = st.multiselect("Membership", [item['name'] for item in memberships], max_selections=1)
+selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in diagnostic_tests], max_selections=5)
+selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=5)
+selected_supplements = st.multiselect("Supplements", [item['name'] for item in supplements], max_selections=10)
+
+if "Guided Hormone Care (PLUS) Membership - Member (T4)" in selected_membership:
+    st.info(memberships[-1]["description"])
+
 if st.button("Generate PDF"):
     if selected_membership or selected_tests or selected_medications or selected_supplements:
         pdf_path = generate_pdf(selected_membership, selected_tests, selected_medications, selected_supplements)
