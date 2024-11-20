@@ -35,105 +35,118 @@ memberships = [
     {"name": "Guided Hormone Care (PLUS) Membership - Member (T4)", "description": "Choose 1: Testosterone Cypionate 10ml/200mg or Enclomiphine", "indication": "Enhanced hormone care with choice of specific treatments for personalized hormone balance.", "price": "USD 159.00/month"},
 ]
 
-# Full data for each category with descriptions and lab indication
+# Diagnostic Tests
 diagnostic_tests = [
-    {"name": "Men's Testosterone Therapy Starter Kit", "description": "", "indication": "Used to test Low-T for non-T users"},
-    {"name": "Male Basic Hormone Health Panel", "description": "", "indication": "Great for Starter Membership Panel"},
-    {"name": "Men's Hormone Health Panel", "description": "", "indication": "Great panel covering all bases"},
-    {"name": "Male Comprehensive Hormone Panel", "description": "", "indication": "Great for health enthusiast"},
-    {"name": "Male Follow-up Panel", "description": "", "indication": "Adjustable based on treatment, Included (free) in TRT membership"},
+    {"name": "Male Testosterone Starter Therapy Kit",
+     "description": "Convenient, private, and easy-to-use, this kit provides accurate insights into your testosterone levels, helping you optimize strength, energy, and performance from the comfort of your home.",
+     "indication": "Markers: SHBG, Free Testosterone, Total PSA, Total Testosterone, Estradiol."},
+    {"name": "Male Basic Hormone Health Panel",
+     "description": "Get a clear snapshot of your essential hormone levels to uncover hidden imbalances impacting your energy, performance, and overall health.",
+     "indication": "Markers: Total Testosterone, Free Testosterone, Estradiol, SHBG, Prolactin, LH, FSH, PSA, Lipid Panel, HbA1c, CBC, Metabolic Panel."},
+    {"name": "Male Hormone Health Panel",
+     "description": "Dive deeper into your hormone profile to optimize strength, recovery, weight loss, and physical vitality tailored to your unique needs.",
+     "indication": "Markers: Testosterone, SHBG, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, HbA1c, CBC, Metabolic Panel, Fasting Insulin."},
+    {"name": "Male Comprehensive Hormone Panel",
+     "description": "A full-spectrum hormone analysis to ensure you're at your peak in energy, performance, weight management, and overall health.",
+     "indication": "Markers: Total Testosterone (uncapped), SHBG, Cortisol, Progesterone, DHEA-S, PSA, Thyroid Panel, IGF-1, ApoB, Ferritin, HbA1c, Inflammatory Markers, and more."},
+    {"name": "Male Follow-Up Panel",
+     "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+     "indication": "Markers: Estradiol, SHBG, PSA, CBC, Metabolic Panel."},
+    {"name": "Female Hormone Health Panel",
+     "description": "Unlock insights into your hormones to enhance energy, weight loss, and physical well-being with a tailored approach to your health.",
+     "indication": "Markers: Testosterone, Estradiol, SHBG, DHEA-S, Progesterone, Thyroid Panel, Lipid Panel, HbA1c, CBC, and more."},
+    {"name": "Female Comprehensive Hormone Health Panel",
+     "description": "A detailed hormone assessment to optimize performance, balance, and physical appearance for a healthier, more confident you.",
+     "indication": "Markers: Testosterone (uncapped), Estradiol, SHBG, Progesterone, Cortisol, Thyroid Panel, ApoB, Ferritin, HbA1c, Inflammatory Markers, and more."}
 ]
 
-# Updated medications data with Descriptions and Indications
+# Medications
 medications = [
-    {"name": "Anastrozole", "description": "An aromatase inhibitor that reduces estrogen production, often used in hormone therapy to prevent estrogen-related side effects.", "indication": "Recommended for individuals on testosterone therapy who may experience elevated estrogen levels."},
-    {"name": "DHEA", "description": "A hormone that helps improve adrenal health and hormone balance.", "indication": "Suggested when DHEA-S levels are low in lab results."},
-    {"name": "Enclomiphene", "description": "A selective estrogen receptor modulator (SERM) that stimulates natural testosterone production in men.", "indication": "Commonly used in individuals with low testosterone levels, particularly as an alternative to direct testosterone supplementation."},
-    {"name": "Levothyroxin (Synthroid)", "description": "A synthetic thyroid hormone replacement used to treat hypothyroidism by normalizing thyroid hormone levels.", "indication": "Prescribed for individuals with low thyroid function or hypothyroidism."},
-    {"name": "Retatrutide", "description": "A multi-receptor agonist for weight loss and metabolic health.", "indication": "Considered if metabolic markers indicate high risk for diabetes or obesity."},
-    {"name": "Semaglutide", "description": "Medication for weight management by reducing appetite and regulating blood sugar.", "indication": "Commonly prescribed if fasting glucose or HbA1c levels are elevated."},
-    {"name": "Sermorelin", "description": "A growth hormone secretagogue that stimulates the body’s natural production of growth hormone, aiding in recovery, muscle growth, and fat loss.", "indication": "Beneficial for individuals with low growth hormone levels or those seeking to improve body composition."},
-    {"name": "Sildenafil", "description": "A phosphodiesterase type 5 (PDE5) inhibitor used to treat erectile dysfunction by increasing blood flow to the penis.", "indication": "Recommended for men experiencing erectile dysfunction."},
-    {"name": "Tadalafil", "description": "A PDE5 inhibitor used to treat erectile dysfunction and benign prostatic hyperplasia by increasing blood flow.", "indication": "Commonly prescribed for erectile dysfunction and symptoms of an enlarged prostate."},
-    {"name": "Tesamorelin", "description": "A growth hormone-releasing hormone analog that promotes the release of growth hormone, often used to reduce abdominal fat in adults.", "indication": "Recommended for reducing visceral fat, particularly in individuals with growth hormone deficiencies."},
-    {"name": "Testosterone Capsule", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
-    {"name": "Testosterone Cream", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
-    {"name": "Testosterone Cypionate", "description": "Used to supplement low testosterone levels and improve energy, mood, and muscle mass.", "indication": "Recommended when testosterone levels are below normal range."},
-    {"name": "Trizepitide", "description": "Helps in weight management and blood sugar control through multiple pathways.", "indication": "Recommended for elevated blood sugar or insulin resistance."}
+    {"name": "Anastrozole",
+     "description": "A medication used to manage estrogen levels in men undergoing testosterone replacement therapy (TRT).",
+     "indication": "Helps maintain hormonal balance and reduce estrogen-related side effects."},
+    {"name": "DHEA",
+     "description": "A naturally occurring hormone that serves as a precursor to testosterone and estrogen.",
+     "indication": "Supports adrenal health, improves energy, and enhances overall hormone balance."},
+    {"name": "Enclomiphene",
+     "description": "A selective estrogen receptor modulator (SERM) used to increase testosterone production in men.",
+     "indication": "Stimulates natural testosterone production to restore vitality and improve performance."},
+    {"name": "Levothyroxin",
+     "description": "A synthetic form of thyroid hormone used to treat hypothyroidism.",
+     "indication": "Restores proper metabolism, energy levels, and overall thyroid function."},
+    {"name": "Retatrutide",
+     "description": "A next-generation multi-receptor agonist used in clinical trials for weight management.",
+     "indication": "Accelerates weight loss and improves metabolic health."},
+    {"name": "Semaglutide",
+     "description": "A GLP-1 receptor agonist used for weight loss and blood sugar management.",
+     "indication": "Improves insulin sensitivity, reduces appetite, and supports weight management."},
+    {"name": "Sermorelin",
+     "description": "A synthetic peptide that stimulates the natural release of growth hormone.",
+     "indication": "Boosts growth hormone for improved recovery, strength, and anti-aging benefits."},
+    {"name": "Sildenafil",
+     "description": "Commonly known as Viagra, this medication treats erectile dysfunction by increasing blood flow.",
+     "indication": "Improves blood flow for better performance and confidence."},
+    {"name": "Tadalafil",
+     "description": "A long-acting PDE5 inhibitor used to treat erectile dysfunction and improve urinary symptoms.",
+     "indication": "Provides long-lasting support for improved performance and blood flow."},
+    {"name": "Tesamorelin",
+     "description": "A growth hormone-releasing hormone analog that promotes the release of growth hormone.",
+     "indication": "Supports fat loss and muscle definition through natural hormone stimulation."},
+    {"name": "Testosterone Capsule",
+     "description": "An oral testosterone replacement therapy option that supports hormone balance.",
+     "indication": "Improves symptoms of low testosterone, including fatigue and reduced muscle mass."},
+    {"name": "Testosterone Cream",
+     "description": "A topical testosterone replacement therapy applied directly to the skin.",
+     "indication": "Enhances testosterone levels for better performance and muscle tone."},
+    {"name": "Testosterone Injectable",
+     "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+     "indication": "Provides a direct approach to optimizing testosterone for peak strength and vitality."},
+    {"name": "Trizepitide",
+     "description": "A novel dual-receptor agonist for weight management.",
+     "indication": "Targets appetite and fat metabolism to accelerate weight loss."}
 ]
 
-# Updated supplements with Description and Indication
+# Supplements
 supplements = [
-    {
-        "name": "Berberine (Thorne)",
-        "description": "A natural compound shown to support healthy blood sugar levels, improve insulin sensitivity, and support gut health.",
-        "indication": "Recommended for those managing blood sugar levels or seeking metabolic health support."
-    },
-    {
-        "name": "Creatine (450g)",
-        "description": "A supplement that enhances muscle strength, power, and recovery, commonly used in fitness and sports performance.",
-        "indication": "Ideal for athletes or individuals looking to increase muscle mass and improve performance."
-    },
-    {
-        "name": "Cortisol Calm",
-        "description": "A formula designed to help reduce stress and support adrenal health, promoting relaxation and balanced cortisol levels.",
-        "indication": "Ideal for managing stress and supporting the body's response to adrenal fatigue."
-    },
-    {
-        "name": "Douglas Labs D3 Liquid Vitamin (2oz)",
-        "description": "Liquid vitamin D3 for supporting bone health, immune function, and optimal vitamin D levels.",
-        "indication": "Suggested for individuals with low vitamin D levels or those needing immune and bone support."
-    },
-    {
-        "name": "GLP-1 Agonist Side Effect Support Bundle",
-        "description": "A bundle designed to mitigate side effects associated with GLP-1 agonist medications, promoting digestive health and supporting metabolic function.",
-        "indication": "Recommended for individuals using GLP-1 agonists to manage side effects like nausea and digestive discomfort."
-    },
-    {
-        "name": "GLP-1 Probiotic Pro (30 caps)",
-        "description": "A probiotic formula that supports gut health, particularly beneficial for those taking GLP-1 medications.",
-        "indication": "Recommended for maintaining gut health and balancing the microbiome, especially for GLP-1 users."
-    },
-    {
-        "name": "Hormonal Health – Thyroid Support Bundle",
-        "description": "A targeted bundle supporting thyroid function, providing essential nutrients for hormone synthesis and regulation.",
-        "indication": "Beneficial for those with low thyroid function or seeking to optimize hormonal health."
-    },
-    {
-        "name": "Magnesium",
-        "description": "Essential for muscle and nerve function, heart health, and bone strength.",
-        "indication": "Recommended if magnesium levels are low in blood tests."
-    },
-    {
-        "name": "Multi-Vitamin Premier (Thorne)",
-        "description": "A high-quality multivitamin providing a comprehensive range of vitamins and minerals to support daily nutritional needs.",
-        "indication": "Great for overall health and wellness, especially for individuals with nutrient deficiencies."
-    },
-    {
-        "name": "Musculoskeletal Health – Joint Pain Bundle",
-        "description": "Comprehensive support for joint health, containing key nutrients for reducing inflammation and improving joint mobility.",
-        "indication": "Ideal for those experiencing joint pain or stiffness, or as part of a recovery regimen."
-    },
-    {
-        "name": "Omega-3",
-        "description": "An essential fatty acid that supports heart and brain health.",
-        "indication": "Beneficial if lipid panel shows high triglycerides or low HDL."
-    },
-    {
-        "name": "OmegaGenics EPA-DHA 1000 Fish Oil (60 caps)",
-        "description": "High-potency fish oil providing omega-3 fatty acids for cardiovascular, brain, and joint health.",
-        "indication": "Beneficial for heart health, cognitive function, and reducing inflammation."
-    },
-    {
-        "name": "Tudca Body Bio",
-        "description": "A supplement that supports liver health, bile flow, and cellular protection, particularly beneficial for detoxification.",
-        "indication": "Recommended for liver support and for those undergoing detox or taking medications that affect liver function."
-    },
-    {
-        "name": "Vitamin D",
-        "description": "Supports bone health and immune function, especially if Vitamin D levels are low.",
-        "indication": "Suggested if 25-hydroxy vitamin D levels are below optimal."
-    },
+    {"name": "Berberine",
+     "description": "A natural compound that supports blood sugar regulation and metabolic health.",
+     "indication": "Enhances insulin sensitivity and supports weight loss."},
+    {"name": "Creatine",
+     "description": "Enhances strength, power, and recovery while supporting brain health.",
+     "indication": "Improves muscle performance and cognitive function."},
+    {"name": "Cortisol Calm",
+     "description": "Designed to support adrenal health and stress management by balancing cortisol levels.",
+     "indication": "Reduces stress and improves recovery and sleep quality."},
+    {"name": "Douglas Labs D3 Liquid",
+     "description": "A high-potency liquid vitamin D3 supplement for bone and immune health.",
+     "indication": "Boosts immune system and supports bone health."},
+    {"name": "GLP-1 Agonist Side Effect Support Bundle",
+     "description": "Alleviates common side effects of GLP-1 receptor agonist therapies.",
+     "indication": "Manages nausea and enhances GLP-1 therapy benefits."},
+    {"name": "GLP-1 Probiotic Pro",
+     "description": "A specialized probiotic blend to enhance gut health for GLP-1 users.",
+     "indication": "Improves gastrointestinal tolerance and microbiome balance."},
+    {"name": "Thyroid Support Bundle",
+     "description": "Nutrients and adaptogens to optimize thyroid function.",
+     "indication": "Improves thyroid health and supports metabolism."},
+    {"name": "Magnesium",
+     "description": "Supports muscle function, energy production, and nerve health.",
+     "indication": "Improves recovery, sleep quality, and energy levels."},
+    {"name": "Multi-Vitamin Premier",
+     "description": "A high-quality multivitamin for nutritional support.",
+     "indication": "Fills nutritional gaps for overall health and wellness."},
+    {"name": "Joint Health Bundle",
+     "description": "Reduces inflammation and improves joint mobility.",
+     "indication": "Supports joint health and enhances physical performance."},
+    {"name": "Omega-3",
+     "description": "Supports heart, brain, and joint health.",
+     "indication": "Reduces inflammation and improves cardiovascular health."},
+    {"name": "Tudca",
+     "description": "A bile acid supplement for liver health.",
+     "indication": "Supports liver detoxification and reduces liver stress."},
+    {"name": "Vitamin D",
+     "description": "Supports bone health, immune function, and mood regulation.",
+     "indication": "Low energy and worry about bone health."}
 ]
 
 # Function to merge PDFs
