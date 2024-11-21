@@ -201,7 +201,7 @@ def overwrite_more_information(template_path, output_path, member_name, membersh
             page.insert_text(
                 (x, y),
                 content,
-                fontsize=14,
+                fontsize=21,
                 color=(1, 1, 1),  # White text color
                 fontname="helv",  # Replace with Exo 2 when supported
             )
