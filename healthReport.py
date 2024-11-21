@@ -5,6 +5,7 @@ from PIL import Image
 import json
 import os
 from datetime import datetime
+import pytz
 
 # Brand color styles
 st.markdown(
@@ -180,15 +181,18 @@ def merge_pdfs(template_path, generated_path, output_path):
 # Function to write More Information Section onto merged PDF
 def overwrite_more_information(template_path, output_path, member_name, membership_manager):
     try:
+        # Set your desired timezone
+        local_timezone = pytz.timezone("America/Los_Angeles")
+        current_date = datetime.now(local_timezone).strftime("%m-%d-%Y")
+
         # Open the template PDF
         doc = fitz.open(template_path)
         page = doc[0]  # Access the first page
 
         # Define the text to insert with their respective positions
-        date = datetime.now().strftime("%m-%d-%Y")
         more_info_content = [
             (f"Prepared for {member_name or 'Not Provided'}", 1.1 * 72, 8.8 * 72),  # X: 1.1 inches, Y: 8.81 inches
-            (f"{date}", 1.1 * 72, 9.31 * 72),  # X: 1.1 inches, Y: 9.3 inches
+            (f"{current_date}", 1.1 * 72, 9.31 * 72),  # X: 1.1 inches, Y: 9.3 inches
             (f"Prepared by {membership_manager or 'Not Selected'}", 1.1 * 72, 9.85 * 72),  # X: 1.1 inches, Y: 9.85 inches
         ]
 
@@ -197,7 +201,7 @@ def overwrite_more_information(template_path, output_path, member_name, membersh
             page.insert_text(
                 (x, y),
                 content,
-                fontsize=21,
+                fontsize=14,
                 color=(1, 1, 1),  # White text color
                 fontname="helv",  # Replace with Exo 2 when supported
             )
