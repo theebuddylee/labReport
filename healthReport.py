@@ -31,7 +31,7 @@ st.markdown(
 st.sidebar.title("Member Details")
 membership_managers = ["Allison", "Amber", "Buddy", "Dillon", "Justin", "Joe", "Ramsey"]
 selected_manager = st.sidebar.selectbox("Select Membership Manager", membership_managers)
-member_name = st.sidebar.text_input("Enter Member's Name")
+member_name = st.sidebar.text_input("Enter Member/Patient Name")
 
 # Membership data with descriptions, indication, and monthly prices
 memberships = [
@@ -173,7 +173,7 @@ def merge_pdfs(template_path, generated_path, output_path):
 
         # Append the last 6 pages from the template
         total_pages = len(template_pdf)
-        for page_num in range(total_pages - 7, total_pages):
+        for page_num in range(total_pages - 5, total_pages):
             output_pdf.insert_pdf(template_pdf, from_page=page_num, to_page=page_num)
 
         output_pdf.save(output_path)
