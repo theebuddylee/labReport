@@ -339,4 +339,3 @@ if st.button("Generate PDF"):
             st.error("PDF generation failed.")
     else:
         st.warning("Please select at least one item from any category.")
-            st.error("PDF generation failed.")
