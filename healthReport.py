@@ -295,26 +295,31 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
         st.error(f"Error generating PDF: {e}")
         return None
 
-# Analytics
+# File path for analytics data
 analytics_file = "analytics.json"
 
-def log_selections():
-    data = {
-        "member_name": member_name,
-        "manager": selected_manager,
-        "membership": selected_membership,
-        "tests": selected_tests,
-        "medications": selected_medications,
-        "supplements": selected_supplements,
-    }
+# Function to log selections
+def log_selections(data):
+    # Add a timestamp to the data
+    data["timestamp"] = datetime.now().isoformat()
+
+    # Check if the file exists, otherwise create an empty list
     if os.path.exists(analytics_file):
         with open(analytics_file, "r") as file:
-            analytics_data = json.load(file)
+            try:
+                analytics_data = json.load(file)
+            except json.JSONDecodeError:
+                # If the file exists but is corrupted or empty, start fresh
+                analytics_data = []
     else:
         analytics_data = []
+
+    # Append the new data to the analytics
     analytics_data.append(data)
+
+    # Write the updated analytics back to the file
     with open(analytics_file, "w") as file:
-        json.dump(analytics_data, file)
+        json.dump(analytics_data, file, indent=4)
 
 # Load and display the logo
 logo_path = "1st-Optimal-Logo-Dark (500x500 px).png"  # Replace with your actual logo file path
@@ -333,6 +338,15 @@ if "Guided Hormone Care (PLUS) Membership - Member (T4)" in selected_membership:
     st.info(memberships[-1]["description"])
 
 if st.button("Generate PDF"):
+    data = {
+        "member_name": member_name,
+        "manager": selected_manager,
+        "membership": selected_membership,
+        "tests": selected_tests,
+        "medications": selected_medications,
+        "supplements": selected_supplements,
+    }
+    log_selections(data)
     if selected_membership or selected_tests or selected_medications or selected_supplements:
         pdf_path = generate_pdf(selected_membership, selected_tests, selected_medications, selected_supplements)
         if pdf_path:
