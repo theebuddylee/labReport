@@ -46,25 +46,25 @@ memberships = [
 diagnostic_tests = [
     {"name": "Male Testosterone Starter Therapy Kit",
      "description": "Convenient, private, and easy-to-use, this kit provides accurate insights into your testosterone levels, helping you optimize strength, energy, and performance from the comfort of your home.",
-     "indication": "Markers: SHBG, Free Testosterone, Total PSA, Total Testosterone, Estradiol."},
+     "indication": "Lab Markers: SHBG, Free Testosterone, Total PSA, Total Testosterone, Estradiol."},
     {"name": "Male Basic Hormone Health Panel",
      "description": "Get a clear snapshot of your essential hormone levels to uncover hidden imbalances impacting your energy, performance, and overall health.",
-     "indication": "Markers: Total Testosterone, Free Testosterone, Estradiol, SHBG, Prolactin, LH, FSH, PSA, Lipid Panel, HbA1c, CBC, Metabolic Panel."},
+     "indication": "Lab Markers: Total Testosterone, Free Testosterone, Estradiol, SHBG, Prolactin, LH, FSH, PSA, Lipid Panel, HbA1c, CBC, Metabolic Panel."},
     {"name": "Male Hormone Health Panel",
      "description": "Dive deeper into your hormone profile to optimize strength, recovery, weight loss, and physical vitality tailored to your unique needs.",
-     "indication": "Markers: Testosterone, SHBG, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, HbA1c, CBC, Metabolic Panel, Fasting Insulin."},
+     "indication": "Lab Markers: Testosterone, SHBG, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, HbA1c, CBC, Metabolic Panel, Fasting Insulin."},
     {"name": "Male Comprehensive Hormone Panel",
      "description": "A full-spectrum hormone analysis to ensure you're at your peak in energy, performance, weight management, and overall health.",
-     "indication": "Markers: Total Testosterone (uncapped), SHBG, Cortisol, Progesterone, DHEA-S, PSA, Thyroid Panel, IGF-1, ApoB, Ferritin, HbA1c, Inflammatory Markers, and more."},
+     "indication": "Lab Markers: Total Testosterone (uncapped), SHBG, Cortisol, Progesterone, DHEA-S, PSA, Thyroid Panel, IGF-1, ApoB, Ferritin, HbA1c, Inflammatory Markers, and more."},
     {"name": "Male Follow-Up Panel",
      "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
-     "indication": "Markers: Estradiol, SHBG, PSA, CBC, Metabolic Panel."},
+     "indication": "Lab Markers: Estradiol, SHBG, PSA, CBC, Metabolic Panel."},
     {"name": "Female Hormone Health Panel",
      "description": "Unlock insights into your hormones to enhance energy, weight loss, and physical well-being with a tailored approach to your health.",
-     "indication": "Markers: Testosterone, Estradiol, SHBG, DHEA-S, Progesterone, Thyroid Panel, Lipid Panel, HbA1c, CBC, and more."},
+     "indication": "Lab Markers: Testosterone, Estradiol, SHBG, DHEA-S, Progesterone, Thyroid Panel, Lipid Panel, HbA1c, CBC, and more."},
     {"name": "Female Comprehensive Hormone Health Panel",
      "description": "A detailed hormone assessment to optimize performance, balance, and physical appearance for a healthier, more confident you.",
-     "indication": "Markers: Testosterone (uncapped), Estradiol, SHBG, Progesterone, Cortisol, Thyroid Panel, ApoB, Ferritin, HbA1c, Inflammatory Markers, and more."}
+     "indication": "Lab Markers: Testosterone (uncapped), Estradiol, SHBG, Progesterone, Cortisol, Thyroid Panel, ApoB, Ferritin, HbA1c, Inflammatory Markers, and more."}
 ]
 
 # Medications
