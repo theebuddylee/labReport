@@ -296,31 +296,40 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
         st.error(f"Error generating PDF: {e}")
         return None
 
-# File path for analytics data
-analytics_file = "analytics.json"
+# GitHub Configuration
+GITHUB_TOKEN = st.secrets["GITHUB_TOKEN"]  # Securely stored in Streamlit secrets
+REPO_NAME = "theebuddylee/HealthReport"
+FILE_PATH = "analytics.json"
 
-# Function to log selections
-def log_selections(data):
+def log_to_github(data):
     # Add a timestamp to the data
     data["timestamp"] = datetime.now().isoformat()
 
-    # Check if the file exists, otherwise create an empty list
-    if os.path.exists(analytics_file):
-        with open(analytics_file, "r") as file:
-            try:
-                analytics_data = json.load(file)
-            except json.JSONDecodeError:
-                # If the file exists but is corrupted or empty, start fresh
-                analytics_data = []
-    else:
+    try:
+        # Authenticate with GitHub
+        g = Github(GITHUB_TOKEN)
+        repo = g.get_repo(REPO_NAME)
+
+        # Fetch the current analytics.json file
+        file = repo.get_contents(FILE_PATH)
+        analytics_data = json.loads(file.decoded_content.decode())
+    except Exception:
+        # If the file doesn't exist or is empty, initialize as an empty list
         analytics_data = []
 
-    # Append the new data to the analytics
+    # Append the new data
     analytics_data.append(data)
 
-    # Write the updated analytics back to the file
-    with open(analytics_file, "w") as file:
-        json.dump(analytics_data, file, indent=4)
+    # Commit the updated file to GitHub
+    try:
+        if 'file' in locals():
+            # Update the existing file
+            repo.update_file(FILE_PATH, "Update analytics.json", json.dumps(analytics_data, indent=4), file.sha)
+        else:
+            # Create a new file if it doesn't exist
+            repo.create_file(FILE_PATH, "Create analytics.json", json.dumps(analytics_data, indent=4))
+    except Exception as e:
+        print(f"Error updating GitHub: {e}")
 
 # Load and display the logo
 logo_path = "1st-Optimal-Logo-Dark (500x500 px).png"  # Replace with your actual logo file path
@@ -347,7 +356,12 @@ if st.button("Generate PDF"):
         "medications": selected_medications,
         "supplements": selected_supplements,
     }
-    log_selections(data)
+    try:
+        log_to_github(data)
+        st.success("Selections logged to GitHub Analytics successfully!")
+    except Exception as e:
+        st.error(f"Failed to log selections to GitHub: {e}")
+
     if selected_membership or selected_tests or selected_medications or selected_supplements:
         pdf_path = generate_pdf(selected_membership, selected_tests, selected_medications, selected_supplements)
         if pdf_path:
