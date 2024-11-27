@@ -358,9 +358,9 @@ if st.button("Generate PDF"):
     }
     try:
         log_to_github(data)
-        st.success("Selections logged to GitHub Analytics successfully!")
+        #st.success("Selections logged to GitHub Analytics successfully!")
     except Exception as e:
-        st.error(f"Failed to log selections to GitHub: {e}")
+        st.error(f"Failed to log selections to Analytics: {e}")
 
     if selected_membership or selected_tests or selected_medications or selected_supplements:
         pdf_path = generate_pdf(selected_membership, selected_tests, selected_medications, selected_supplements)
