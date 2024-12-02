@@ -6,6 +6,7 @@ import json
 import os
 from datetime import datetime
 import pytz
+from github import Github
 
 # Brand color styles
 st.markdown(
@@ -21,6 +22,9 @@ st.markdown(
             background-color: #EBEBEB;
             padding: 10px;
             border-radius: 5px;
+        .stMultiSelect option:hover {
+            background-color: #06B6D4;
+            color: #fff;
         }
     </style>
     """,
@@ -92,7 +96,7 @@ memberships = [
     {"name": "Performance Care Membership - (T1)", "description": "", "indication": "Ideal for individuals focused on performance enhancement and recovery.", "price": "USD 49.00/month"},
     {"name": "Guided Hormone Care Membership - (T2)", "description": "", "indication": "Hormone care tailored to your lab results for hormonal balance.", "price": "USD 99.00/month"},
     {"name": "Weight Loss Care Membership - (T3)", "description": "", "indication": "Targeted for individuals aiming for sustainable weight loss.", "price": "USD 129.00/month"},
-    {"name": "Guided Hormone Care PLUS - (T4)", "description": "Choose 1: Testosterone Cypionate 10ml/200mg or Enclomiphine", "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpreations, medical visits, Testosterone Treatment, lab reviews, and your initial follow up labs", "price": "USD 159.00/month"},
+    {"name": "Men's Guided Hormone Care PLUS - (T4)", "description": "Choose 1: Testosterone Cypionate 10ml/200mg or Enclomiphine", "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpreations, medical visits, Testosterone Treatment, lab reviews, and your initial follow up labs", "price": "USD 159.00/month"},
     {"name": "Women's Guided Hormone Care PLUS -(T5)", "description": "Take control of your wellness with personalized hormone care designed specifically for women. This program includes everything you need for balanced health: comprehensive lab testing, tailored treatments like testosterone replacement, shipping fees covered, and expert medical oversight through initial and follow-up visits. With shipping, supplies, and lab interpretations all included, achieving optimal hormone balance has never been easier or more convenient.", "indication": "Women's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpreations, medical visits, lab reviews, Testosterone replacement, and your initial follow up labs", "price": "USD 119.00/month"},
 ]
 
@@ -121,6 +125,7 @@ diagnostic_tests = [
      "indication": "Total Testosterone (LC/MS) [uncapped], Free Testosterone (Equilibrium Ultrafiltration) [uncapped], Estradiol (LC/MS), SHBG, Progesterone, Prolactin, Cortisol, LH, FSH, DHEA-S, TSH, Free T3, Free T4, IGF-1, Lipid Panel, ApoB, Lipoprotein (a), Ferritin, HbA1c, CBC, Metabolic Panel, Fasting Insulin, GGT, Vitamin D, Iron Panel, hsCRP."}
 ]
 
+# Medications
 # Medications
 medications = [
     {"name": "Anastrozole",
@@ -257,7 +262,7 @@ def merge_pdfs(template_path, generated_path, output_path):
 
         output_pdf.save(output_path)
 
-# Function to write More Information Sections of 1st and last page
+# Function to write More Information Sections on first and last page onto merged PDF
 def overwrite_more_information(template_path, output_path, member_name, selected_manager):
     try:
         # Set your desired timezone
@@ -295,7 +300,7 @@ def overwrite_more_information(template_path, output_path, member_name, selected
         # Define the text to insert on the last page
         last_page_content = [
             (f"Member Manager: {manager_name}", 73, 8.36 * 72),
-            (f"Phone: {manager_phone}", 73, 8.84 * 72),
+            (f"{manager_phone}", 73, 8.84 * 72),
         ]
 
         # Write the text on the last page
@@ -309,7 +314,7 @@ def overwrite_more_information(template_path, output_path, member_name, selected
             )
 
         # Add clickable email hyperlink
-        email_text = f"Email: {manager_email}"
+        email_text = f"{manager_email}"
         email_x = 73  # X coordinate
         email_y = 9.36 * 72  # Y coordinate
         last_page.insert_text(
@@ -461,12 +466,12 @@ st.title("1st Optimal Treatment Plan Generator")
 st.subheader("Select Products for Your Report")
 
 selected_membership = st.multiselect("Membership", [item['name'] for item in memberships], max_selections=1)
-selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in diagnostic_tests], max_selections=5)
-selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=5)
+selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in diagnostic_tests], max_selections=3)
+selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=10)
 selected_supplements = st.multiselect("Supplements", [item['name'] for item in supplements], max_selections=10)
 
-if "Guided Hormone Care (PLUS) Membership - Member (T4)" in selected_membership:
-    st.info(memberships[-1]["description"])
+if "Men's Guided Hormone Care PLUS - (T4)" in selected_membership:
+    st.info(memberships[-2]["description"])
 
 if st.button("Generate PDF"):
     data = {
