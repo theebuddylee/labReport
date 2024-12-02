@@ -232,33 +232,76 @@ def merge_pdfs(template_path, generated_path, output_path):
 
         output_pdf.save(output_path)
 
-# Function to write More Information Section onto merged PDF
-def overwrite_more_information(template_path, output_path, member_name, membership_manager):
+# Function to write More Information Sections of 1st and last page
+def overwrite_more_information(template_path, output_path, member_name, selected_manager):
     try:
         # Set your desired timezone
         local_timezone = pytz.timezone("America/Los_Angeles")
         current_date = datetime.now(local_timezone).strftime("%m-%d-%Y")
 
+        # Retrieve manager info from the dictionary
+        manager_info = contact_info.get(selected_manager, {"email": "N/A", "phone": "N/A"})
+        manager_name = f"{manager_info.get('first_name', 'Unknown')} {manager_info.get('last_name', 'Unknown')}"
+        manager_email = manager_info.get("email", "N/A")
+        manager_phone = manager_info.get("phone", "N/A")
+
         # Open the template PDF
         doc = fitz.open(template_path)
-        page = doc[0]  # Access the first page
+        first_page = doc[0]  # Access the first page
+        last_page = doc[-1]  # Access the last page
 
-        # Define the text to insert with their respective positions
-        more_info_content = [
-            (f"Prepared for {member_name or 'Not Provided'}", 1.1 * 72, 8.8 * 72),  # X: 1.1 inches, Y: 8.81 inches
-            (f"{current_date}", 1.1 * 72, 9.31 * 72),  # X: 1.1 inches, Y: 9.3 inches
-            (f"Prepared by {membership_manager or 'Not Selected'}", 1.1 * 72, 9.85 * 72),  # X: 1.1 inches, Y: 9.85 inches
+        # Define the text to insert on the first page
+        first_page_content = [
+            (f"Prepared for {member_name or 'Not Provided'}", 1.1 * 72, 8.8 * 72),
+            (f"{current_date}", 1.1 * 72, 9.31 * 72),
+            (f"Prepared by {selected_manager or 'Not Selected'}", 1.1 * 72, 9.85 * 72),
         ]
 
-        # Write the text on the PDF at the specified coordinates
-        for content, x, y in more_info_content:
-            page.insert_text(
+        # Write the text on the first page
+        for content, x, y in first_page_content:
+            first_page.insert_text(
                 (x, y),
                 content,
                 fontsize=21,
                 color=(1, 1, 1),  # White text color
-                fontname="helv",  # Replace with Exo 2 when supported
+                fontname="helv",
             )
+
+        # Define the text to insert on the last page
+        last_page_content = [
+            (f"Member Manager: {manager_name}", 73, 8.36 * 72),
+            (f"Phone: {manager_phone}", 73, 8.84 * 72),
+        ]
+
+        # Write the text on the last page
+        for content, x, y in last_page_content:
+            last_page.insert_text(
+                (x, y),
+                content,
+                fontsize=21,
+                color=(1, 1, 1),  # White text color
+                fontname="helv",
+            )
+
+        # Add clickable email hyperlink
+        email_text = f"Email: {manager_email}"
+        email_x = 73  # X coordinate
+        email_y = 9.36 * 72  # Y coordinate
+        last_page.insert_text(
+            (email_x, email_y),
+            email_text,
+            fontsize=21,
+            color=(0.0235, 0.7137, 0.8314),  # Corresponds to #06B6D4
+            fontname="helv",
+        )
+        if manager_email != "N/A":
+            # Add a clickable hyperlink
+            email_rect = fitz.Rect(email_x, email_y, email_x + 300, email_y + 21)  # Adjust width and height as needed
+            last_page.insert_link({
+                "kind": fitz.LINK_URI,
+                "from": email_rect,
+                "uri": f"mailto:{manager_email}",
+            })
 
         # Save the updated PDF
         doc.save(output_path)
