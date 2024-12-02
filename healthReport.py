@@ -33,6 +33,59 @@ membership_managers = ["Allison", "Amber", "Buddy", "Dillon", "Justin", "Joe", "
 selected_manager = st.sidebar.selectbox("Select Membership Manager", membership_managers)
 member_name = st.sidebar.text_input("Enter Member/Patient Name")
 
+# Company Contact Information, Replace with API call later
+contact_info = {
+    "Allison": {
+        "first_name": "Allison",
+        "last_name": "Whiteley",
+        "alias_title": "Membership Manager 3",
+        "email": "mm3@1stoptimal.com",
+        "phone": "(816) 744-6814 x103",
+    },
+    "Amber": {
+        "first_name": "Amber",
+        "last_name": "Miller",
+        "alias_title": "Support",
+        "email": "support@1stoptimal.com",
+        "phone": "(816) 744-6814 x100",
+    },
+    "Buddy": {
+        "first_name": "Buddy",
+        "last_name": "Turner",
+        "alias_title": "Advisor",
+        "email": "Buddy@1stOptimal.com",
+        "phone": "815.601.3406",
+    },
+    "Dillon": {
+        "first_name": "Dillon",
+        "last_name": "Hunter",
+        "alias_title": "Production Team Member",
+        "email": "dillon.hunter@1stoptimal.com",
+        "phone": "(816) 744-6814 x301",
+    },
+    "Justin": {
+        "first_name": "Justin",
+        "last_name": "Hokams",
+        "alias_title": "Membership Manager 1",
+        "email": "mm1@1stoptimal.com",
+        "phone": "(816) 744-6814 x101",
+    },
+    "Joe": {
+        "first_name": "Joe",
+        "last_name": "Miller",
+        "alias_title": "Founder",
+        "email": "joe.miller@1stoptimal.com",
+        "phone": "(816) 744-6814 x300",
+    },
+    "Ramsey": {
+        "first_name": "Michael",
+        "last_name": "Ramsey",
+        "alias_title": "Membership Manager 2",
+        "email": "mm2@1stoptimal.com",
+        "phone": "(816) 744-6814 x102",
+    },
+}
+
 # Membership data with descriptions, indication, and monthly prices
 memberships = [
     {"name": "Coaching Partnership", "description": "", "indication": "Comprehensive physical training and monitoring.", "price": "USD 200.00/month"},
