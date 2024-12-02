@@ -216,5 +216,22 @@
             "Creatine"
         ],
         "timestamp": "2024-12-02T23:41:32.269072"
+    },
+    {
+        "member_name": "Testing Patient",
+        "manager": "Buddy",
+        "membership": [
+            "Performance Care Membership - (T1)"
+        ],
+        "tests": [
+            "Male Basic Hormone Health Panel"
+        ],
+        "medications": [
+            "Tadalafil"
+        ],
+        "supplements": [
+            "Vitamin D"
+        ],
+        "timestamp": "2024-12-02T23:51:13.229517"
     }
 ]
