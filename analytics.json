@@ -302,5 +302,23 @@
             "Thyroid Support Bundle"
         ],
         "timestamp": "2024-12-03T20:19:50.782705"
+    },
+    {
+        "member_name": "Juan Molina",
+        "manager": "Allison",
+        "membership": [
+            "Men's Guided Hormone Care PLUS - (T4)"
+        ],
+        "tests": [
+            "Male Follow-Up Panel"
+        ],
+        "medications": [
+            "Testosterone Injectable",
+            "DHEA"
+        ],
+        "supplements": [
+            "Tudca"
+        ],
+        "timestamp": "2024-12-03T20:38:09.275226"
     }
 ]
