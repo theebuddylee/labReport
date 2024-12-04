@@ -122,10 +122,18 @@ diagnostic_tests = [
      "indication": "Total Testosterone*, Free Testosterone*, Estradiol, Standard, SHBG, DHEA-S, Progesterone, LH, FSH, TSH, Free T3, Free T4, IGF-1, Lipid Panel, Ferritin, Iron, CBC, Metabolic Panel, HbA1c, Fasting Insulin, Vitamin D, GGT."},
     {"name": "Female Comprehensive Hormone Health Panel",
      "description": "Take control of your hormonal health with our comprehensive Women's Hormone Panel. This test evaluates key hormones that influence energy, mood, menstrual cycles, and overall well-being.",
-     "indication": "Total Testosterone (LC/MS) [uncapped], Free Testosterone (Equilibrium Ultrafiltration) [uncapped], Estradiol (LC/MS), SHBG, Progesterone, Prolactin, Cortisol, LH, FSH, DHEA-S, TSH, Free T3, Free T4, IGF-1, Lipid Panel, ApoB, Lipoprotein (a), Ferritin, HbA1c, CBC, Metabolic Panel, Fasting Insulin, GGT, Vitamin D, Iron Panel, hsCRP."}
+     "indication": "Total Testosterone (LC/MS) [uncapped], Free Testosterone (Equilibrium Ultrafiltration) [uncapped], Estradiol (LC/MS), SHBG, Progesterone, Prolactin, Cortisol, LH, FSH, DHEA-S, TSH, Free T3, Free T4, IGF-1, Lipid Panel, ApoB, Lipoprotein (a), Ferritin, HbA1c, CBC, Metabolic Panel, Fasting Insulin, GGT, Vitamin D, Iron Panel, hsCRP."},
+    {"name": "Female Hormone Treatment Follow-up Panel",
+     "description": "FSH & LH\nHemoglobin A1c\nCBC with Differential/Platelet\nProgesterone\nTestosterone\nEstradiol\nProlactin\nTSH\nComprehensive Metabolic Panel (14)\nSex Hormone Binding Globulin\nLipid Panel",
+     "indication": "This lab panel is designed to monitor key hormone and metabolic markers critical to female health. It provides insights into reproductive hormones, metabolic function, and overall health optimization."},
+    {"name": "GI-MAP® + Zonulin",
+     "description": "The GI-MAP® (Gastrointestinal Microbial Assay Plus) + Zonulin test is a comprehensive stool analysis designed to provide detailed insights into your gut health. It evaluates the presence of key bacteria, viruses, parasites, and fungi in your gastrointestinal system while also measuring levels of zonulin, a marker for intestinal permeability ('leaky gut').",
+     "indication": "This advanced test helps uncover imbalances, inflammation, and disruptions in gut function that may contribute to digestive issues, immune challenges, and systemic health concerns. Ideal for individuals seeking personalized guidance for optimizing gut health and overall wellness."},
+    {"name": "GI-MAP® (GI Microbial Assay Plus)",
+     "description": "The GI-MAP® is a state-of-the-art stool analysis test that provides a detailed assessment of your gut microbiome. It identifies bacteria, viruses, parasites, fungi, and other pathogens that may be impacting your digestive health. This test also evaluates markers of inflammation, digestion, and immune function, offering valuable insights into overall gut health.",
+     "indication": "Whether you're addressing digestive discomfort, chronic health issues, or optimizing wellness, the GI-MAP® delivers actionable data to create personalized strategies for improving gut function and systemic health."}
 ]
 
-# Medications
 # Medications
 medications = [
     {"name": "Anastrozole",
