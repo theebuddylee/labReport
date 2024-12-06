@@ -350,5 +350,22 @@
         ],
         "supplements": [],
         "timestamp": "2024-12-06T19:58:43.473795"
+    },
+    {
+        "member_name": "Patricia Zwiernikowski",
+        "manager": "Allison",
+        "membership": [
+            "Guided Hormone Care Membership - (T2)"
+        ],
+        "tests": [
+            "Female Hormone Treatment Follow-up Panel"
+        ],
+        "medications": [
+            "Tesamorelin",
+            "Testosterone Injectable",
+            "Progesterone"
+        ],
+        "supplements": [],
+        "timestamp": "2024-12-06T20:31:34.153092"
     }
 ]
