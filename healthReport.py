@@ -387,6 +387,7 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
                     pdf.set_font("Exo2", "B", 20)
                     pdf.cell(0, 8, f"{item['name']}", new_x="LMARGIN", new_y="NEXT")
 
+                    pdf.ln(2)
                     pdf.set_font("Exo2", "B", 16)
                     pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
                     pdf.set_font("Exo2", "", 12)
