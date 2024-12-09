@@ -373,13 +373,13 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
 
         # Add sections for selected items
         def add_section(title, items, data_source, show_price=False):
-            pdf.set_fill_color(230, 230, 250)
-            pdf.set_text_color(6, 182, 212)
+            pdf.set_fill_color(6, 182, 212)
+            pdf.set_text_color(242, 242, 242)
             pdf.set_font("Exo2", "B", 22)
             pdf.cell(0, 10, title, new_x="LMARGIN", new_y="NEXT", align="L", fill=True)
             pdf.ln(5)
 
-            pdf.set_text_color(115, 115, 115)
+            pdf.set_text_color(242, 242, 242)
             pdf.set_font("Exo2", "", 22)
             for item_name in items:
                 item = next((x for x in data_source if x['name'] == item_name), None)
