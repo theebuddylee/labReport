@@ -365,6 +365,7 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
         pdf.add_font("Exo2", "", "Exo2-Regular.ttf")
         pdf.add_font("Exo2", "B", "Exo2-Bold.ttf")
         pdf.add_font("Exo2", "I", "Exo2-Italic.ttf")
+        pdf.add_font("Exo2", "BI", "Exo2-BoldItalic.ttf")
 
         pdf.set_text_color(6, 182, 212)
         pdf.set_font("Exo2", "B", 36)
@@ -388,20 +389,20 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
                     pdf.cell(0, 8, f"{item['name']}", new_x="LMARGIN", new_y="NEXT")
 
                     pdf.ln(2)
-                    pdf.set_font("Exo2", "B", 16)
+                    pdf.set_font("Exo2", "BI", 16)
                     pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
                     pdf.set_font("Exo2", "", 12)
                     pdf.multi_cell(0, 6, f"{item.get('description', 'No description available.')}")
 
                     pdf.ln(3)
-                    pdf.set_font("Exo2", "B", 16)
+                    pdf.set_font("Exo2", "BI", 16)
                     pdf.cell(0, 6, "Indication:", new_x="LMARGIN", new_y="NEXT")
                     pdf.set_font("Exo2", "", 12)
                     pdf.multi_cell(0, 6, f"{item.get('indication', 'No indication provided.')}")
 
                     if show_price:
                         pdf.ln(3)
-                        pdf.set_font("Exo2", "B", 16)
+                        pdf.set_font("Exo2", "BI", 16)
                         pdf.cell(0, 6, "Price:", new_x="LMARGIN", new_y="NEXT")
                         pdf.set_font("Exo2", "", 12)
                         pdf.multi_cell(0, 6, f"{item.get('price', 'TBD')}")
