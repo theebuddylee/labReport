@@ -389,21 +389,21 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
 
                     pdf.set_font("Exo2", "B", 16)
                     pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
-                    pdf.set_font("Exo2", "", 14)
-                    pdf.multi_cell(0, 6, f"  {item.get('description', 'No description available.')}")
+                    pdf.set_font("Exo2", "", 12)
+                    pdf.multi_cell(0, 6, f"{item.get('description', 'No description available.')}")
 
                     pdf.ln(3)
                     pdf.set_font("Exo2", "B", 16)
                     pdf.cell(0, 6, "Indication:", new_x="LMARGIN", new_y="NEXT")
-                    pdf.set_font("Exo2", "", 14)
-                    pdf.multi_cell(0, 6, f"  {item.get('indication', 'No indication provided.')}")
+                    pdf.set_font("Exo2", "", 12)
+                    pdf.multi_cell(0, 6, f"{item.get('indication', 'No indication provided.')}")
 
                     if show_price:
                         pdf.ln(3)
                         pdf.set_font("Exo2", "B", 16)
                         pdf.cell(0, 6, "Price:", new_x="LMARGIN", new_y="NEXT")
-                        pdf.set_font("Exo2", "", 14)
-                        pdf.multi_cell(0, 6, f"  {item.get('price', 'TBD')}")
+                        pdf.set_font("Exo2", "", 12)
+                        pdf.multi_cell(0, 6, f"{item.get('price', 'TBD')}")
                     pdf.ln(5)
 
         add_section("Membership", selected_membership, memberships, show_price=True)
