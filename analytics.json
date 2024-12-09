@@ -567,5 +567,22 @@
             "Creatine"
         ],
         "timestamp": "2024-12-09T17:35:56.805334"
+    },
+    {
+        "member_name": "Brad Curry",
+        "manager": "Dillon",
+        "membership": [
+            "Weight Loss Care Membership - (T3)"
+        ],
+        "tests": [],
+        "medications": [
+            "Sermorelin",
+            "Testosterone Injectable",
+            "Semaglutide"
+        ],
+        "supplements": [
+            "Omega-3"
+        ],
+        "timestamp": "2024-12-09T18:00:06.985453"
     }
 ]
