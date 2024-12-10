@@ -730,5 +730,18 @@
             "Omega-3"
         ],
         "timestamp": "2024-12-10T00:22:02.579818"
+    },
+    {
+        "member_name": "",
+        "manager": "Allison",
+        "membership": [
+            "Weight Loss Care Membership - (T3)"
+        ],
+        "tests": [],
+        "medications": [
+            "Tirzepatide"
+        ],
+        "supplements": [],
+        "timestamp": "2024-12-10T16:01:27.555947"
     }
 ]
