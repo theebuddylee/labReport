@@ -756,5 +756,23 @@
         ],
         "supplements": [],
         "timestamp": "2024-12-10T16:04:40.009876"
+    },
+    {
+        "member_name": "Juan Alvarez",
+        "manager": "Allison",
+        "membership": [
+            "Men's Guided Hormone Care PLUS - (T4)"
+        ],
+        "tests": [
+            "Male Follow-Up Panel"
+        ],
+        "medications": [
+            "Enclomiphene",
+            "Tadalafil"
+        ],
+        "supplements": [
+            "Omega-3"
+        ],
+        "timestamp": "2024-12-10T23:08:19.426978"
     }
 ]
