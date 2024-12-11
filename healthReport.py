@@ -90,18 +90,36 @@ contact_info = {
     },
 }
 
-# Membership data with descriptions, indication, and monthly prices
+# Membership data with updated descriptions, indications, and monthly prices
 memberships = [
-    {"name": "Coaching Partnership", "description": "", "indication": "Comprehensive physical training and monitoring.", "price": "USD 200.00/month"},
-    {"name": "Performance Care Membership - (T1)", "description": "", "indication": "Ideal for individuals focused on performance enhancement and recovery.", "price": "USD 49.00/month"},
-    {"name": "Guided Hormone Care Membership - (T2)", "description": "", "indication": "Hormone care tailored to your lab results for hormonal balance.", "price": "USD 99.00/month"},
-    {"name": "Weight Loss Care Membership - (T3)", "description": "", "indication": "Targeted for individuals aiming for sustainable weight loss.", "price": "USD 129.00/month"},
-    {"name": "Men's Guided Hormone Care PLUS - (T4)", "description": "Choose 1: Testosterone Cypionate 10ml/200mg or Enclomiphine", "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpretations, medical visits, Testosterone Treatment, lab reviews, and your initial follow up labs", "price": "USD 159.00/month"},
-    {"name": "Women's Guided Hormone Care PLUS -(T5)", "description": "Take control of your wellness with personalized hormone care designed specifically for women. This program includes everything you need for balanced health: comprehensive lab testing, tailored treatments like testosterone replacement, shipping fees covered, and expert medical oversight through initial and follow-up visits. With shipping, supplies, and lab interpretations all included, achieving optimal hormone balance has never been easier or more convenient.", "indication": "Women's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpreations, medical visits, lab reviews, Testosterone replacement, and your initial follow up labs", "price": "USD 119.00/month"},
+    {"name": "Coaching Partnership",
+     "description": "Take control of your wellness with personalized hormone care and weight loss designed specifically to easily integrate into your coach's training and nutrition plan. This program includes everything you need for balanced health: comprehensive lab testing, tailored treatments, and expert medical oversight through initial and follow-up visits. With shipping, supplies, and lab interpretations all included, achieving an optimal program has never been easier or more convenient.",
+     "indication": "1st Optimal’s Coaching Partnership Program makes it easy to integrate personalized hormone care and weight loss solutions into your training and nutrition plan, with seamless support through our user-friendly patient portal app.",
+     "price": "Starting at 129/month"},
+    {"name": "Performance Care Membership - (T1)",
+     "description": "1st Optimal’s Sex and Longevity Care Program combines personalized sexual wellness, longevity support, and peptide treatments, all seamlessly integrated into your lifestyle with expert asynchronous medical oversight and our user-friendly patient portal app. With comprehensive lab testing, asynchronous care, and all shipping and supplies included, achieving optimal health and vitality has never been easier or more convenient.",
+     "indication": "Ideal for individuals focused on performance enhancement, joint health, recovery, and sexual wellness.",
+     "price": "49/month"},
+    {"name": "Guided Hormone Care Membership - (T2)",
+     "description": "1st Optimal’s Guided Hormone Care program provides personalized treatments for hormonal balance, seamlessly integrated into your lifestyle with guided medical oversight and convenient telemedicine visits through our intuitive patient portal app. With comprehensive lab testing, asynchronous care, and all shipping and supplies included, managing your health has never been easier.",
+     "indication": "Hormone care tailored to your lab results for hormonal balance.",
+     "price": "99/month"},
+    {"name": "Weight Loss Care Membership - (T3)",
+     "description": "Achieve sustainable weight loss with access to effective GLP-1 agonist treatments, GLP-1 supporting supplements, and comprehensive care. This membership includes personalized hormone treatments, lab testing, medical consultations, and all supplies, with shipping fees covered, offering a holistic approach to weight loss and wellness tailored to your needs.",
+     "indication": "Targeted for individuals aiming for sustainable weight loss.",
+     "price": "129/month"},
+    {"name": "Men's Guided Hormone Care PLUS Membership - (T4)",
+     "description": "Choose 1: Testosterone Cypionate or Enclomiphine",
+     "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpretations, medical visits, Testosterone Treatment, lab reviews, and your initial follow-up labs.",
+     "price": "159/month"},
+    {"name": "Women's Guided Hormone Care Plus - (T5)",
+     "description": "Take control of your wellness with personalized hormone care designed specifically for women. This program includes everything you need for balanced health: comprehensive lab testing, tailored treatments like testosterone replacement, shipping fees covered, and expert medical oversight through initial and follow-up visits. With shipping, supplies, and lab interpretations all included, achieving optimal hormone balance has never been easier or more convenient.",
+     "indication": "Women's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpretations, medical visits, lab reviews, Testosterone replacement, and your initial follow-up labs.",
+     "price": "119/month"}
 ]
 
 # Diagnostic Tests
-diagnostic_tests = 
+diagnostic_tests = [
     {"name": "Male Testosterone Starter Therapy Kit",
      "description": "Convenient, private, and easy-to-use, this kit provides accurate insights into your testosterone levels, helping you optimize strength, energy, and performance from the comfort of your home.",
      "indication": "SHBG, Free Testosterone, Total PSA, Total Testosterone, Estradiol."},
@@ -140,7 +158,7 @@ medications = [
      "description": "A medication used to manage estrogen levels in men undergoing testosterone replacement therapy (TRT). It works as an aromatase inhibitor, blocking the conversion of testosterone to estrogen, thereby maintaining optimal hormonal balance.",
      "indication": "Designed to maintain hormonal balance by managing estrogen levels. By reducing excess estrogen, Anastrozole helps improve energy, mood, and muscle definition while minimizing side effects like water retention or fatigue."},
     {"name": "BPC-157",
-     "description": "1st Optimal’s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness. With guided medical oversight, convenient telemedicine visits, and seamless access through our patient portal app.",
+     "description": "1st Optimal’s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
      "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."},
     {"name": "DHEA",
      "description": "A hormone produced by the adrenal glands. It serves as a precursor to sex hormones like testosterone and estrogen and counterbalances cortisol, the stress hormone.",
@@ -149,28 +167,31 @@ medications = [
      "description": "A selective estrogen receptor modulator (SERM) used to increase testosterone production in men by stimulating the natural production of luteinizing hormone (LH) and follicle-stimulating hormone (FSH).",
      "indication": "A powerful testosterone booster that enhances natural production while supporting fertility. Unlike traditional options, Enclomiphene helps maintain testicular function and sperm count, ensuring optimized hormone levels without compromising reproductive health."},
     {"name": "Estrogen Replacement",
-     "description": "Estrogen Therapies offer a tailored approach to supporting hormonal balance, enhancing vitality, and improving overall well-being. With guided medical oversight, convenient telemedicine visits, and easy access through our patient portal app.",
+     "description": "Estrogen Therapies offer a tailored approach to supporting hormonal balance, enhancing vitality, and improving overall well-being.",
      "indication": "Estrogen therapy helps alleviate symptoms of hormonal imbalances and promotes optimal health for a better quality of life."},
+    {"name": "Ezetimibe",
+    "description": "Ezetimibe is a cholesterol-lowering medication that significantly reduces LDL-C while boosting HDL-C, offering additional protective benefits for heart health, non-alcoholic fatty liver disease, and stroke prevention. It also helps lower inflammation by reducing CRP levels, supporting overall cardiovascular wellness.",
+    "indication": "Lowers bad cholesterol (LDL-C), raises good cholesterol (HDL-C), and supports heart and liver health while reducing inflammation."},
     {"name": "Ketamine",
-     "description": "1st Optimal’s Ketamine Therapy provides innovative treatment designed to support mental health and enhance overall well-being. With guided medical oversight, convenient telemedicine visits, and seamless access through our patient portal app.",
+     "description": "1st Optimal’s Ketamine Therapy provides innovative treatment designed to support mental health and enhance overall well-being.",
      "indication": "Ketamine therapy offers a safe and effective way to address mood disorders, reduce stress, and promote emotional resilience."},
     {"name": "Levothyroxin",
      "description": "A synthetic form of thyroid hormone used to treat hypothyroidism. It helps restore proper metabolism, energy levels, and overall thyroid function.",
      "indication": "Boost energy, metabolism, and overall wellness with Levothyroxine—the gold standard in thyroid hormone replacement therapy."},
     {"name": "Nandrolone Decanoate",
-     "description": "Nandrolone Decanoate Therapy provides an advanced approach to joint recovery and enhanced well-being during your TRT phase. Backed by guided medical oversight and accessible through convenient telemedicine visits and our seamless patient portal app, this therapy is designed to support optimal musculoskeletal health.",
+     "description": "Nandrolone Decanoate Therapy provides an advanced approach to joint recovery and enhanced well-being during your TRT phase.",
      "indication": "Nandrolone Decanoate therapy helps promote joint healing, alleviate discomfort from chronic inflammation, and enhance recovery from physical strain or injury. It works synergistically with testosterone replacement therapy to improve mobility, reduce pain, and support long-term joint health."},
     {"name": "Oxandrolone",
      "description": "Oxandrolone Therapy offers a powerful solution for enhancing recovery, strength, and lean muscle preservation during your TRT journey. Delivered with guided medical oversight, convenient telemedicine visits, and streamlined access through our patient portal app, this therapy is tailored for individuals seeking optimal performance and resilience.",
      "indication": "Oxandrolone therapy is known for its ability to promote tissue repair, increase strength, and preserve lean muscle mass, even during caloric deficits or recovery phases. Its mild profile and targeted benefits make it an ideal addition to testosterone replacement therapy, helping you recover faster, maintain muscle integrity."},
     {"name": "Pregnenolone",
-     "description": "Pregnenolone Therapy offers a natural approach to supporting cognitive function, hormonal balance, and overall well-being. With guided medical oversight, convenient telemedicine visits, and easy access through our patient portal app.",
+     "description": "Pregnenolone Therapy offers a natural approach to supporting cognitive function, hormonal balance, and overall well-being.",
      "indication": "Pregnenolone therapy helps improve memory, reduce stress, and promote hormonal harmony for optimal health."},
     {"name": "Pregnyl",
-     "description": "Pregnyl Therapy provides a targeted solution to support hormonal balance, enhance reproductive health, and improve overall vitality. With guided medical oversight, convenient telemedicine visits, and seamless access through our patient portal app.",
+     "description": "Pregnyl Therapy provides a targeted solution to support hormonal balance, enhance reproductive health, and improve overall vitality.",
      "indication": "Pregnyl therapy helps stimulate hormone production and optimize your health with ease and convenience."},
     {"name": "Progesterone",
-     "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being. With guided medical oversight, convenient telemedicine visits, and seamless access through our patient portal app.",
+     "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being.",
      "indication": "Progesterone therapy helps regulate cycles, reduce stress, and promote optimal hormonal health."},
     {"name": "Retatrutide",
      "description": "A next-generation multi-receptor agonist used in clinical trials for weight management and metabolic improvements.",
@@ -185,7 +206,7 @@ medications = [
      "description": "A long-acting PDE5 inhibitor used to treat erectile dysfunction and improve urinary symptoms associated with benign prostatic hyperplasia (BPH).",
      "indication": "Long-lasting support for improved performance and blood flow, helping you feel and perform at your best."},
     {"name": "TB-400",
-     "description": "1st Optimal’s TB-400 Therapy provides advanced treatment designed to enhance recovery, promote healing, and support overall physical performance. With guided medical oversight, convenient telemedicine visits, and seamless access through our patient portal app.",
+     "description": "1st Optimal’s TB-400 Therapy provides advanced treatment designed to enhance recovery, promote healing, and support overall physical performance.",
      "indication": "TB-400 therapy helps reduce inflammation, accelerate tissue repair, and improve endurance, making it an ideal choice for those seeking optimal recovery and resilience."},
     {"name": "Tesamorelin",
      "description": "A peptide therapy that boosts natural growth hormone production.",
@@ -206,6 +227,9 @@ medications = [
 
 # Supplements
 supplements = [
+    {"name": "Aged Garlic Extract Formula",
+     "description": "Kyolic Aged Garlic Extract Formula 104 supports cardiovascular health by helping to maintain healthy cholesterol levels and overall heart function. This formula combines aged garlic extract with naturally sourced lecithin for a potent, odorless supplement designed for daily wellness.",
+     "indication": "Supports healthy cholesterol levels and promotes overall heart health with the power of aged garlic extract and lecithin."},
     {"name": "Berberine",
      "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
      "indication": "Nature’s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."},
@@ -239,6 +263,9 @@ supplements = [
     {"name": "Omega-3",
      "description": "A fatty acid supplement derived from fish oil, providing EPA and DHA for heart health, brain function, and anti-inflammatory support.",
      "indication": "Omega-3s help reduce systemic inflammation, protect cardiovascular health, and improve joint mobility."},
+    {"name": "Psyllium Husk",
+    "description": "Psyllium Husk is a natural, soluble fiber supplement that promotes healthy digestion, regularity, and supports heart health by helping to maintain healthy cholesterol levels.",
+    "indication": "Promotes digestive health and regularity while supporting heart health with gentle, natural fiber."},
     {"name": "Tudca",
      "description": "A bile acid supplement that supports liver health and detoxification processes.",
      "indication": "A breakthrough bile acid supplement. TUDCA supports optimal liver function by promoting bile flow, reducing liver inflammation, and protecting against oxidative stress."},
@@ -480,7 +507,7 @@ selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in 
 selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=10)
 selected_supplements = st.multiselect("Supplements", [item['name'] for item in supplements], max_selections=10)
 
-if "Men's Guided Hormone Care PLUS - (T4)" in selected_membership:
+if "Men's Guided Hormone Care PLUS Membership - (T4)" in selected_membership:
     st.info(memberships[-2]["description"])
 
 if st.button("Generate PDF"):
