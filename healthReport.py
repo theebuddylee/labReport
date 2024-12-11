@@ -96,12 +96,12 @@ memberships = [
     {"name": "Performance Care Membership - (T1)", "description": "", "indication": "Ideal for individuals focused on performance enhancement and recovery.", "price": "USD 49.00/month"},
     {"name": "Guided Hormone Care Membership - (T2)", "description": "", "indication": "Hormone care tailored to your lab results for hormonal balance.", "price": "USD 99.00/month"},
     {"name": "Weight Loss Care Membership - (T3)", "description": "", "indication": "Targeted for individuals aiming for sustainable weight loss.", "price": "USD 129.00/month"},
-    {"name": "Men's Guided Hormone Care PLUS - (T4)", "description": "Choose 1: Testosterone Cypionate 10ml/200mg or Enclomiphine", "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpreations, medical visits, Testosterone Treatment, lab reviews, and your initial follow up labs", "price": "USD 159.00/month"},
+    {"name": "Men's Guided Hormone Care PLUS - (T4)", "description": "Choose 1: Testosterone Cypionate 10ml/200mg or Enclomiphine", "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpretations, medical visits, Testosterone Treatment, lab reviews, and your initial follow up labs", "price": "USD 159.00/month"},
     {"name": "Women's Guided Hormone Care PLUS -(T5)", "description": "Take control of your wellness with personalized hormone care designed specifically for women. This program includes everything you need for balanced health: comprehensive lab testing, tailored treatments like testosterone replacement, shipping fees covered, and expert medical oversight through initial and follow-up visits. With shipping, supplies, and lab interpretations all included, achieving optimal hormone balance has never been easier or more convenient.", "indication": "Women's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpreations, medical visits, lab reviews, Testosterone replacement, and your initial follow up labs", "price": "USD 119.00/month"},
 ]
 
 # Diagnostic Tests
-diagnostic_tests = [
+diagnostic_tests = 
     {"name": "Male Testosterone Starter Therapy Kit",
      "description": "Convenient, private, and easy-to-use, this kit provides accurate insights into your testosterone levels, helping you optimize strength, energy, and performance from the comfort of your home.",
      "indication": "SHBG, Free Testosterone, Total PSA, Total Testosterone, Estradiol."},
