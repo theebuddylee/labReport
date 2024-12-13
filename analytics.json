@@ -1407,5 +1407,39 @@
             }
         ],
         "timestamp": "2024-12-13T10:36:38.118534"
+    },
+    {
+        "member_name": "Test Update",
+        "manager": "Buddy",
+        "membership": [
+            "Men's Guided Hormone Care PLUS Membership - (T4)"
+        ],
+        "tests": [
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Enclomiphene",
+                "description": "A selective estrogen receptor modulator (SERM) used to increase testosterone production in men by stimulating the natural production of luteinizing hormone (LH) and follicle-stimulating hormone (FSH).",
+                "indication": "A powerful testosterone booster that enhances natural production while supporting fertility. Unlike traditional options, Enclomiphene helps maintain testicular function and sperm count, ensuring optimized hormone levels without compromising reproductive health."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Buddyrine",
+                "description": "For Buddys",
+                "indication": "By Buddys"
+            },
+            {
+                "name": "Berberine",
+                "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
+                "indication": "Nature\u2019s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."
+            }
+        ],
+        "timestamp": "2024-12-13T18:40:50.833895"
     }
 ]
