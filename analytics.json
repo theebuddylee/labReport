@@ -1261,5 +1261,39 @@
             "Nattovena 4,000 FU/cap"
         ],
         "timestamp": "2024-12-13T01:42:54.082598"
+    },
+    {
+        "member_name": "Test Update",
+        "manager": "Buddy",
+        "membership": [
+            "Men's Guided Hormone Care PLUS Membership - (T4)"
+        ],
+        "tests": [
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Enclomiphene",
+                "description": "A selective estrogen receptor modulator (SERM) used to increase testosterone production in men by stimulating the natural production of luteinizing hormone (LH) and follicle-stimulating hormone (FSH).",
+                "indication": "A powerful testosterone booster that enhances natural production while supporting fertility. Unlike traditional options, Enclomiphene helps maintain testicular function and sperm count, ensuring optimized hormone levels without compromising reproductive health."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Buddyrine",
+                "description": "Makes Buddys Happy",
+                "indication": "for Buddys tired of coding "
+            },
+            {
+                "name": "Nattovena 4,000 FU/cap",
+                "description": "Nattovena is a potent dietary supplement containing 4,000 fibrinolytic units (FU) of nattokinase per capsule, designed to support cardiovascular health by promoting normal blood viscosity and aiding in the breakdown of excess fibrin. Derived from the traditional Japanese fermented soybean dish natto, nattokinase is a fibrin-dissolving enzyme that helps maintain healthy circulation.",
+                "indication": "Used as a natural aid for managing 'thick blood,' or conditions associated with increased blood viscosity."
+            }
+        ],
+        "timestamp": "2024-12-12T17:57:39.258572"
     }
 ]
