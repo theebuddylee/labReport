@@ -144,7 +144,7 @@ diagnostic_tests = [
      "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
      "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."},
     {"name": "Female Basic Hormone Health Panel",
-     "description": "Ask your Membership Manager about included markers",
+     "description": "Testosterone,Estradiol, Standard,Sex Hormone Binding Globulin (SHBG), Dehydroepiandrosterone Sulfate (DHEA-S), Progesterone, Luteinizing Hormone (LH), Follicle-Stimulating Hormone (FSH), TSH, Lipid Panel, Complete Blood Count (with Differential), Metabolic Panel, HbA1c",
      "indication": "Get a clear snapshot of your essential hormone levels to uncover hidden imbalances impacting your energy, performance, and overall health."},
     {"name": "Female Hormone Health Panel",
      "description": "Take control of your hormonal health with our comprehensive Women's Hormone Panel. This test evaluates key hormones that influence energy, mood, menstrual cycles, and overall well-being. Gain insights into imbalances affecting fertility, PMS, or irregular cycles and start your journey toward optimal health today!",
