@@ -31,6 +31,14 @@ st.markdown(
     unsafe_allow_html=True
 )
 
+#Control Session State variables
+if "current_plan_tests" not in st.session_state:
+    st.session_state.current_plan_tests = []
+if "current_plan_medications" not in st.session_state:
+    st.session_state.current_plan_medications = []
+if "current_plan_supplements" not in st.session_state:
+    st.session_state.current_plan_supplements = []
+
 # Membership Manager Dropdown and Member's Name input
 st.sidebar.title("Member Details")
 membership_managers = ["Allison", "Amber", "Buddy", "Dillon", "Justin", "Joe", "Ramsey"]
@@ -135,6 +143,9 @@ diagnostic_tests = [
     {"name": "Male Follow-Up Panel",
      "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
      "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."},
+    {"name": "Female Basic Hormone Health Panel",
+     "description": "Ask your Membership Manager about included markers",
+     "indication": "Get a clear snapshot of your essential hormone levels to uncover hidden imbalances impacting your energy, performance, and overall health."},
     {"name": "Female Hormone Health Panel",
      "description": "Take control of your hormonal health with our comprehensive Women's Hormone Panel. This test evaluates key hormones that influence energy, mood, menstrual cycles, and overall well-being. Gain insights into imbalances affecting fertility, PMS, or irregular cycles and start your journey toward optimal health today!",
      "indication": "Total Testosterone*, Free Testosterone*, Estradiol, Standard, SHBG, DHEA-S, Progesterone, LH, FSH, TSH, Free T3, Free T4, IGF-1, Lipid Panel, Ferritin, Iron, CBC, Metabolic Panel, HbA1c, Fasting Insulin, Vitamin D, GGT."},
@@ -163,6 +174,9 @@ medications = [
     {"name": "DHEA",
      "description": "A hormone produced by the adrenal glands. It serves as a precursor to sex hormones like testosterone and estrogen and counterbalances cortisol, the stress hormone.",
      "indication": "Restores hormonal balance, boosts energy, mood, and sexual health. Enhance stress resilience, immunity, and overall well-being, an essential for longevity and performance optimization."},
+    {"name": "Enanthate",
+     "description": "Enanthate is a long-acting ester of testosterone commonly used in hormone replacement therapy (HRT) for men with low testosterone levels. It supports the maintenance of normal male physiological functions, including muscle mass, energy levels, libido, and mood. By providing a steady release of testosterone, enanthate helps restore hormonal balance, improving overall vitality and well-being.",
+     "indication": "This treatment is typically administered via intramuscular injection and is tailored to individual needs under the supervision of a healthcare provider."},
     {"name": "Enclomiphene",
      "description": "A selective estrogen receptor modulator (SERM) used to increase testosterone production in men by stimulating the natural production of luteinizing hormone (LH) and follicle-stimulating hormone (FSH).",
      "indication": "A powerful testosterone booster that enhances natural production while supporting fertility. Unlike traditional options, Enclomiphene helps maintain testicular function and sperm count, ensuring optimized hormone levels without compromising reproductive health."},
@@ -178,7 +192,10 @@ medications = [
     {"name": "Levothyroxin",
      "description": "A synthetic form of thyroid hormone used to treat hypothyroidism. It helps restore proper metabolism, energy levels, and overall thyroid function.",
      "indication": "Boost energy, metabolism, and overall wellness with Levothyroxine—the gold standard in thyroid hormone replacement therapy."},
-    {"name": "Nandrolone Decanoate",
+    {"name": "Metformin",
+     "description": "Metformin is a widely used oral medication primarily prescribed for managing type 2 diabetes. It works by improving insulin sensitivity, reducing glucose production in the liver, and enhancing glucose uptake by the body’s cells, effectively lowering blood sugar levels.",
+     "indication": "Metformin has been studied for its potential benefits in weight management, cardiovascular health, and even anti-aging applications. Its long-standing safety profile and effectiveness make it a cornerstone treatment for metabolic health under the guidance of a healthcare provider."},
+    {"name": "Nandrlone Decanoate",
      "description": "Nandrolone Decanoate Therapy provides an advanced approach to joint recovery and enhanced well-being during your TRT phase.",
      "indication": "Nandrolone Decanoate therapy helps promote joint healing, alleviate discomfort from chronic inflammation, and enhance recovery from physical strain or injury. It works synergistically with testosterone replacement therapy to improve mobility, reduce pain, and support long-term joint health."},
     {"name": "Oxandrolone",
@@ -385,14 +402,66 @@ def overwrite_more_information(template_path, output_path, member_name, selected
         print(f"Error in overwrite_more_information: {e}")
         return None
 
+# Section Generate Function
+def add_section(title, items, data_source, pdf, show_price=False):
+    if not items:
+        return
+
+    # Header for each section
+    pdf.set_fill_color(6, 182, 212)
+    pdf.set_text_color(242, 242, 242)
+    pdf.set_font("Exo2", "B", 22)
+    pdf.cell(0, 10, title, new_x="LMARGIN", new_y="NEXT", align="L", fill=True)
+    pdf.ln(5)
+
+    # Content for each item
+    pdf.set_text_color(115, 115, 115)
+    for item in items:
+        # Handle both strings and dictionaries
+        if isinstance(item, dict):
+            item_data = item
+        else:
+            item_data = next(
+                (x for x in data_source if x['name'].strip().lower() == item.strip().lower()),
+                None
+            )
+
+        if not item_data:
+            #st.write(f"DEBUG: No match found for item '{item}' in section '{title}'.")
+            continue
+
+        # Render item content
+        pdf.set_font("Exo2", "B", 20)
+        pdf.cell(0, 8, f"{item_data['name']}", new_x="LMARGIN", new_y="NEXT")
+        pdf.ln(2)
+
+        pdf.set_font("Exo2", "BI", 16)
+        pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
+        pdf.set_font("Exo2", "", 12)
+        pdf.multi_cell(0, 6, f"{item_data.get('description', 'N/A')}")
+
+        pdf.ln(3)
+        pdf.set_font("Exo2", "BI", 16)
+        pdf.cell(0, 6, "Indication:", new_x="LMARGIN", new_y="NEXT")
+        pdf.set_font("Exo2", "", 12)
+        pdf.multi_cell(0, 6, f"{item_data.get('indication', 'No indication provided.')}")
+
+        if show_price:
+            pdf.ln(3)
+            pdf.set_font("Exo2", "BI", 16)
+            pdf.cell(0, 6, "Price:", new_x="LMARGIN", new_y="NEXT")
+            pdf.set_font("Exo2", "", 12)
+            pdf.multi_cell(0, 6, f"{item_data.get('price', 'TBD')}")
+        pdf.ln(5)
+
 # PDF generation function
-def generate_pdf(selected_membership, selected_tests, selected_medications, selected_supplements):
+def generate_pdf(selected_membership, final_tests, final_medications, final_supplements):
     try:
         generated_pdf_path = "generated_content.pdf"
         merged_pdf_path = "final_treatment_plan.pdf"
         updated_pdf_path = "updated_treatment_plan.pdf"
 
-        # Step 1: Generate the content PDF
+        # Initialize PDF
         pdf = FPDF()
         pdf.set_auto_page_break(auto=True, margin=20)
         pdf.add_page()
@@ -403,67 +472,24 @@ def generate_pdf(selected_membership, selected_tests, selected_medications, sele
         pdf.add_font("Exo2", "I", "Exo2-Italic.ttf")
         pdf.add_font("Exo2", "BI", "Exo2-BoldItalic.ttf")
 
+        # Create Title
         pdf.set_text_color(6, 182, 212)
         pdf.set_font("Exo2", "B", 36)
         pdf.cell(0, 10, "1st Optimal Treatment Plan", new_x="LMARGIN", new_y="NEXT", align="C")
         pdf.ln(10)
 
-        # Add sections for selected items
-        def add_section(title, items, data_source, show_price=False):
-            pdf.set_fill_color(6, 182, 212)
-            pdf.set_text_color(242, 242, 242)
-            pdf.set_font("Exo2", "B", 22)
-            pdf.cell(0, 10, title, new_x="LMARGIN", new_y="NEXT", align="L", fill=True)
-            pdf.ln(5)
+        # Add sections to the PDF
+        add_section("Membership", selected_membership, memberships, pdf, show_price=True)
+        add_section("Diagnostic Testing", final_tests, diagnostic_tests, pdf)
+        add_section("Medications", final_medications, medications, pdf)
+        add_section("Supplements", final_supplements, supplements, pdf)
 
-            pdf.set_text_color(115, 115, 115)
-            pdf.set_font("Exo2", "", 22)
-            for item_name in items:
-                item = next((x for x in data_source if x['name'] == item_name), None)
-                if item:
-                    pdf.set_font("Exo2", "B", 20)
-                    pdf.cell(0, 8, f"{item['name']}", new_x="LMARGIN", new_y="NEXT")
-
-                    pdf.ln(2)
-                    pdf.set_font("Exo2", "BI", 16)
-                    pdf.cell(0, 6, "Description:", new_x="LMARGIN", new_y="NEXT")
-                    pdf.set_font("Exo2", "", 12)
-                    pdf.multi_cell(0, 6, f"{item.get('description', 'No description available.')}")
-
-                    pdf.ln(3)
-                    pdf.set_font("Exo2", "BI", 16)
-                    pdf.cell(0, 6, "Indication:", new_x="LMARGIN", new_y="NEXT")
-                    pdf.set_font("Exo2", "", 12)
-                    pdf.multi_cell(0, 6, f"{item.get('indication', 'No indication provided.')}")
-
-                    if show_price:
-                        pdf.ln(3)
-                        pdf.set_font("Exo2", "BI", 16)
-                        pdf.cell(0, 6, "Price:", new_x="LMARGIN", new_y="NEXT")
-                        pdf.set_font("Exo2", "", 12)
-                        pdf.multi_cell(0, 6, f"{item.get('price', 'TBD')}")
-                    pdf.ln(5)
-
-        add_section("Membership", selected_membership, memberships, show_price=True)
-        add_section("Diagnostic Testing", selected_tests, diagnostic_tests, show_price=False)
-        add_section("Medications", selected_medications, medications, show_price=False)
-        add_section("Supplements", selected_supplements, supplements, show_price=False)
-
-        # Step 2: Save the generated content PDF
+        # Save PDF and merge
         pdf.output(generated_pdf_path)
-
-        # Step 3: Merge the template and content PDFs
         merge_pdfs(template_pdf_path, generated_pdf_path, merged_pdf_path)
 
-        # Step 4: Overwrite "More Information" section
-        overwrite_more_information(
-            merged_pdf_path,
-            updated_pdf_path,
-            member_name,
-            selected_manager,
-        )
-
-        return updated_pdf_path
+        # Add additional information to the final PDF
+        return overwrite_more_information(merged_pdf_path, updated_pdf_path, member_name, selected_manager)
     except Exception as e:
         st.error(f"Error generating PDF: {e}")
         return None
@@ -511,36 +537,80 @@ st.image(logo_path, width=500)  # Adjust width as needed
 st.title("1st Optimal Treatment Plan Generator")
 st.subheader("Select Products for Your Report")
 
+# Membership dropdown
 selected_membership = st.multiselect("Membership", [item['name'] for item in memberships], max_selections=1)
-selected_tests = st.multiselect("Diagnostic Testing", [item['name'] for item in diagnostic_tests], max_selections=3)
-selected_medications = st.multiselect("Medications", [item['name'] for item in medications], max_selections=10)
-selected_supplements = st.multiselect("Supplements", [item['name'] for item in supplements], max_selections=10)
 
-if "Men's Guided Hormone Care PLUS Membership - (T4)" in selected_membership:
-    st.info(memberships[-2]["description"])
+# Dropdowns for Tests, Medications, and Supplements
+def add_custom_entry(category, base_items, session_state_key):
+    # Display dropdown with all items (full dictionaries) plus "Other"
+    selected_items = st.multiselect(
+        f"Select {category}", [item['name'] for item in base_items] + ["Other"], max_selections=10
+    )
 
+    # Handle "Other" for adding custom entries
+    if "Other" in selected_items:
+        st.subheader(f"Add a Custom {category[:-1]}")
+        custom_name = st.text_input(f"{category[:-1]} Name")
+        custom_description = st.text_area(f"{category[:-1]} Description")
+        custom_indication = st.text_area(f"{category[:-1]} Indication")
+        if st.button(f"Add {category[:-1]}"):
+            if custom_name and custom_description and custom_indication:
+                st.success(f"Custom {category[:-1]} '{custom_name}' added!")
+                st.session_state[session_state_key].append({
+                    "name": custom_name,
+                    "description": custom_description,
+                    "indication": custom_indication,
+                })
+            else:
+                st.error("Please fill all fields to add the custom entry.")
+
+    # Combine selected predefined items and custom entries
+    final_items = st.session_state[session_state_key] + [
+        item for item in base_items if item['name'] in selected_items
+    ]
+
+    return final_items
+
+final_tests = add_custom_entry("Tests", diagnostic_tests, "current_plan_tests")
+final_medications = add_custom_entry("Medications", medications, "current_plan_medications")
+final_supplements = add_custom_entry("Supplements", supplements, "current_plan_supplements")
+
+
+# Debugging
+#st.write("DEBUG: Final Tests:", final_tests)
+#st.write("DEBUG: Final Medications:", final_medications)
+#st.write("DEBUG: Final Supplements:", final_supplements)
+
+# PDF Generation
 if st.button("Generate PDF"):
-    data = {
+    # Debugging: Display the selections
+    #st.write("DEBUG: Selected Membership:", selected_membership)
+    #st.write("DEBUG: Final Tests:", final_tests)
+    #st.write("DEBUG: Final Medications:", final_medications)
+    #st.write("DEBUG: Final Supplements:", final_supplements)
+
+    # Attempt to generate the PDF
+    pdf_path = generate_pdf(selected_membership, final_tests, final_medications, final_supplements)
+
+    # Log analytics data to GitHub
+    analytics_data = {
         "member_name": member_name,
         "manager": selected_manager,
         "membership": selected_membership,
-        "tests": selected_tests,
-        "medications": selected_medications,
-        "supplements": selected_supplements,
+        "tests": final_tests,
+        "medications": final_medications,
+        "supplements": final_supplements,
     }
     try:
-        log_to_github(data)
+        log_to_github(analytics_data)
         #st.success("Selections logged to GitHub Analytics successfully!")
     except Exception as e:
         st.error(f"Failed to log selections to Analytics: {e}")
 
-    if selected_membership or selected_tests or selected_medications or selected_supplements:
-        pdf_path = generate_pdf(selected_membership, selected_tests, selected_medications, selected_supplements)
-        if pdf_path:
-            st.success("PDF generated successfully!")
-            with open(pdf_path, "rb") as pdf_file:
-                st.download_button("Download Treatment Plan", data=pdf_file, file_name="1stOptimal_treatment_plan.pdf", mime="application/pdf")
-        else:
-            st.error("PDF generation failed.")
+    # Handle PDF generation result
+    if pdf_path:
+        st.success("PDF generated successfully!")
+        with open(pdf_path, "rb") as pdf_file:
+            st.download_button("Download Treatment Plan", data=pdf_file, file_name="1stOptimal_treatment_plan.pdf", mime="application/pdf")
     else:
-        st.warning("Please select at least one item from any category.")
+        st.error("PDF generation failed.")
