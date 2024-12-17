@@ -195,7 +195,7 @@ medications = [
     {"name": "Metformin",
      "description": "Metformin is a widely used oral medication primarily prescribed for managing type 2 diabetes. It works by improving insulin sensitivity, reducing glucose production in the liver, and enhancing glucose uptake by the body’s cells, effectively lowering blood sugar levels.",
      "indication": "Metformin has been studied for its potential benefits in weight management, cardiovascular health, and even anti-aging applications. Its long-standing safety profile and effectiveness make it a cornerstone treatment for metabolic health under the guidance of a healthcare provider."},
-    {"name": "Nandrlone Decanoate",
+    {"name": "Nandrolone Decanoate",
      "description": "Nandrolone Decanoate Therapy provides an advanced approach to joint recovery and enhanced well-being during your TRT phase.",
      "indication": "Nandrolone Decanoate therapy helps promote joint healing, alleviate discomfort from chronic inflammation, and enhance recovery from physical strain or injury. It works synergistically with testosterone replacement therapy to improve mobility, reduce pain, and support long-term joint health."},
     {"name": "Oxandrolone",
