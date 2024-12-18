@@ -1828,5 +1828,74 @@
             }
         ],
         "timestamp": "2024-12-17T19:55:41.661558"
+    },
+    {
+        "member_name": "Billy Lewis",
+        "manager": "Allison",
+        "membership": [
+            "Guided Hormone Care Membership - (T2)"
+        ],
+        "tests": [
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Enanthate",
+                "description": "Enanthate is a long-acting ester of testosterone commonly used in hormone replacement therapy (HRT) for men with low testosterone levels. It supports the maintenance of normal male physiological functions, including muscle mass, energy levels, libido, and mood. By providing a steady release of testosterone, enanthate helps restore hormonal balance, improving overall vitality and well-being.",
+                "indication": "This treatment is typically administered via intramuscular injection and is tailored to individual needs under the supervision of a healthcare provider."
+            },
+            {
+                "name": "Metformin",
+                "description": "Metformin is a widely used oral medication primarily prescribed for managing type 2 diabetes. It works by improving insulin sensitivity, reducing glucose production in the liver, and enhancing glucose uptake by the body\u2019s cells, effectively lowering blood sugar levels.",
+                "indication": "Metformin has been studied for its potential benefits in weight management, cardiovascular health, and even anti-aging applications. Its long-standing safety profile and effectiveness make it a cornerstone treatment for metabolic health under the guidance of a healthcare provider."
+            },
+            {
+                "name": "Nandrolone Decanoate",
+                "description": "Nandrolone Decanoate Therapy provides an advanced approach to joint recovery and enhanced well-being during your TRT phase.",
+                "indication": "Nandrolone Decanoate therapy helps promote joint healing, alleviate discomfort from chronic inflammation, and enhance recovery from physical strain or injury. It works synergistically with testosterone replacement therapy to improve mobility, reduce pain, and support long-term joint health."
+            },
+            {
+                "name": "Oxandrolone",
+                "description": "Oxandrolone Therapy offers a powerful solution for enhancing recovery, strength, and lean muscle preservation during your TRT journey. Delivered with guided medical oversight, convenient telemedicine visits, and streamlined access through our patient portal app, this therapy is tailored for individuals seeking optimal performance and resilience.",
+                "indication": "Oxandrolone therapy is known for its ability to promote tissue repair, increase strength, and preserve lean muscle mass, even during caloric deficits or recovery phases. Its mild profile and targeted benefits make it an ideal addition to testosterone replacement therapy, helping you recover faster, maintain muscle integrity."
+            },
+            {
+                "name": "TB-400",
+                "description": "1st Optimal\u2019s TB-400 Therapy provides advanced treatment designed to enhance recovery, promote healing, and support overall physical performance.",
+                "indication": "TB-400 therapy helps reduce inflammation, accelerate tissue repair, and improve endurance, making it an ideal choice for those seeking optimal recovery and resilience."
+            },
+            {
+                "name": "Tesamorelin",
+                "description": "A peptide therapy that boosts natural growth hormone production.",
+                "indication": "Achieve targeted fat loss and enhanced metabolic health with Tesamorelin. Known for its ability to reduce stubborn visceral fat, it supports improved body composition, muscle definition, and energy."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Aged Garlic Extract Formula",
+                "description": "Kyolic Aged Garlic Extract Formula 104 supports cardiovascular health by helping to maintain healthy cholesterol levels and overall heart function. This formula combines aged garlic extract with naturally sourced lecithin for a potent, odorless supplement designed for daily wellness.",
+                "indication": "Supports healthy cholesterol levels and promotes overall heart health with the power of aged garlic extract and lecithin."
+            },
+            {
+                "name": "Joint Health Bundle",
+                "description": "A supplement pack that supports joint health and mobility, featuring ingredients like glucosamine, chondroitin, and MSM.",
+                "indication": "Relieve joint pain and support musculoskeletal health with our comprehensive Joint Support Bundle."
+            },
+            {
+                "name": "Tudca",
+                "description": "A bile acid supplement that supports liver health and detoxification processes.",
+                "indication": "A breakthrough bile acid supplement. TUDCA supports optimal liver function by promoting bile flow, reducing liver inflammation, and protecting against oxidative stress."
+            }
+        ],
+        "timestamp": "2024-12-18T14:11:40.184443"
     }
 ]
