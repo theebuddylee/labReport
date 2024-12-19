@@ -2013,5 +2013,64 @@
         ],
         "supplements": [],
         "timestamp": "2024-12-19T18:03:34.459838"
+    },
+    {
+        "member_name": "Lonnie Dixon",
+        "manager": "Allison",
+        "membership": [
+            "Men's Guided Hormone Care PLUS Membership - (T4)"
+        ],
+        "tests": [
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Semaglutide",
+                "description": "A GLP-1 receptor agonist used for weight loss and blood sugar management.",
+                "indication": "The proven GLP-1 receptor agonist. Backed by science, Semaglutide enhances appetite control, stabilizes blood sugar, and promotes sustainable fat loss."
+            },
+            {
+                "name": "Sermorelin",
+                "description": "A synthetic peptide that stimulates the natural release of growth hormone from the pituitary gland.",
+                "indication": "Boost your growth hormone levels naturally with Sermorelin, a peptide therapy designed to enhance fat loss, improve muscle tone, and support recovery."
+            },
+            {
+                "name": "TB-400",
+                "description": "1st Optimal\u2019s TB-400 Therapy provides advanced treatment designed to enhance recovery, promote healing, and support overall physical performance.",
+                "indication": "TB-400 therapy helps reduce inflammation, accelerate tissue repair, and improve endurance, making it an ideal choice for those seeking optimal recovery and resilience."
+            },
+            {
+                "name": "Tesamorelin",
+                "description": "A peptide therapy that boosts natural growth hormone production.",
+                "indication": "Achieve targeted fat loss and enhanced metabolic health with Tesamorelin. Known for its ability to reduce stubborn visceral fat, it supports improved body composition, muscle definition, and energy."
+            },
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "GLP-1 Probiotic Pro",
+                "description": "A specialized probiotic blend formulated to enhance gut health and improve gastrointestinal tolerance in individuals using GLP-1 agonists.",
+                "indication": "Enhance your GLP-1 journey with our Probiotic Support."
+            },
+            {
+                "name": "Joint Health Bundle",
+                "description": "A supplement pack that supports joint health and mobility, featuring ingredients like glucosamine, chondroitin, and MSM.",
+                "indication": "Relieve joint pain and support musculoskeletal health with our comprehensive Joint Support Bundle."
+            }
+        ],
+        "timestamp": "2024-12-19T18:58:19.495815"
     }
 ]
