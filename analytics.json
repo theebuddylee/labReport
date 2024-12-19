@@ -1978,5 +1978,40 @@
         ],
         "supplements": [],
         "timestamp": "2024-12-18T15:24:41.497366"
+    },
+    {
+        "member_name": "Neftali Diaz",
+        "manager": "Dillon",
+        "membership": [],
+        "tests": [],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "DHEA",
+                "description": "A hormone produced by the adrenal glands. It serves as a precursor to sex hormones like testosterone and estrogen and counterbalances cortisol, the stress hormone.",
+                "indication": "Restores hormonal balance, boosts energy, mood, and sexual health. Enhance stress resilience, immunity, and overall well-being, an essential for longevity and performance optimization."
+            },
+            {
+                "name": "Enclomiphene",
+                "description": "A selective estrogen receptor modulator (SERM) used to increase testosterone production in men by stimulating the natural production of luteinizing hormone (LH) and follicle-stimulating hormone (FSH).",
+                "indication": "A powerful testosterone booster that enhances natural production while supporting fertility. Unlike traditional options, Enclomiphene helps maintain testicular function and sperm count, ensuring optimized hormone levels without compromising reproductive health."
+            },
+            {
+                "name": "Pregnenolone",
+                "description": "Pregnenolone Therapy offers a natural approach to supporting cognitive function, hormonal balance, and overall well-being.",
+                "indication": "Pregnenolone therapy helps improve memory, reduce stress, and promote hormonal harmony for optimal health."
+            },
+            {
+                "name": "Tadalafil",
+                "description": "A long-acting PDE5 inhibitor used to treat erectile dysfunction and improve urinary symptoms associated with benign prostatic hyperplasia (BPH).",
+                "indication": "Long-lasting support for improved performance and blood flow, helping you feel and perform at your best."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2024-12-19T18:03:34.459838"
     }
 ]
