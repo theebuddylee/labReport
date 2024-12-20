@@ -116,7 +116,7 @@ memberships = [
      "description": "Achieve sustainable weight loss with access to effective GLP-1 agonist treatments, GLP-1 supporting supplements, and comprehensive care. This membership includes personalized hormone treatments, lab testing, medical consultations, and all supplies, with shipping fees covered, offering a holistic approach to weight loss and wellness tailored to your needs.",
      "indication": "Targeted for individuals aiming for sustainable weight loss.",
      "price": "129/month"},
-    {"name": "Men's Guided Hormone Care PLUS Membership",
+    {"name": "Men's Guided Hormone Care Membership",
      "description": "Choose 1: Testosterone Cypionate or Enclomiphine",
      "indication": "Men's enhanced hormone care with choice of specific treatments for personalized hormone balance. This includes shipping, supplies, lab interpretations, medical visits, Testosterone Treatment, lab reviews, and your initial follow-up labs.",
      "price": "159/month"},
