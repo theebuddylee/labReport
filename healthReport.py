@@ -106,7 +106,7 @@ memberships = [
      "price": "Starting at 129/month"},
     {"name": "Peptide, Sex and Hair Care Membership",
      "description": "1st Optimal’s Peptide, Sex and Hair Care Membership, offers a personalized approach to enhancing vitality, longevity, and overall wellness. By integrating cutting-edge peptide treatments with expert asynchronous medical oversight and a user-friendly patient portal, we make optimizing your health simple and convenient. With tailored care plans for gut health, sexual wellness, hair care and much more. Shipping and supplies included.",
-     "indication": "Ideal for individuals focused on performance enhancement, joint health, recovery, and sexual wellness.",
+     "indication": "Unlock your body's full potential with cutting-edge peptide, sex, and hair care therapies designed to enhance vitality and performance effortlessly",
      "price": "99/six months"},
     {"name": "Guided Hormone Care Membership",
      "description": "1st Optimal’s Guided Hormone Care program provides personalized treatments for hormonal balance, seamlessly integrated into your lifestyle with guided medical oversight and convenient telemedicine visits through our intuitive patient portal app. With comprehensive lab testing, asynchronous care, and all shipping and supplies included, managing your health has never been easier.",
