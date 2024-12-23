@@ -58,7 +58,7 @@ contact_info = {
         "first_name": "Amber",
         "last_name": "Miller",
         "alias_title": "Support",
-        "email": "support@1stoptimal.com",
+        "email": "Amber@1stoptimal.com",
         "phone": "(816) 744-6814 x100",
     },
     "Buddy": {
