@@ -2357,5 +2357,69 @@
             }
         ],
         "timestamp": "2024-12-23T14:25:47.449479"
+    },
+    {
+        "member_name": "",
+        "manager": "Allison",
+        "membership": [
+            "Women's Guided Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Female Hormone Health Panel",
+                "description": "Take control of your hormonal health with our comprehensive Women's Hormone Panel. This test evaluates key hormones that influence energy, mood, menstrual cycles, and overall well-being. Gain insights into imbalances affecting fertility, PMS, or irregular cycles and start your journey toward optimal health today!",
+                "indication": "Total Testosterone*, Free Testosterone*, Estradiol, Standard, SHBG, DHEA-S, Progesterone, LH, FSH, TSH, Free T3, Free T4, IGF-1, Lipid Panel, Ferritin, Iron, CBC, Metabolic Panel, HbA1c, Fasting Insulin, Vitamin D, GGT."
+            },
+            {
+                "name": "Female Hormone Treatment Follow-up Panel",
+                "description": "FSH & LH\nHemoglobin A1c\nCBC with Differential/Platelet\nProgesterone\nTestosterone\nEstradiol\nProlactin\nTSH\nComprehensive Metabolic Panel (14)\nSex Hormone Binding Globulin\nLipid Panel",
+                "indication": "This lab panel is designed to monitor key hormone and metabolic markers critical to female health. It provides insights into reproductive hormones, metabolic function, and overall health optimization."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Estrogen Replacement",
+                "description": "Estrogen Therapies offer a tailored approach to supporting hormonal balance, enhancing vitality, and improving overall well-being.",
+                "indication": "Estrogen therapy helps alleviate symptoms of hormonal imbalances and promotes optimal health for a better quality of life."
+            },
+            {
+                "name": "Ezetimibe",
+                "description": "Ezetimibe is a cholesterol-lowering medication that significantly reduces LDL-C while boosting HDL-C, offering additional protective benefits for heart health, non-alcoholic fatty liver disease, and stroke prevention. It also helps lower inflammation by reducing CRP levels, supporting overall cardiovascular wellness.",
+                "indication": "Lowers bad cholesterol (LDL-C), raises good cholesterol (HDL-C), and supports heart and liver health while reducing inflammation."
+            },
+            {
+                "name": "Progesterone",
+                "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being.",
+                "indication": "Progesterone therapy helps regulate cycles, reduce stress, and promote optimal hormonal health."
+            },
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Aged Garlic Extract Formula",
+                "description": "Kyolic Aged Garlic Extract Formula 104 supports cardiovascular health by helping to maintain healthy cholesterol levels and overall heart function. This formula combines aged garlic extract with naturally sourced lecithin for a potent, odorless supplement designed for daily wellness.",
+                "indication": "Supports healthy cholesterol levels and promotes overall heart health with the power of aged garlic extract and lecithin."
+            },
+            {
+                "name": "Joint Health Bundle",
+                "description": "A supplement pack that supports joint health and mobility, featuring ingredients like glucosamine, chondroitin, and MSM.",
+                "indication": "Relieve joint pain and support musculoskeletal health with our comprehensive Joint Support Bundle."
+            },
+            {
+                "name": "Thyroid Support Bundle",
+                "description": "A comprehensive supplement package designed to support thyroid function.",
+                "indication": "Optimize your thyroid function with our Thyroid Support Bundle, featuring Selenium, D3 Liquid, and more."
+            },
+            {
+                "name": "Vitamin D",
+                "description": "A critical vitamin for bone health, immune function, and mood regulation.",
+                "indication": "Support your overall health with Vitamin D3, essential for strong bones, a robust immune system, and optimal mood."
+            }
+        ],
+        "timestamp": "2024-12-23T17:13:46.563697"
     }
 ]
