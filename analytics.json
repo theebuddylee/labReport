@@ -2578,5 +2578,64 @@
             }
         ],
         "timestamp": "2024-12-24T19:25:05.911373"
+    },
+    {
+        "member_name": "Marielle ",
+        "manager": "Joe",
+        "membership": [
+            "Women's Guided Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Female Hormone Health Panel",
+                "description": "Take control of your hormonal health with our comprehensive Women's Hormone Panel. This test evaluates key hormones that influence energy, mood, menstrual cycles, and overall well-being. Gain insights into imbalances affecting fertility, PMS, or irregular cycles and start your journey toward optimal health today!",
+                "indication": "Total Testosterone*, Free Testosterone*, Estradiol, Standard, SHBG, DHEA-S, Progesterone, LH, FSH, TSH, Free T3, Free T4, IGF-1, Lipid Panel, Ferritin, Iron, CBC, Metabolic Panel, HbA1c, Fasting Insulin, Vitamin D, GGT."
+            },
+            {
+                "name": "GI-MAP\u00ae (GI Microbial Assay Plus)",
+                "description": "The GI-MAP\u00ae is a state-of-the-art stool analysis test that provides a detailed assessment of your gut microbiome. It identifies bacteria, viruses, parasites, fungi, and other pathogens that may be impacting your digestive health. This test also evaluates markers of inflammation, digestion, and immune function, offering valuable insights into overall gut health.",
+                "indication": "Whether you're addressing digestive discomfort, chronic health issues, or optimizing wellness, the GI-MAP\u00ae delivers actionable data to create personalized strategies for improving gut function and systemic health."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Semaglutide",
+                "description": "A GLP-1 receptor agonist used for weight loss and blood sugar management.",
+                "indication": "The proven GLP-1 receptor agonist. Backed by science, Semaglutide enhances appetite control, stabilizes blood sugar, and promotes sustainable fat loss."
+            },
+            {
+                "name": "Sermorelin",
+                "description": "A synthetic peptide that stimulates the natural release of growth hormone from the pituitary gland.",
+                "indication": "Boost your growth hormone levels naturally with Sermorelin, a peptide therapy designed to enhance fat loss, improve muscle tone, and support recovery."
+            },
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Berberine",
+                "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
+                "indication": "Nature\u2019s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."
+            },
+            {
+                "name": "Creatine",
+                "description": "A naturally occurring compound stored in muscles and used to produce energy during high-intensity activities.",
+                "indication": "Fuel your body and mind with Creatine. By enhancing energy production, Creatine helps maintain muscle mass during aging or recovery while also improving memory, focus, and mental clarity."
+            },
+            {
+                "name": "GLP-1 Agonist Side Effect Support Bundle",
+                "description": "A combination of supplements designed to alleviate common side effects of GLP-1 receptor agonist therapies.",
+                "indication": "GLP-1 therapy side effects with our GLP-1 Agonist Side Effect Support Bundle."
+            },
+            {
+                "name": "Vitamin D",
+                "description": "A critical vitamin for bone health, immune function, and mood regulation.",
+                "indication": "Support your overall health with Vitamin D3, essential for strong bones, a robust immune system, and optimal mood."
+            }
+        ],
+        "timestamp": "2024-12-27T18:16:06.829721"
     }
 ]
