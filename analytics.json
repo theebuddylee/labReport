@@ -2675,5 +2675,37 @@
         ],
         "supplements": [],
         "timestamp": "2024-12-31T17:28:34.812082"
+    },
+    {
+        "member_name": "Kara Quinn Rea",
+        "manager": "Justin",
+        "membership": [
+            "Coaching Partnership"
+        ],
+        "tests": [],
+        "medications": [
+            {
+                "name": "Glutathione",
+                "description": "is a critical antioxidant and tripeptide composed of glutamine, cysteine, and glycine. It plays essential roles in cellular processes, including detoxification, oxidative stress reduction, and immune function",
+                "indication": "Antioxidant Defense: GSH neutralizes reactive oxygen species (ROS) and maintains cellular redox balance.\nDetoxification: It conjugates with harmful substances for excretion.\nCellular Processes: Involved in DNA synthesis, protein synthesis, and enzymatic reactions.\n"
+            },
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Pregnenolone",
+                "description": "Pregnenolone Therapy offers a natural approach to supporting cognitive function, hormonal balance, and overall well-being.",
+                "indication": "Pregnenolone therapy helps improve memory, reduce stress, and promote hormonal harmony for optimal health."
+            },
+            {
+                "name": "Sermorelin",
+                "description": "A synthetic peptide that stimulates the natural release of growth hormone from the pituitary gland.",
+                "indication": "Boost your growth hormone levels naturally with Sermorelin, a peptide therapy designed to enhance fat loss, improve muscle tone, and support recovery."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2025-01-03T16:46:55.278607"
     }
 ]
