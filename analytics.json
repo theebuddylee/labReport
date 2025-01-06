@@ -3252,5 +3252,49 @@
             }
         ],
         "timestamp": "2025-01-06T19:41:11.858810"
+    },
+    {
+        "member_name": "Test Update",
+        "manager": "Buddy",
+        "membership": [
+            "Men's TRT & Weight Loss Membership"
+        ],
+        "tests": [
+            {
+                "name": "Men's Weight Loss Follow-up Lab Panel",
+                "description": "The Men\u2019s Weight Loss Follow-Up Lab Panel is a comprehensive blood test designed to monitor key biomarkers at the 3-month mark of your weight loss journey. Included as part of your weight loss membership, this panel provides crucial insights into your metabolic health, hormone balance, cardiovascular risk, and overall progress to ensure your treatment plan is optimized for long-term success. Regular follow-up testing helps track improvements, detect potential issues early, and adjust interventions for sustained fat loss and overall wellness.",
+                "indication": "The Men\u2019s Weight Loss Follow-Up Lab Panel is designed for men approximately 3 months into their weight loss program to track progress, optimize treatment, and ensure long-term success. This panel evaluates key markers, including CBC with Differential/Platelet to monitor blood health, Comprehensive Metabolic Panel to assess metabolic function, Hemoglobin A1c to track long-term glucose control, Testosterone to monitor hormone levels, Insulin to measure insulin sensitivity, Lipid Panel to evaluate cardiovascular health, and Thyroid Panel with TSH to assess thyroid function, with a draw fee included for convenience. Regular monitoring of these markers helps ensure a personalized, safe, and sustainable weight loss journey."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Ezetimibe",
+                "description": "Ezetimibe is a cholesterol-lowering medication that significantly reduces LDL-C while boosting HDL-C, offering additional protective benefits for heart health, non-alcoholic fatty liver disease, and stroke prevention. It also helps lower inflammation by reducing CRP levels, supporting overall cardiovascular wellness.",
+                "indication": "Lowers bad cholesterol (LDL-C), raises good cholesterol (HDL-C), and supports heart and liver health while reducing inflammation."
+            },
+            {
+                "name": "Glutathione",
+                "description": "Glutathione is a powerful antioxidant naturally produced in the body that plays a crucial role in detoxification, immune function, and cellular repair. It neutralizes harmful free radicals, reduces oxidative stress, and supports liver health, making it essential for overall wellness and anti-aging.",
+                "indication": "Glutathione helps brighten skin tone, reduce inflammation, and enhance recovery from physical stress. Widely studied for its benefits, it is a cornerstone of cellular defense and optimal health."
+            },
+            {
+                "name": "Hexarelin",
+                "description": "Hexarelin is a peptide designed to stimulate the release of growth hormone, promoting muscle growth, fat reduction, and faster recovery. With its potent regenerative effects, Hexarelin is a versatile peptide for those seeking improved physical performance and resilience.",
+                "indication": "Hexarelin strengthens connective tissues, supports joint health, and may improve cardiovascular function by promoting cardiac repair and protection. Known for its ability to enhance strength and energy, Hexarelin is commonly used for anti-aging, athletic performance, and injury recovery."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "GLP-1 Probiotic Pro",
+                "description": "A specialized probiotic blend formulated to enhance gut health and improve gastrointestinal tolerance in individuals using GLP-1 agonists.",
+                "indication": "Enhance your GLP-1 journey with our Probiotic Support."
+            },
+            {
+                "name": "Glucosamine Chondroitin Sulfate",
+                "description": "Glucosamine Chondroitin combines glucosamine sulfate and clinically trialed Csbioactive\u00ae chondroitin sulfate, to promote healthy joint function.",
+                "indication": "Glucosamine and chondroitin are the building blocks of cartilage and may help promote normal cartilage development. They may also help support healthy aging."
+            }
+        ],
+        "timestamp": "2025-01-06T22:41:35.211100"
     }
 ]
