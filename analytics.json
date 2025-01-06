@@ -3139,5 +3139,64 @@
             }
         ],
         "timestamp": "2025-01-06T16:55:29.797349"
+    },
+    {
+        "member_name": "Erika Brooks",
+        "manager": "Allison",
+        "membership": [
+            "Women's Guided Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Female Hormone Treatment Follow-up Panel",
+                "description": "FSH & LH\nHemoglobin A1c\nCBC with Differential/Platelet\nProgesterone\nTestosterone\nEstradiol\nProlactin\nTSH\nComprehensive Metabolic Panel (14)\nSex Hormone Binding Globulin\nLipid Panel",
+                "indication": "This lab panel is designed to monitor key hormone and metabolic markers critical to female health. It provides insights into reproductive hormones, metabolic function, and overall health optimization."
+            },
+            {
+                "name": "GI-MAP\u00ae (GI Microbial Assay Plus)",
+                "description": "The GI-MAP\u00ae is a state-of-the-art stool analysis test that provides a detailed assessment of your gut microbiome. It identifies bacteria, viruses, parasites, fungi, and other pathogens that may be impacting your digestive health. This test also evaluates markers of inflammation, digestion, and immune function, offering valuable insights into overall gut health.",
+                "indication": "Whether you're addressing digestive discomfort, chronic health issues, or optimizing wellness, the GI-MAP\u00ae delivers actionable data to create personalized strategies for improving gut function and systemic health."
+            }
+        ],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "DHEA",
+                "description": "A hormone produced by the adrenal glands. It serves as a precursor to sex hormones like testosterone and estrogen and counterbalances cortisol, the stress hormone.",
+                "indication": "Restores hormonal balance, boosts energy, mood, and sexual health. Enhance stress resilience, immunity, and overall well-being, an essential for longevity and performance optimization."
+            },
+            {
+                "name": "Estrogen Replacement",
+                "description": "Estrogen Therapies offer a tailored approach to supporting hormonal balance, enhancing vitality, and improving overall well-being.",
+                "indication": "Estrogen therapy helps alleviate symptoms of hormonal imbalances and promotes optimal health for a better quality of life."
+            },
+            {
+                "name": "Pregnenolone",
+                "description": "Pregnenolone Therapy offers a natural approach to supporting cognitive function, hormonal balance, and overall well-being.",
+                "indication": "Pregnenolone therapy helps improve memory, reduce stress, and promote hormonal harmony for optimal health."
+            },
+            {
+                "name": "Progesterone",
+                "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being.",
+                "indication": "Progesterone therapy helps regulate cycles, reduce stress, and promote optimal hormonal health."
+            },
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Thyroid Support Bundle",
+                "description": "A comprehensive supplement package designed to support thyroid function.",
+                "indication": "Optimize your thyroid function with our Thyroid Support Bundle, featuring Selenium, D3 Liquid, and more."
+            }
+        ],
+        "timestamp": "2025-01-06T19:22:55.219918"
     }
 ]
