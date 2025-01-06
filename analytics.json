@@ -3051,5 +3051,49 @@
             }
         ],
         "timestamp": "2025-01-03T18:31:58.137546"
+    },
+    {
+        "member_name": "Jeffrey Alexander ",
+        "manager": "Ramsey",
+        "membership": [
+            "Peptide, Sex and Hair Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Sermorelin",
+                "description": "A synthetic peptide that stimulates the natural release of growth hormone from the pituitary gland.",
+                "indication": "Boost your growth hormone levels naturally with Sermorelin, a peptide therapy designed to enhance fat loss, improve muscle tone, and support recovery."
+            },
+            {
+                "name": "TB-400",
+                "description": "1st Optimal\u2019s TB-400 Therapy provides advanced treatment designed to enhance recovery, promote healing, and support overall physical performance.",
+                "indication": "TB-400 therapy helps reduce inflammation, accelerate tissue repair, and improve endurance, making it an ideal choice for those seeking optimal recovery and resilience."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Joint Health Bundle",
+                "description": "A supplement pack that supports joint health and mobility, featuring ingredients like glucosamine, chondroitin, and MSM.",
+                "indication": "Relieve joint pain and support musculoskeletal health with our comprehensive Joint Support Bundle."
+            },
+            {
+                "name": "Vitamin D",
+                "description": "A critical vitamin for bone health, immune function, and mood regulation.",
+                "indication": "Support your overall health with Vitamin D3, essential for strong bones, a robust immune system, and optimal mood."
+            }
+        ],
+        "timestamp": "2025-01-06T16:55:01.353369"
     }
 ]
