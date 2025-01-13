@@ -3497,5 +3497,22 @@
         "medications": [],
         "supplements": [],
         "timestamp": "2025-01-13T22:09:51.948898"
+    },
+    {
+        "member_name": "Jolynn Hirschi",
+        "manager": "Justin",
+        "membership": [
+            "Women's Hormone Care Membership"
+        ],
+        "tests": [],
+        "medications": [
+            {
+                "name": "Levothyroxine & Liothyronine",
+                "description": "Levothyroxine is a synthetic form of thyroxine (T4), a hormone naturally produced by the thyroid gland.\nT4 is a prohormone that gets converted into the more active triiodothyronine (T3) in peripheral tissues.\n\nLiothyronine is a synthetic form of triiodothyronine (T3), the active form of thyroid hormone.\nT3 acts directly on cells to regulate metabolism, growth, and development.",
+                "indication": "Some patients may benefit from a combination of T4 and T3 therapy, especially if they continue to experience hypothyroid symptoms despite normal TSH levels on levothyroxine monotherapy.\nCombination therapy mimics the natural ratio of T4 to T3 secreted by the thyroid gland (about 14:1)."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2025-01-13T22:10:46.237206"
     }
 ]
