@@ -150,7 +150,7 @@ diagnostic_tests = [
      "indication": "Total Testosterone (LC/MS) [uncapped], Free Testosterone (Equilibrium Ultrafiltration) [uncapped], Estradiol (LC/MS), SHBG, Prolactin, Cortisol, Progesterone, LH, FSH, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, ApoB, Lipoprotein (a), Ferritin, HbA1c, CBC, Metabolic Panel, Fasting Insulin, GGT, Vitamin D, Iron Panel, hsCRP."},
     {"name": "Male Follow-Up Panel",
      "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
-     "indication": "Estradiol, Standard, SHBG, PSA, CBC, Metabolic Panel."},
+     "indication": "Free and Total Testosterone, Estradiol, Testosterone, PSA, CBC, Metabolic Panel."},
     {"name": "Female Basic Hormone Health Panel",
      "description": "Testosterone,Estradiol, Standard,Sex Hormone Binding Globulin (SHBG), Dehydroepiandrosterone Sulfate (DHEA-S), Progesterone, Luteinizing Hormone (LH), Follicle-Stimulating Hormone (FSH), TSH, Lipid Panel, Complete Blood Count (with Differential), Metabolic Panel, HbA1c",
      "indication": "Get a clear snapshot of your essential hormone levels to uncover hidden imbalances impacting your energy, performance, and overall health."},
