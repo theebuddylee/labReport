@@ -3670,5 +3670,33 @@
             }
         ],
         "timestamp": "2025-01-16T19:07:55.213249"
+    },
+    {
+        "member_name": "Jamie McNamara",
+        "manager": "Allison",
+        "membership": [
+            "Men's Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Male Hormone Health Panel",
+                "description": "Dive deeper into your hormone profile to optimize strength, recovery, weight loss, and physical vitality tailored to your unique needs.",
+                "indication": "Total Testosterone*, Free Testosterone*, Estradiol, Standard, SHBG, Prolactin, LH, FSH, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, HbA1c, CBC, Metabolic Panel, Fasting Insulin, Vitamin D, GGT."
+            },
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Free and Total Testosterone, Estradiol, Testosterone, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2025-01-17T15:21:38.271227"
     }
 ]
