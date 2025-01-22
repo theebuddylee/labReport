@@ -262,7 +262,10 @@ medications = [
      "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."},
     {"name": "Tirzepatide",
      "description": "A novel dual-receptor agonist for weight management.",
-     "indication": "The dual-action GLP-1 and GIP receptor agonist. Tirzepatide targets multiple pathways to enhance appetite control, improve insulin sensitivity, and promote effective fat loss."}
+     "indication": "The dual-action GLP-1 and GIP receptor agonist. Tirzepatide targets multiple pathways to enhance appetite control, improve insulin sensitivity, and promote effective fat loss."},
+    {"name": "Vasoactive Intestinal Peptide",
+     "description": "Vasoactive Intestinal Peptide (VIP) is a powerful neuropeptide that plays a key role in regulating inflammation, immune response, and vascular health. VIP therapy is commonly used to support optimal lung function, improve circulation, and enhance cognitive performance. It may also benefit individuals with chronic inflammatory conditions by helping to restore balance and improve overall well-being.",
+     "indication": "Whether you're seeking support for immune regulation or optimizing recovery, VIP therapy offers a targeted approach to help you feel your best."}
 ]
 
 # Supplements
@@ -273,6 +276,12 @@ supplements = [
     {"name": "Berberine",
      "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
      "indication": "Nature’s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."},
+    {"name": "Cholesterol Complete",
+     "description": "Cholesterol Complete by Biospec Nutritionals features a blend of red yeast rice, guggulipid, hawthorn, and policosanol to support healthy cholesterol levels. This comprehensive formula leverages traditional heart-healthy ingredients to promote favorable blood lipid profiles.",
+     "indication": "Ideal for individuals looking to manage cholesterol levels and maintain cardiovascular health through a natural, evidence-based approach."},
+    {"name": "Cholesterol Support",
+     "description": "Cholesterol Support by AnazaoHealth combines a phytosterol complex with policosanol and artichoke leaf extract to help maintain healthy cholesterol levels. Phytosterols reduce cholesterol absorption in the intestines, while policosanol and artichoke extract support cholesterol metabolism and synthesis regulation.",
+     "indication": "Designed for individuals aiming to manage cholesterol levels and support cardiovascular health naturally. Recommended for those seeking to maintain healthy blood lipid profiles."},
     {"name": "Creatine",
      "description": "A naturally occurring compound stored in muscles and used to produce energy during high-intensity activities.",
      "indication": "Fuel your body and mind with Creatine. By enhancing energy production, Creatine helps maintain muscle mass during aging or recovery while also improving memory, focus, and mental clarity."},
@@ -300,6 +309,12 @@ supplements = [
     {"name": "Joint Health Bundle",
       "description": "A supplement pack that supports joint health and mobility, featuring ingredients like glucosamine, chondroitin, and MSM.",
       "indication": "Relieve joint pain and support musculoskeletal health with our comprehensive Joint Support Bundle."},
+    {"name": "JuJitsu Joint Health Bundle",
+     "description": "The 1st Optimal Jiu-Jitsu Joint Health Bundle combines Glucosamine Chondroitin, Curcumin Phytosome, and Boswellia Extract to support joint strength, flexibility, and recovery. This powerful trio helps protect cartilage, reduce inflammation, and improve mobility—perfect for BJJ athletes looking to stay resilient during intense training sessions and recover faster.",
+     "indication": "Recommended for BJJ and martial arts athletes experiencing joint discomfort, stiffness, or inflammation, as well as active individuals recovering from joint injuries or seeking to maintain long-term joint health during high-impact training."},
+    {"name": "L-Theanine",
+     "description": "L-Theanine is a naturally occurring amino acid found in green and black tea leaves. It promotes relaxation without causing drowsiness, making it ideal for stress relief and mental focus. Known for its calming effects, it may also enhance cognitive performance, reduce anxiety, and improve sleep quality.",
+     "indication": "Recommended for individuals seeking to reduce stress, enhance focus, or improve sleep patterns. It is particularly useful for managing everyday anxiety and promoting a sense of calm while maintaining alertness."},
     {"name": "Magnesium",
      "description": "An essential mineral that supports muscle function, energy production, nerve health, and sleep quality.",
      "indication": "Stress depletes magnesium levels, impairing relaxation, sleep, and muscle function. Magnesium helps regulate the nervous system, reduce cortisol, and promote a calm, balanced mood."},
