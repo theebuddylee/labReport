@@ -5,3 +5,4 @@ Pillow
 pytz
 PyGithub
 requests
+base64
