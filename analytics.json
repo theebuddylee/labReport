@@ -4458,5 +4458,44 @@
             }
         ],
         "timestamp": "2025-01-22T17:28:12.925133"
+    },
+    {
+        "member_name": "Test Update",
+        "manager": "Buddy",
+        "membership": [
+            "Men's TRT & Weight Loss Membership"
+        ],
+        "tests": [
+            {
+                "name": "Male Follow-Up Panel",
+                "description": "Track your progress and ensure your treatment is delivering optimal results in strength, performance, hormone, and weight management.",
+                "indication": "Free and Total Testosterone, Estradiol, Testosterone, PSA, CBC, Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Ezetimibe",
+                "description": "Ezetimibe is a cholesterol-lowering medication that significantly reduces LDL-C while boosting HDL-C, offering additional protective benefits for heart health, non-alcoholic fatty liver disease, and stroke prevention. It also helps lower inflammation by reducing CRP levels, supporting overall cardiovascular wellness.",
+                "indication": "Lowers bad cholesterol (LDL-C), raises good cholesterol (HDL-C), and supports heart and liver health while reducing inflammation."
+            },
+            {
+                "name": "Vasoactive Intestinal Peptide",
+                "description": "Vasoactive Intestinal Peptide (VIP) is a powerful neuropeptide that plays a key role in regulating inflammation, immune response, and vascular health. VIP therapy is commonly used to support optimal lung function, improve circulation, and enhance cognitive performance. It may also benefit individuals with chronic inflammatory conditions by helping to restore balance and improve overall well-being.",
+                "indication": "Whether you're seeking support for immune regulation or optimizing recovery, VIP therapy offers a targeted approach to help you feel your best."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Berberine",
+                "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
+                "indication": "Nature\u2019s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."
+            },
+            {
+                "name": "Cholesterol Complete",
+                "description": "Cholesterol Complete by Biospec Nutritionals features a blend of red yeast rice, guggulipid, hawthorn, and policosanol to support healthy cholesterol levels. This comprehensive formula leverages traditional heart-healthy ingredients to promote favorable blood lipid profiles.",
+                "indication": "Ideal for individuals looking to manage cholesterol levels and maintain cardiovascular health through a natural, evidence-based approach."
+            }
+        ],
+        "timestamp": "2025-01-23T08:39:24.157404"
     }
 ]
