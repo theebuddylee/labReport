@@ -4633,5 +4633,37 @@
             }
         ],
         "timestamp": "2025-01-27T19:35:51.481195"
+    },
+    {
+        "member_name": "Kristen Hessenauer",
+        "manager": "Justin",
+        "membership": [
+            "Coaching Partnership"
+        ],
+        "tests": [],
+        "medications": [
+            {
+                "name": "liothyronine",
+                "description": "Liothyronine, commonly known as T3, is a synthetic form of the active thyroid hormone triiodothyronine. It is used to treat hypothyroidism (an underactive thyroid) and certain cases of thyroid hormone resistance",
+                "indication": "Liothyronine is indicated for the treatment of hypothyroidism and related thyroid conditions when there is a deficiency or imbalance in thyroid hormone production, particularly triiodothyronine (T3). It is also used in specific diagnostic and therapeutic situations"
+            },
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Progesterone",
+                "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being.",
+                "indication": "Progesterone therapy helps regulate cycles, reduce stress, and promote optimal hormonal health."
+            },
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2025-01-28T21:21:47.659964"
     }
 ]
