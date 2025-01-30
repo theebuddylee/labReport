@@ -4837,5 +4837,79 @@
             }
         ],
         "timestamp": "2025-01-30T16:28:07.530001"
+    },
+    {
+        "member_name": "Melanie Rowley",
+        "manager": "Allison",
+        "membership": [
+            "Women's Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Female Hormone Treatment Follow-up Panel",
+                "description": "FSH & LH\nHemoglobin A1c\nCBC with Differential/Platelet\nProgesterone\nTestosterone\nEstradiol\nProlactin\nTSH\nComprehensive Metabolic Panel (14)\nSex Hormone Binding Globulin\nLipid Panel",
+                "indication": "This lab panel is designed to monitor key hormone and metabolic markers critical to female health. It provides insights into reproductive hormones, metabolic function, and overall health optimization."
+            },
+            {
+                "name": "GI-MAP\u00ae + Zonulin",
+                "description": "The GI-MAP\u00ae (Gastrointestinal Microbial Assay Plus) + Zonulin test is a comprehensive stool analysis designed to provide detailed insights into your gut health. It evaluates the presence of key bacteria, viruses, parasites, and fungi in your gastrointestinal system while also measuring levels of zonulin, a marker for intestinal permeability ('leaky gut').",
+                "indication": "This advanced test helps uncover imbalances, inflammation, and disruptions in gut function that may contribute to digestive issues, immune challenges, and systemic health concerns. Ideal for individuals seeking personalized guidance for optimizing gut health and overall wellness."
+            }
+        ],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Estrogen Replacement",
+                "description": "Estrogen Therapies offer a tailored approach to supporting hormonal balance, enhancing vitality, and improving overall well-being.",
+                "indication": "Estrogen therapy helps alleviate symptoms of hormonal imbalances and promotes optimal health for a better quality of life."
+            },
+            {
+                "name": "Ezetimibe",
+                "description": "Ezetimibe is a cholesterol-lowering medication that significantly reduces LDL-C while boosting HDL-C, offering additional protective benefits for heart health, non-alcoholic fatty liver disease, and stroke prevention. It also helps lower inflammation by reducing CRP levels, supporting overall cardiovascular wellness.",
+                "indication": "Lowers bad cholesterol (LDL-C), raises good cholesterol (HDL-C), and supports heart and liver health while reducing inflammation."
+            },
+            {
+                "name": "Levothyroxin",
+                "description": "A synthetic form of thyroid hormone used to treat hypothyroidism. It helps restore proper metabolism, energy levels, and overall thyroid function.",
+                "indication": "Boost energy, metabolism, and overall wellness with Levothyroxine\u2014the gold standard in thyroid hormone replacement therapy."
+            },
+            {
+                "name": "Progesterone",
+                "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being.",
+                "indication": "Progesterone therapy helps regulate cycles, reduce stress, and promote optimal hormonal health."
+            },
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            },
+            {
+                "name": "Vasoactive Intestinal Peptide",
+                "description": "Vasoactive Intestinal Peptide (VIP) is a powerful neuropeptide that plays a key role in regulating inflammation, immune response, and vascular health. VIP therapy is commonly used to support optimal lung function, improve circulation, and enhance cognitive performance. It may also benefit individuals with chronic inflammatory conditions by helping to restore balance and improve overall well-being.",
+                "indication": "Whether you're seeking support for immune regulation or optimizing recovery, VIP therapy offers a targeted approach to help you feel your best."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Aged Garlic Extract Formula",
+                "description": "Kyolic Aged Garlic Extract Formula 104 supports cardiovascular health by helping to maintain healthy cholesterol levels and overall heart function. This formula combines aged garlic extract with naturally sourced lecithin for a potent, odorless supplement designed for daily wellness.",
+                "indication": "Supports healthy cholesterol levels and promotes overall heart health with the power of aged garlic extract and lecithin."
+            },
+            {
+                "name": "Berberine",
+                "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
+                "indication": "Nature\u2019s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."
+            },
+            {
+                "name": "Selenium",
+                "description": "Selenium is an antioxidant that protects normal cell function and supports the immune system. It helps maintain healthy cellular function and immune response, while also promoting healthy blood flow. This essential nutrient is made with hypoallergenic, vegan ingredients, making it a suitable choice for individuals with dietary restrictions.",
+                "indication": "Selenium is indicated for individuals seeking to support healthy immune function, protect normal cell activity from oxidative stress, and promote overall cardiovascular and cellular health."
+            }
+        ],
+        "timestamp": "2025-01-30T18:26:39.695387"
     }
 ]
