@@ -331,7 +331,7 @@ supplements = [
      "description": "Psyllium Husk is a natural, soluble fiber supplement that promotes healthy digestion, regularity, and supports heart health by helping to maintain healthy cholesterol levels.",
      "indication": "Promotes digestive health and regularity while supporting heart health with gentle, natural fiber."},
     {"name": "Selenium",
-     "description": "Selenium is an antioxidant that protects normal cell function and supports the immune system. It helps maintain healthy cellular function and immune response, while also promoting healthy blood flow. This essential nutrient is made with hypoallergenic, vegan ingredients, making it a suitable choice for individuals with dietary restrictions.",
+     "description": " Selenium is essential for thyroid function as it helps convert inactive thyroid hormone (T4) into its active form (T3) and protects the thyroid gland from oxidative damage through its role in antioxidant enzymes like glutathione peroxidase. A deficiency in selenium can impair thyroid hormone metabolism and increase the risk of thyroid disorders, including hypothyroidism and Hashimoto’s thyroiditis.",
      "indication": "Selenium is indicated for individuals seeking to support healthy immune function, protect normal cell activity from oxidative stress, and promote overall cardiovascular and cellular health."},
     {"name": "Thyroid Support Bundle",
      "description": "A comprehensive supplement package designed to support thyroid function.",
