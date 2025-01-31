@@ -5112,5 +5112,35 @@
         ],
         "supplements": [],
         "timestamp": "2025-01-31T15:48:54.532298"
+    },
+    {
+        "member_name": "Test Update",
+        "manager": "Buddy",
+        "membership": [
+            "Men's Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Male Enhanced Hormone Panel",
+                "shopify_url": "",
+                "description": "A specialized panel designed for men seeking an advanced hormone assessment, including additional markers for enhanced optimization of health and performance.",
+                "indication": "EDIT: Measures Total & Free Testosterone, Estradiol, SHBG, Prolactin, DHEA-S, Cortisol, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, CBC, Metabolic Panel, HbA1c, Fasting Insulin, and Vitamin D."
+            },
+            {
+                "name": "Male Hormone Treatment Follow-Up Panel",
+                "shopify_url": "https://www.1stoptimal.shop/products/male-follow-up-panel",
+                "description": "A targeted follow-up panel designed for men undergoing hormone therapy, tracking key changes in testosterone and overall health.",
+                "indication": "Measures Free & Total Testosterone, Estradiol, PSA, CBC, and Metabolic Panel."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Omnitrope",
+                "description": "Omnitrope (somatropin) is a growth hormone therapy designed to support metabolism, muscle growth, skin and nail health, and weight management. It mimics the natural human growth hormone (HGH) to help maintain body structure and optimize metabolic function.",
+                "indication": "Omnitrope is for adults with growth hormone deficiency (GHD) to support muscle development, fat metabolism, and overall well-being. It works alongside IGF-1 to promote healthy tissue growth and recovery."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2025-01-31T15:55:14.027085"
     }
 ]
