@@ -5142,5 +5142,32 @@
         ],
         "supplements": [],
         "timestamp": "2025-01-31T15:55:14.027085"
+    },
+    {
+        "member_name": "Christina Fagundes",
+        "manager": "Justin",
+        "membership": [
+            "Coaching Partnership"
+        ],
+        "tests": [],
+        "medications": [
+            {
+                "name": "BPC-157",
+                "description": "1st Optimal\u2019s BPC-157 Therapy offers cutting-edge treatment designed to support healing, recovery, and overall wellness.",
+                "indication": "BPC-157 therapy promotes tissue repair, reduces inflammation, and enhances recovery from injuries or physical strain."
+            },
+            {
+                "name": "Progesterone",
+                "description": "Progesterone Therapy provides a personalized solution to support hormonal balance, improve mood, and enhance overall well-being.",
+                "indication": "Progesterone therapy helps regulate cycles, reduce stress, and promote optimal hormonal health."
+            },
+            {
+                "name": "Vasoactive Intestinal Peptide",
+                "description": "Vasoactive Intestinal Peptide (VIP) is a powerful neuropeptide that plays a key role in regulating inflammation, immune response, and vascular health. VIP therapy is commonly used to support optimal lung function, improve circulation, and enhance cognitive performance. It may also benefit individuals with chronic inflammatory conditions by helping to restore balance and improve overall well-being.",
+                "indication": "Whether you're seeking support for immune regulation or optimizing recovery, VIP therapy offers a targeted approach to help you feel your best."
+            }
+        ],
+        "supplements": [],
+        "timestamp": "2025-02-01T16:03:04.576310"
     }
 ]
