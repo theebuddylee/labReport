@@ -12,28 +12,27 @@ import streamlit_authenticator as stauth
 import pandas as pd
 import base64
 
-# Brand color styles
-st.markdown(
-    """
-    <style>
-        h1 {
-            color: #06B6D4;
-        }
-        .subheader {
-            color: #737373;
-        }
-        .light-bg {
-            background-color: #EBEBEB;
-            padding: 10px;
-            border-radius: 5px;
-        .stMultiSelect option:hover {
-            background-color: #06B6D4;
-            color: #fff;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+# Branding Guidelines and css
+PRIMARY_COLOR = "#06B6D4"  # Main accent color
+SECONDARY_COLOR = "#737373"  # Subheading / body text color
+BACKGROUND_COLOR = "#EBEBEB"  # Light background
+
+# Function to load external CSS file
+def load_css_from_github(raw_css_url):
+    try:
+        response = requests.get(raw_css_url)
+        if response.status_code == 200:
+            st.markdown(f"<style>{response.text}</style>", unsafe_allow_html=True)
+        else:
+            st.error("Failed to load external CSS.")
+    except Exception as e:
+        st.error(f"Error loading CSS: {e}")
+
+# GitHub Raw URL for the styles.css file
+GITHUB_CSS_URL = "https://raw.githubusercontent.com/theebuddylee/HealthReport/main/styles.css"
+
+# Apply the external CSS
+load_css_from_github(GITHUB_CSS_URL)
 
 #Control Session State variables
 if "current_plan_tests" not in st.session_state:
@@ -354,18 +353,76 @@ final_tests = add_custom_entry("Tests", diagnostic_tests, "current_plan_tests")
 final_medications = add_custom_entry("Medications", medications, "current_plan_medications")
 final_supplements = add_custom_entry("Supplements", supplements, "current_plan_supplements")
 
-# Comparison table for selected tests
+# Optimized Side-by-Side Cards Layout with Branding Styles
+optimized_card_layout = f"""
+<style>
+    .test-card {{
+        border: 2px solid {PRIMARY_COLOR};
+        padding: 15px;
+        border-radius: 12px;
+        background-color: {BACKGROUND_COLOR};
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        margin-bottom: 15px;
+    }}
+    .test-card h4 {{
+        text-align: center;
+        margin-bottom: 8px;
+        font-size: 18px;
+        color: {PRIMARY_COLOR};
+    }}
+    .test-card a {{
+        text-decoration: none;
+        font-weight: bold;
+        color: {PRIMARY_COLOR};
+    }}
+    .test-card details {{
+        margin-top: 5px;
+        font-size: 14px;
+    }}
+    .test-card summary {{
+        font-weight: bold;
+        cursor: pointer;
+        color: {SECONDARY_COLOR};
+    }}
+    .test-card p {{
+        font-size: 13px;
+        color: {SECONDARY_COLOR};
+    }}
+</style>
+"""
+#Comparison table for selected tests
 if final_tests:
     st.markdown("### Compare Selected Tests")
 
-    cols = st.columns(len(final_tests))  # Create columns dynamically
+    # Insert CSS styles
+    st.markdown(optimized_card_layout, unsafe_allow_html=True)
 
-    for col, test in zip(cols, final_tests):
-        with col:
-            st.markdown(f"### [{test['name']}]({test['shopify_url']})", unsafe_allow_html=True)
-            st.write(f"**Description:** {test.get('description', 'N/A')}")
-            st.write(f"**Indication:** {test.get('indication', 'N/A')}")
+    num_columns = min(len(final_tests), 3)  # Max 3 columns per row
+    rows = [final_tests[i : i + num_columns] for i in range(0, len(final_tests), num_columns)]
 
+    for row in rows:
+        cols = st.columns(len(row))
+
+        for col, test in zip(cols, row):
+            with col:
+                st.markdown(
+                    f"""
+                    <div class="test-card">
+                        <h4>
+                            <a href="{test['shopify_url']}" target="_blank">{test['name']}</a>
+                        </h4>
+                        <details open>
+                            <summary>Description</summary>
+                            <p>{test.get('description', 'N/A')}</p>
+                        </details>
+                        <details open>
+                            <summary>Indication</summary>
+                            <p>{test.get('indication', 'N/A')}</p>
+                        </details>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 # Debugging
 #st.write("DEBUG: Final Tests:", final_tests)
 #st.write("DEBUG: Final Medications:", final_medications)
