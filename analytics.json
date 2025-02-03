@@ -5169,5 +5169,41 @@
         ],
         "supplements": [],
         "timestamp": "2025-02-01T16:03:04.576310"
+    },
+    {
+        "member_name": "Test ",
+        "manager": "Buddy",
+        "membership": [
+            "Men's Hormone Care Membership"
+        ],
+        "tests": [
+            {
+                "name": "Male Basic Hormone Health Panel",
+                "shopify_url": "https://www.1stoptimal.shop/products/male-basic-hormone-health-panel",
+                "description": "A baseline assessment of essential male hormones to detect imbalances affecting energy, performance, and health.",
+                "indication": "Includes Total Testosterone, Free Testosterone, Estradiol, SHBG, Prolactin, LH, FSH, PSA, Lipid Panel, HbA1c, CBC, and Metabolic Panel."
+            },
+            {
+                "name": "Men's Weight Loss Follow-up Lab Panel",
+                "shopify_url": "",
+                "description": "A comprehensive follow-up lab test designed for men tracking progress in a weight loss program, ensuring metabolic and hormonal balance.",
+                "indication": "EDIT: Includes CBC, Comprehensive Metabolic Panel, Hemoglobin A1c, Testosterone, Insulin, Lipid Panel, and Thyroid Panel with TSH."
+            }
+        ],
+        "medications": [
+            {
+                "name": "Testosterone Injectable",
+                "description": "An injectable form of testosterone replacement therapy that delivers consistent hormone levels.",
+                "indication": "A powerful, direct approach to optimizing testosterone for peak strength, vitality, and a leaner physique."
+            }
+        ],
+        "supplements": [
+            {
+                "name": "Berberine",
+                "description": "A natural compound derived from plants that supports blood sugar regulation and metabolic health.",
+                "indication": "Nature\u2019s powerful metabolic optimizer. Known for its ability to support healthy blood sugar levels, improve insulin sensitivity, and promote fat metabolism."
+            }
+        ],
+        "timestamp": "2025-02-03T09:06:32.858172"
     }
 ]
