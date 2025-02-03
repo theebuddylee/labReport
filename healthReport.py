@@ -354,20 +354,17 @@ final_tests = add_custom_entry("Tests", diagnostic_tests, "current_plan_tests")
 final_medications = add_custom_entry("Medications", medications, "current_plan_medications")
 final_supplements = add_custom_entry("Supplements", supplements, "current_plan_supplements")
 
-# 🔹 NEW: Add comparison table for selected tests
+# Comparison table for selected tests
 if final_tests:
     st.markdown("### Compare Selected Tests")
-    compare_df = pd.DataFrame([
-        {
-            "Test Name": f"[{test['name']}]({test['shopify_url']})",
-            "Description": test.get("description", "N/A"),
-            "Indication": test.get("indication", "N/A")
-        }
-        for test in final_tests if "shopify_url" in test
-    ])
 
-    # Display comparison table
-    st.dataframe(compare_df, height=400)
+    cols = st.columns(len(final_tests))  # Create columns dynamically
+
+    for col, test in zip(cols, final_tests):
+        with col:
+            st.markdown(f"### [{test['name']}]({test['shopify_url']})", unsafe_allow_html=True)
+            st.write(f"**Description:** {test.get('description', 'N/A')}")
+            st.write(f"**Indication:** {test.get('indication', 'N/A')}")
 
 # Debugging
 #st.write("DEBUG: Final Tests:", final_tests)
