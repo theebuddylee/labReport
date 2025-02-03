@@ -1,48 +1,48 @@
 [
     {
-        "name": "Male Testosterone Therapy Starter Kit",
+        "name": "Men's Testosterone Therapy Starter Kit",
         "shopify_url": "https://mylabsdirect.com/product/advanced-testosterone-test-kit/#measures",
         "description": "A comprehensive at-home testosterone testing kit designed to assess key male hormone levels, enabling optimization of strength, energy, and performance.",
         "indication": "Measures SHBG, Free Testosterone, Total PSA, Total Testosterone, and Estradiol."
     },
     {
-        "name": "Male Basic Hormone Health Panel",
+        "name": "Men's Basic Hormone Health Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/male-basic-hormone-health-panel",
         "description": "A baseline assessment of essential male hormones to detect imbalances affecting energy, performance, and health.",
         "indication": "Includes Total Testosterone, Free Testosterone, Estradiol, SHBG, Prolactin, LH, FSH, PSA, Lipid Panel, HbA1c, CBC, and Metabolic Panel."
     },
     {
-        "name": "Male Hormone Health Panel",
+        "name": "Men's Hormone Health Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/male-hormone-health-panel",
         "description": "A mid-level hormone panel for men seeking deeper insights into testosterone function, recovery, weight management, and overall vitality.",
         "indication": "Includes Total Testosterone, Free Testosterone, Estradiol, SHBG, Prolactin, LH, FSH, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, HbA1c, CBC, Metabolic Panel, Fasting Insulin, and Vitamin D."
     },
     {
-        "name": "Male Comprehensive Hormone Panel",
+        "name": "Men's Comprehensive Hormone Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/male-comprehensive-hormone-panel",
         "description": "An advanced panel assessing a wide range of male hormones and biomarkers, ensuring peak performance, recovery, and metabolic balance.",
         "indication": "Includes Total & Free Testosterone (LC/MS), Estradiol (LC/MS), SHBG, Prolactin, Cortisol, Progesterone, LH, FSH, DHEA-S, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, ApoB, Lipoprotein (a), Ferritin, HbA1c, CBC, Metabolic Panel, Fasting Insulin, GGT, Vitamin D, Iron Panel, and hsCRP."
     },
     {
-        "name": "Male Enhanced Hormone Panel",
+        "name": "Men's Enhanced Hormone Panel",
         "shopify_url": "",
         "description": "A specialized panel designed for men seeking an advanced hormone assessment, including additional markers for enhanced optimization of health and performance.",
         "indication": "EDIT: Measures Total & Free Testosterone, Estradiol, SHBG, Prolactin, DHEA-S, Cortisol, PSA, TSH, Free T3, Free T4, IGF-1, Lipid Panel, CBC, Metabolic Panel, HbA1c, Fasting Insulin, and Vitamin D."
     },
     {
-        "name": "Female Basic Hormone Health Panel",
+        "name": "Women's Basic Hormone Health Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/female-hormone-basic-health-panel",
         "description": "A fundamental assessment of female hormones to identify imbalances impacting energy, performance, and reproductive health.",
         "indication": "Includes Total Testosterone, Estradiol, SHBG, DHEA-S, Progesterone, LH, FSH, TSH, Lipid Panel, CBC, Metabolic Panel, and HbA1c."
     },
     {
-        "name": "Female Hormone Health Panel",
+        "name": "Women's Hormone Health Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/female-hormone-health-panel",
         "description": "A deeper analysis of female hormone levels, crucial for monitoring fertility, PMS, irregular cycles, and metabolic function.",
         "indication": "Includes Total Testosterone, Free Testosterone, Estradiol, SHBG, DHEA-S, Progesterone, LH, FSH, TSH, Free T3, Free T4, IGF-1, Lipid Panel, Ferritin, Iron, CBC, Metabolic Panel, HbA1c, Fasting Insulin, Vitamin D, and GGT."
     },
     {
-        "name": "Female Comprehensive Hormone Health Panel",
+        "name": "Women's Comprehensive Hormone Health Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/female-comprehensive-hormone-panel",
         "description": "An extensive hormone panel covering key markers affecting female energy, mood, reproductive health, and metabolic function.",
         "indication": "Includes Total & Free Testosterone (LC/MS), Estradiol (LC/MS), SHBG, Progesterone, Prolactin, Cortisol, LH, FSH, DHEA-S, TSH, Free T3, Free T4, IGF-1, Lipid Panel, ApoB, Lipoprotein (a), Ferritin, HbA1c, CBC, Metabolic Panel, Fasting Insulin, GGT, Vitamin D, Iron Panel, and hsCRP."
@@ -60,13 +60,13 @@
         "indication": "Provides actionable insights into gut health for individuals experiencing digestive discomfort, immune challenges, or systemic inflammation."
     },
     {
-        "name": "Male Hormone Treatment Follow-Up Panel",
+        "name": "Men's Hormone Treatment Follow-Up Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/male-follow-up-panel",
         "description": "A targeted follow-up panel designed for men undergoing hormone therapy, tracking key changes in testosterone and overall health.",
         "indication": "Measures Free & Total Testosterone, Estradiol, PSA, CBC, and Metabolic Panel."
     },
     {
-        "name": "Female Hormone Treatment Follow-up Panel",
+        "name": "Women's Hormone Treatment Follow-up Panel",
         "shopify_url": "https://www.1stoptimal.shop/products/female-follow-up-panel",
         "description": "A follow-up hormone panel for women monitoring treatment progress and adjusting therapy as needed.",
         "indication": "Includes FSH, LH, HbA1c, CBC, Progesterone, Testosterone, Estradiol, Prolactin, TSH, SHBG, and Lipid Panel."
