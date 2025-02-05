@@ -16,8 +16,8 @@
         },
         "Estradiol": {
             "description": "A type of estrogen that plays a role in reproductive health and bone strength.",
-            "clinical_range": "0-30",
-            "optimal_range": "10.0-30.0",
+            "clinical_range": "7.6 - 42.6",
+            "optimal_range": "7.6 - 55.0",
             "units": "pg/mL",
             "panel": "Hormonal Panel"
         },
@@ -30,36 +30,40 @@
         },
         "Prolactin": {
             "description": "A hormone involved in milk production and hormone balance.",
-            "clinical_range": "3.6-25.2",
-            "optimal_range": "3.6-15",
+            "clinical_range": "3.6 - 31.5",
+            "optimal_range": "3.6 - 12.0",
             "units": "ng/mL",
             "panel": "Hormonal Panel"
         },
         "Luteinizing Hormone (LH)": {
             "description": "A hormone that signals the testes or ovaries to produce testosterone or estrogen.",
-            "clinical_range": "15-65",
-            "optimal_range": "15-65",
+            "clinical_range": "1.7 - 8.6",
+            "optimal_range": "1.7 - 6.0",
             "units": "mIU/mL",
             "panel": "Hormonal Panel"
         },
         "Follicle-Stimulating Hormone (FSH)": {
             "description": "A hormone that helps with sperm production in men.",
-            "clinical_range": "25-135",
-            "optimal_range": "25-135",
+            "clinical_range": "1.5 - 12.4",
+            "optimal_range": "1.5 - 12.4",
             "units": "mIU/mL",
             "panel": "Hormonal Panel"
         },
         "Dehydroepiandrosterone Sulfate (DHEA-S)": {
             "description": "A hormone that helps make other hormones like testosterone and estrogen.",
-            "clinical_range": "41.2-243",
-            "optimal_range": "175-241",
+            "clinical_range": "102.6 - 416.3",
+            "optimal_range": "300.0 - 500.0",
             "units": "ug/dl",
             "panel": "Hormonal Panel"
         },
         "Prostate Specific Antigen (PSA)": {
-            "description": "A protein made by the prostate gland, used to check prostate health.",
-            "clinical_range": "0-4.0",
-            "optimal_range": ".9-2.0",
+            "description": "A protein made by the prostate gland, used to check prostate health. If PSA is elevated but not drastically high, consider these non-cancerous causes: Recent ejaculation (PSA can rise for up to 48 hours after), Vigorous exercise or cycling (can increase PSA for 24-48 hours), Prostate infections or inflammation (prostatitis), Benign Prostatic Hyperplasia (BPH) – common with aging, Urinary tract infections (UTIs), Recent digital rectal exam (DRE) or prostate biopsy. PSA naturally increases with age, so age-specific reference ranges can be useful:
+                            40–49 years: 0–2.5 ng/mL
+                            50–59 years: 0–3.5 ng/mL
+                            60–69 years: 0–4.5 ng/mL
+                            70+ years: 0–6.5 ng/mL.",
+            "clinical_range": "0.0 - 4.0",
+            "optimal_range": "0.6 - 2.0",
             "units": "ng/ml",
             "panel": "Hormonal Panel"
         },
