@@ -65,50 +65,57 @@
         },
         "TSH": {
             "description": "A hormone that controls how fast the thyroid works to regulate metabolism.",
-            "clinical_range": "0.45-4.5",
-            "optimal_range": "1.0-2.0",
-            "units": "\u00b5IU/mL",
+            "clinical_range": "0.45 - 4.5",
+            "optimal_range": "1.0 - 2.0",
+            "units": "µIU/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Free T3": {
             "description": "An active thyroid hormone that controls energy use in the body.",
-            "clinical_range": "2.0-4.4",
-            "optimal_range": "3.2-4.2",
+            "clinical_range": "2.0 - 4.4",
+            "optimal_range": "3.5 - 4.8",
             "units": "pg/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Free T4": {
             "description": "A thyroid hormone that helps control metabolism and energy levels.",
-            "clinical_range": "0.82-1.77",
-            "optimal_range": "0.82-1.77",
+            "clinical_range": "0.82 - 1.77",
+            "optimal_range": "0.82 - 1.77",
             "units": "ng/dL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Insulin-Like Growth Factor I (IGF-1)": {
             "description": "A hormone that helps with growth, muscle building, and metabolism.",
-            "clinical_range": "125-300",
-            "optimal_range": "200-300",
+            "clinical_range": "125 - 300",
+            "optimal_range": "250 - 400",
             "units": "ng/ml",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "HbA1c": {
             "description": "A measure of blood sugar levels over the past three months.",
-            "clinical_range": "4.8-5.6",
-            "optimal_range": "4.8-5.3",
+            "clinical_range": "4.8 - 5.6",
+            "optimal_range": "4.8 - 5.2",
             "units": "%",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Fasting Insulin": {
             "description": "A hormone that controls blood sugar levels, measured after fasting.",
-            "clinical_range": "2.6-24.9",
-            "optimal_range": "2.6-8.0",
+            "clinical_range": "2.6 - 24.9",
+            "optimal_range": "2.6 - 10.0",
             "units": "uIU/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Vitamin D (25-OH)": {
             "description": "A vitamin that helps with bone strength and immune health.",
-            "clinical_range": "30-100",
-            "optimal_range": "60-80",
+            "clinical_range": "30 - 100",
+            "optimal_range": "60 - 80",
+            "units": "ng/mL",
+            "panel": "Thyroid, Growth Factors & Glucose"
+        },
+        "γ-Glutamyl Transferase (GGT)": {
+            "description": "GGT is an enzyme primarily found in the liver that plays a crucial role in detoxification, oxidative stress regulation, and bile production. It helps break down and transport glutathione, a key antioxidant that protects cells from damage.",
+            "clinical_range": "9 - 48",
+            "optimal_range": "9 - 25",
             "units": "ng/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
