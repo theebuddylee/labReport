@@ -121,128 +121,128 @@
         },
         "Glucose": {
             "description": "A sugar in the blood that provides energy.",
-            "clinical_range": "70-99",
-            "optimal_range": "70-85",
+            "clinical_range": "70 - 99",
+            "optimal_range": "70 - 85",
             "units": "mg/dL",
             "panel": "Metabolic Panel"
         },
         "Calcium": {
             "description": "A mineral important for strong bones and nerve function.",
-            "clinical_range": "8.5-10.5",
-            "optimal_range": "8.5-10.5",
+            "clinical_range": "8.5 - 10.5",
+            "optimal_range": "8.5 - 10.5",
             "units": "mg/dL",
             "panel": "Metabolic Panel"
         },
         "Sodium": {
             "description": "A mineral that helps regulate water balance and nerve function.",
-            "clinical_range": "135-145",
-            "optimal_range": "135-145",
+            "clinical_range": "135 - 145",
+            "optimal_range": "135 - 145",
             "units": "mmol/L",
             "panel": "Metabolic Panel"
         },
         "Potassium": {
             "description": "A mineral that helps with muscle function and heart health.",
-            "clinical_range": "3.5-135.0",
-            "optimal_range": "3.5-5.0",
+            "clinical_range": "3.5 - 5.0",
+            "optimal_range": "3.5 - 5.0",
             "units": "mmol/L",
             "panel": "Metabolic Panel"
         },
         "Chloride": {
             "description": "A mineral that helps keep the body's acid-base balance.",
-            "clinical_range": "98-107",
-            "optimal_range": "98-107",
+            "clinical_range": "98 - 107",
+            "optimal_range": "98 - 107",
             "units": "mmol/L",
             "panel": "Metabolic Panel"
         },
-        "Carbon Dioxide (CO\u2082), Total": {
+        "Carbon Dioxide (CO₂), Total": {
             "description": "A measure of the body's acid-base balance.",
-            "clinical_range": "22-29",
-            "optimal_range": "22-29",
+            "clinical_range": "22 - 29",
+            "optimal_range": "22 - 29",
             "units": "mmol/L",
             "panel": "Metabolic Panel"
         },
         "Blood Urea Nitrogen (BUN)": {
             "description": "A waste product in the blood that checks kidney function.",
-            "clinical_range": "7-20",
-            "optimal_range": "7-20",
+            "clinical_range": "7 - 20",
+            "optimal_range": "7 - 20",
             "units": "mg/dL",
             "panel": "Metabolic Panel"
         },
         "Creatinine": {
             "description": "A waste product from muscles that helps check kidney function.",
-            "clinical_range": "0.6-1.3",
-            "optimal_range": "0.6-1.3",
+            "clinical_range": "0.6 - 1.3",
+            "optimal_range": "0.6 - 1.3",
             "units": "mg/dL",
             "panel": "Metabolic Panel"
         },
         "BUN/Creatinine Ratio": {
             "description": "A comparison of kidney function markers.",
-            "clinical_range": "10:1 to 20:1",
-            "optimal_range": "10:1-20:1",
-            "units": "Ratio",
+            "clinical_range": "10 - 20",
+            "optimal_range": "10 - 20",
+            "units": ":1 (Ratio)",
             "panel": "Metabolic Panel"
         },
         "Total Protein": {
             "description": "A measure of the total proteins in the blood, important for body functions.",
-            "clinical_range": "6.0-8.3",
-            "optimal_range": "6.0-8.3",
+            "clinical_range": "6.0 - 8.3",
+            "optimal_range": "6.0 - 8.3",
             "units": "g/dL",
             "panel": "Metabolic Panel"
         },
         "Albumin": {
             "description": "A protein that helps keep fluids balanced in the blood.",
-            "clinical_range": "3.5-5.0",
-            "optimal_range": "3.5-5.0",
+            "clinical_range": "3.5 - 5.0",
+            "optimal_range": "3.5 - 5.0",
             "units": "g/dL",
             "panel": "Metabolic Panel"
         },
         "Globulin, Total": {
             "description": "A group of proteins that help with immune function.",
-            "clinical_range": "2.0-3.5",
-            "optimal_range": "2.0-3.5",
+            "clinical_range": "2.0 - 3.5",
+            "optimal_range": "2.0 - 3.5",
             "units": "g/dL",
             "panel": "Metabolic Panel"
         },
         "Albumin/Globulin (A/G) Ratio": {
             "description": "A balance of two important blood proteins.",
-            "clinical_range": "1.0-2.5",
-            "optimal_range": "1.0-2.5",
-            "units": "None",
+            "clinical_range": "1.0 - 2.5",
+            "optimal_range": "1.0 - 2.5",
+            "units": "Ratio",
             "panel": "Metabolic Panel"
         },
         "Total Bilirubin": {
             "description": "A substance made when red blood cells break down, used to check liver function.",
-            "clinical_range": "0.1-1.2",
-            "optimal_range": "0.1-1.2",
+            "clinical_range": "0.1 - 1.2",
+            "optimal_range": "0.1 - 1.2",
             "units": "mg/dL",
             "panel": "Metabolic Panel"
         },
         "Alkaline Phosphatase": {
             "description": "An enzyme that checks liver and bone health.",
-            "clinical_range": "44-147",
-            "optimal_range": "44-147",
+            "clinical_range": "44 - 147",
+            "optimal_range": "44 - 147",
             "units": "IU/L",
             "panel": "Metabolic Panel"
         },
         "Aspartate Aminotransferase (AST)": {
-            "description": "A liver enzyme used to check liver health.",
-            "clinical_range": "10-40",
-            "optimal_range": "10-25",
+            "description": "A liver enzyme used to check liver health, elevated levels can come from liver or muscle damage.",
+            "clinical_range": "10 - 40",
+            "optimal_range": "10 - 25",
             "units": "IU/L",
             "panel": "Metabolic Panel"
         },
         "Alanine Aminotransferase (ALT)": {
             "description": "An enzyme that checks for liver damage.",
-            "clinical_range": "7-56",
-            "optimal_range": "7-26",
+            "clinical_range": "7 - 56",
+            "optimal_range": "7 - 26",
             "units": "IU/L",
             "panel": "Metabolic Panel"
         },
         "Estimated Glomerular Filtration Rate (eGFR)": {
-            "description": "A measure of kidney function.",
+            "description": "A measure of how well the kidneys are filtering waste from the blood.",
             "clinical_range": ">60",
-            "optimal_range": "<80",
-            "units": "mL/min/1.73 m\u00b2",
+            "optimal_range": ">80",
+            "units": "mL/min/1.73 m²",
             "panel": "Metabolic Panel"
         },
         "White Blood Cell (WBC) Count": {
