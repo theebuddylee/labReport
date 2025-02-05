@@ -247,106 +247,106 @@
         },
         "White Blood Cell (WBC) Count": {
             "description": "A count of immune cells that fight infections.",
-            "clinical_range": "4,500 to 11,000",
-            "optimal_range": "4,500 to 11,000",
-            "units": "cells/\u00b5L",
+            "clinical_range": "4,500 - 11,000",
+            "optimal_range": "4,500 - 11,000",
+            "units": "cells/µL",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Red Blood Cell (RBC) Count": {
             "description": "A count of cells that carry oxygen.",
-            "clinical_range": "3.77-5.28",
-            "optimal_range": "4.8-5.1",
-            "units": "million cells/\u00b5L",
+            "clinical_range": "4.2 - 5.9",
+            "optimal_range": "4.9 - 5.9",
+            "units": "million cells/µL",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Hemoglobin (Hgb)": {
             "description": "A protein in red blood cells that carries oxygen.",
-            "clinical_range": "11.1-15.9",
-            "optimal_range": "11.1-15.9",
+            "clinical_range": "13.8 - 17.2",
+            "optimal_range": "13.8 - 17.2",
             "units": "g/dL",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Hematocrit (Hct)": {
             "description": "A measure of how much of the blood is made up of red blood cells.",
-            "clinical_range": "34.0-46.6",
-            "optimal_range": "34.0-46.6",
+            "clinical_range": "35.9 - 50.4",
+            "optimal_range": "41.5 - 50.4",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Mean Corpuscular Volume (MCV)": {
             "description": "A measure of the average size of red blood cells.",
-            "clinical_range": "79-97",
-            "optimal_range": "79-97",
+            "clinical_range": "80 - 100",
+            "optimal_range": "80 - 100",
             "units": "fL",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Mean Corpuscular Hemoglobin (MCH)": {
             "description": "The average amount of hemoglobin in red blood cells.",
-            "clinical_range": "26.6-33.0",
-            "optimal_range": "26.6-33.0",
+            "clinical_range": "27.0 - 32.0",
+            "optimal_range": "27.0 - 32.0",
             "units": "pg",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Mean Corpuscular Hemoglobin Concentration (MCHC)": {
             "description": "A measure of hemoglobin concentration in red blood cells.",
-            "clinical_range": "32% to 36%",
-            "optimal_range": "32% to 36%",
+            "clinical_range": "32 - 36",
+            "optimal_range": "32 - 36",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Red Cell Distribution Width (RDW)": {
             "description": "A measure of variation in red blood cell size.",
-            "clinical_range": "11% to 15%",
-            "optimal_range": "11% to 15%",
+            "clinical_range": "11 - 15",
+            "optimal_range": "11 - 15",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Platelet Count": {
             "description": "A measure of cells that help with blood clotting.",
-            "clinical_range": "150,000 to 400,000",
-            "optimal_range": "150,000 to 400,000",
-            "units": "cells/\u00b5L",
+            "clinical_range": "150,000 - 400,000",
+            "optimal_range": "180,000 - 350,000",
+            "units": "cells/µL",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Mean Platelet Volume (MPV)": {
             "description": "A measure of the average size of platelets.",
-            "clinical_range": "7.0 to 9.0",
-            "optimal_range": "7.0 to 9.0",
+            "clinical_range": "7.0 - 9.0",
+            "optimal_range": "7.0 - 9.0",
             "units": "fL",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Neutrophils": {
             "description": "A type of white blood cell that fights infections.",
-            "clinical_range": "50% to 70%",
-            "optimal_range": "50% to 70%",
+            "clinical_range": "50 - 70",
+            "optimal_range": "50 - 70",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Lymphocytes": {
             "description": "A type of white blood cell that helps with immune defense.",
-            "clinical_range": "18% to 42%",
-            "optimal_range": "18% to 42%",
+            "clinical_range": "18 - 42",
+            "optimal_range": "18 - 42",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Monocytes": {
             "description": "A type of white blood cell that helps fight infections.",
-            "clinical_range": "3.5% to 9.0%",
-            "optimal_range": "3.5% to 9.0%",
+            "clinical_range": "3.5 - 9.0",
+            "optimal_range": "3.5 - 9.0",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Eosinophils": {
             "description": "A type of white blood cell involved in allergic reactions.",
-            "clinical_range": "1% to 3%",
-            "optimal_range": "1% to 3%",
+            "clinical_range": "1.0 - 3.0",
+            "optimal_range": "1.0 - 2.8",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
         "Basophils": {
             "description": "A type of white blood cell involved in immune responses.",
-            "clinical_range": "0% to 2%",
-            "optimal_range": "0% to 2%",
+            "clinical_range": "0.0 - 2.0",
+            "optimal_range": "0.0 - 2.0",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
