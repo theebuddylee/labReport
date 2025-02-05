@@ -57,11 +57,7 @@
             "panel": "Hormonal Panel"
         },
         "Prostate Specific Antigen (PSA)": {
-            "description": "A protein made by the prostate gland, used to check prostate health. If PSA is elevated but not drastically high, consider these non-cancerous causes: Recent ejaculation (PSA can rise for up to 48 hours after), Vigorous exercise or cycling (can increase PSA for 24-48 hours), Prostate infections or inflammation (prostatitis), Benign Prostatic Hyperplasia (BPH) – common with aging, Urinary tract infections (UTIs), Recent digital rectal exam (DRE) or prostate biopsy. PSA naturally increases with age, so age-specific reference ranges can be useful:
-                            40–49 years: 0–2.5 ng/mL
-                            50–59 years: 0–3.5 ng/mL
-                            60–69 years: 0–4.5 ng/mL
-                            70+ years: 0–6.5 ng/mL.",
+            "description": "A protein made by the prostate gland, used to check prostate health. If PSA is elevated but not drastically high, consider these non-cancerous causes: Recent ejaculation (PSA can rise for up to 48 hours after), Vigorous exercise or cycling (can increase PSA for 24-48 hours), Prostate infections or inflammation (prostatitis), Benign Prostatic Hyperplasia (BPH) – common with aging, Urinary tract infections (UTIs), Recent digital rectal exam (DRE) or prostate biopsy. PSA naturally increases with age, so age-specific reference ranges can be useful: 40–49 years: 0–2.5 ng/mL, 50–59 years: 0–3.5 ng/mL, 60–69 years: 0–4.5 ng/mL, 70+ years: 0–6.5 ng/mL.",
             "clinical_range": "0.0 - 4.0",
             "optimal_range": "0.6 - 2.0",
             "units": "ng/ml",
