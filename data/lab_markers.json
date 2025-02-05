@@ -339,7 +339,7 @@
         "Eosinophils": {
             "description": "A type of white blood cell involved in allergic reactions.",
             "clinical_range": "1.0 - 3.0",
-            "optimal_range": "1.0 - 2.8",
+            "optimal_range": "1.0 - 2.6",
             "units": "%",
             "panel": "CBC w/ Differential and Platelet"
         },
@@ -352,51 +352,51 @@
         },
         "Total Cholesterol": {
             "description": "A type of fat in the blood that affects heart health.",
-            "clinical_range": "100-199",
-            "optimal_range": "100-190",
+            "clinical_range": "100 - 199",
+            "optimal_range": "100 - 170",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "HDL": {
             "description": "The 'good' cholesterol that helps clear fats from the blood.",
-            "clinical_range": ">50",
+            "clinical_range": ">39",
             "optimal_range": ">60",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "LDL (calculated)": {
             "description": "The 'bad' cholesterol that can clog arteries.",
-            "clinical_range": "0-129",
-            "optimal_range": "0-110",
+            "clinical_range": "0 - 129",
+            "optimal_range": "0- 99",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "Triglycerides": {
             "description": "A type of fat that stores energy in the blood.",
-            "clinical_range": "0-149",
-            "optimal_range": "0-120",
+            "clinical_range": "0 - 149",
+            "optimal_range": "0 - 100",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "VLDL (calculated)": {
             "description": "A type of fat that carries triglycerides in the blood.",
-            "clinical_range": "5-40",
-            "optimal_range": "5-20",
+            "clinical_range": "5 - 40",
+            "optimal_range": "5 - 15",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "Total Cholesterol/HDL Ratio": {
             "description": "A ratio used to assess heart disease risk.",
-            "clinical_range": "<4.4",
+            "clinical_range": "<5.0",
             "optimal_range": "<3.5",
-            "units": "-",
+            "units": "ratio",
             "panel": "Lipid Panel"
         },
         "LDL/HDL Ratio": {
             "description": "A ratio of bad to good cholesterol.",
-            "clinical_range": "<3.2",
+            "clinical_range": "<5.0",
             "optimal_range": "<2.0",
-            "units": "-",
+            "units": "ratio",
             "panel": "Lipid Panel"
         }
     },
