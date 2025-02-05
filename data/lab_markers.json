@@ -2,15 +2,15 @@
     "Men": {
         "Total Testosterone": {
             "description": "A key male hormone responsible for muscle growth, energy, and overall health.",
-            "clinical_range": "4-50",
-            "optimal_range": "10-40",
+            "clinical_range": "264 - 916",
+            "optimal_range": "600 - 1400",
             "units": "ng/dL",
             "panel": "Hormonal Panel"
         },
         "Free Testosterone": {
             "description": "The active form of testosterone that is available for use in the body.",
-            "clinical_range": "0.0-4.2",
-            "optimal_range": "1.0-3.0",
+            "clinical_range": "6.8 - 21.5",
+            "optimal_range": "18.0 -27.0",
             "units": "ng/dL",
             "panel": "Hormonal Panel"
         },
@@ -23,8 +23,8 @@
         },
         "Sex Hormone Binding Globulin (SHBG)": {
             "description": "A protein that controls how much testosterone and estrogen are available in the body.",
-            "clinical_range": "24.6 - 122.0",
-            "optimal_range": "80-120",
+            "clinical_range": "16.5 - 55.9",
+            "optimal_range": "16.5 - 55.9",
             "units": "nmol/L",
             "panel": "Hormonal Panel"
         },
