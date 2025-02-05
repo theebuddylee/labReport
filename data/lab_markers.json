@@ -124,7 +124,7 @@
             "clinical_range": "70 - 99",
             "optimal_range": "70 - 85",
             "units": "mg/dL",
-            "panel": "Metabolic Panel"
+            "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Calcium": {
             "description": "A mineral important for strong bones and nerve function.",
@@ -403,106 +403,113 @@
     "Women": {
         "Total Testosterone": {
             "description": "A key hormone responsible for muscle growth, energy, and overall health.",
-            "clinical_range": "4-50",
-            "optimal_range": "25-75",
+            "clinical_range": "4 - 50",
+            "optimal_range": "25 - 75",
             "units": "ng/dL",
             "panel": "Hormonal Panel"
         },
         "Free Testosterone": {
             "description": "The active form of testosterone that is available for use in the body.",
-            "clinical_range": "0.0-4.2",
-            "optimal_range": "2.0-4.2",
+            "clinical_range": "0.0 - 4.2",
+            "optimal_range": "2.0 - 4.2",
             "units": "ng/dL",
             "panel": "Hormonal Panel"
         },
         "Estradiol": {
             "description": "A type of estrogen that plays a role in reproductive health and bone strength.",
-            "clinical_range": "43.8-211.0",
-            "optimal_range": "43.8-211.0",
+            "clinical_range": "43.8 - 211.0",
+            "optimal_range": "43.8 - 211.0",
             "units": "pg/mL",
             "panel": "Hormonal Panel"
         },
         "Sex Hormone Binding Globulin (SHBG)": {
             "description": "A protein that controls how much testosterone and estrogen are available in the body.",
             "clinical_range": "24.6 - 122.0",
-            "optimal_range": "80-120",
+            "optimal_range": "80 - 120",
             "units": "nmol/L",
             "panel": "Hormonal Panel"
         },
         "Prolactin": {
             "description": "A hormone involved in milk production and hormone balance.",
-            "clinical_range": "3.6-25.2",
-            "optimal_range": "3.6-15",
+            "clinical_range": "3.6 - 25.2",
+            "optimal_range": "3.6  - 10.0",
             "units": "ng/mL",
             "panel": "Hormonal Panel"
         },
         "Luteinizing Hormone (LH)": {
-            "description": "A hormone that signals the testes or ovaries to produce testosterone or estrogen.",
-            "clinical_range": "15-65",
-            "optimal_range": "15-65",
+            "description": "A hormone that signals the testes or ovaries to produce testosterone or estrogen (can vary by cycle phase).",
+            "clinical_range": "1.0 - 11.4",
+            "optimal_range": "1.0 - 11.4",
             "units": "mIU/mL",
             "panel": "Hormonal Panel"
         },
         "Follicle-Stimulating Hormone (FSH)": {
             "description": "A hormone that helps with sperm production in men.",
-            "clinical_range": "25-135",
-            "optimal_range": "25-135",
+            "clinical_range": "1.7 - 7.7",
+            "optimal_range": "1.7 - 7.7",
             "units": "mIU/mL",
             "panel": "Hormonal Panel"
         },
         "Dehydroepiandrosterone Sulfate (DHEA-S)": {
             "description": "A hormone that helps make other hormones like testosterone and estrogen.",
-            "clinical_range": "41.2-243",
-            "optimal_range": "175-241",
+            "clinical_range": "41.2  -243.0",
+            "optimal_range": "175 - 241.0",
             "units": "ug/dl",
             "panel": "Hormonal Panel"
         },
-        "Progesterone": {
-            "description": "No description available.",
-            "clinical_range": "0.1-1.0",
-            "optimal_range": "0.1-1.0",
+        "Progesterone (Luteal Phase)": {
+            "description": "Progesterone is a steroid hormone primarily known for its role in female reproductive health, but it also plays a role in men’s hormone balance, brain function, and overall well-being. In both sexes, it influences mood, metabolism, and immune function.",
+            "clinical_range": "1.8 - 23.9",
+            "optimal_range": "11.0 - 23.9",
             "units": "ng/mL",
             "panel": "Hormonal Panel"
         },
         "Free T3": {
             "description": "An active thyroid hormone that controls energy use in the body.",
-            "clinical_range": "2.0-4.4",
-            "optimal_range": "3.2-4.2",
+            "clinical_range": "2.0 - 4.4",
+            "optimal_range": "3.2  -4.2",
             "units": "pg/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Free T4": {
             "description": "A thyroid hormone that helps control metabolism and energy levels.",
-            "clinical_range": "0.82-1.77",
-            "optimal_range": "0.82-1.77",
+            "clinical_range": "0.82 - 1.77",
+            "optimal_range": "1.0 - 1.5",
             "units": "ng/dL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Insulin-Like Growth Factor I (IGF-1)": {
             "description": "A hormone that helps with growth, muscle building, and metabolism.",
-            "clinical_range": "125-300",
-            "optimal_range": "200-300",
+            "clinical_range": "125 - 300",
+            "optimal_range": "200 - 300",
             "units": "ng/ml",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "HbA1c": {
             "description": "A measure of blood sugar levels over the past three months.",
-            "clinical_range": "4.8-5.6",
-            "optimal_range": "4.8-5.3",
+            "clinical_range": "4.8 - 5.6",
+            "optimal_range": "4.8 - 5.2",
             "units": "%",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Fasting Insulin": {
             "description": "A hormone that controls blood sugar levels, measured after fasting.",
-            "clinical_range": "2.6-24.9",
-            "optimal_range": "2.6-8.0",
+            "clinical_range": "2.6 - 24.9",
+            "optimal_range": "2.6 - 10.0",
             "units": "uIU/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Vitamin D (25-OH)": {
             "description": "A vitamin that helps with bone strength and immune health.",
-            "clinical_range": "30-100",
-            "optimal_range": "60-80",
+            "clinical_range": "30 - 100",
+            "optimal_range": "60 - 80",
+            "units": "ng/mL",
+            "panel": "Thyroid, Growth Factors & Glucose"
+        },
+         "γ-Glutamyl Transferase (GGT)": {
+            "description": "GGT is an enzyme primarily found in the liver that plays a crucial role in detoxification, oxidative stress regulation, and bile production. It helps break down and transport glutathione, a key antioxidant that protects cells from damage.",
+            "clinical_range": "9 - 48",
+            "optimal_range": "9 - 25",
             "units": "ng/mL",
             "panel": "Thyroid, Growth Factors & Glucose"
         },
@@ -511,7 +518,7 @@
             "clinical_range": "70-99",
             "optimal_range": "70-85",
             "units": "mg/dL",
-            "panel": "Metabolic Panel"
+            "panel": "Thyroid, Growth Factors & Glucose"
         },
         "Calcium": {
             "description": "A mineral important for strong bones and nerve function.",
