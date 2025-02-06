@@ -746,8 +746,8 @@
         },
         "Total Cholesterol": {
             "description": "A type of fat in the blood that affects heart health.",
-            "clinical_range": "100-199",
-            "optimal_range": "100-190",
+            "clinical_range": "100 - 199",
+            "optimal_range": "100 - 170",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
@@ -760,37 +760,37 @@
         },
         "LDL (calculated)": {
             "description": "The 'bad' cholesterol that can clog arteries.",
-            "clinical_range": "0-129",
-            "optimal_range": "0-110",
+            "clinical_range": "0 - 129",
+            "optimal_range": "0 - 99",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "Triglycerides": {
             "description": "A type of fat that stores energy in the blood.",
-            "clinical_range": "0-149",
-            "optimal_range": "0-120",
+            "clinical_range": "0 - 149",
+            "optimal_range": "0 - 100",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "VLDL (calculated)": {
             "description": "A type of fat that carries triglycerides in the blood.",
-            "clinical_range": "5-40",
-            "optimal_range": "5-20",
+            "clinical_range": "5 - 40",
+            "optimal_range": "5 - 15",
             "units": "mg/dL",
             "panel": "Lipid Panel"
         },
         "Total Cholesterol/HDL Ratio": {
             "description": "A ratio used to assess heart disease risk.",
             "clinical_range": "<4.4",
-            "optimal_range": "<3.5",
-            "units": "-",
+            "optimal_range": "<3.0",
+            "units": "ratio",
             "panel": "Lipid Panel"
         },
         "LDL/HDL Ratio": {
             "description": "A ratio of bad to good cholesterol.",
             "clinical_range": "<3.2",
-            "optimal_range": "<2.0",
-            "units": "-",
+            "optimal_range": "<1.8",
+            "units": "ratio",
             "panel": "Lipid Panel"
         }
     },
