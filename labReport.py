@@ -294,7 +294,6 @@ if lab_markers:
                 matched_extracted.add(extracted_marker)
                 found_match = True
                 break
-        # (Optional) You can log if no match was found for this available marker.
 
     # Identify any extracted markers that were not matched.
     unmatched_extracted = [em for em in extracted_markers_dict.keys() if em not in matched_extracted]
@@ -303,7 +302,37 @@ if lab_markers:
         st.write(unmatched_extracted)
 
     st.markdown("### Select Lab Markers to Include:")
-    selected_markers = st.multiselect("Choose lab markers:", list(available_markers.keys()), default=preselected_markers)
+    # Group available markers by their panel attribute.
+    grouped_by_panel = {}
+    for marker, info in available_markers.items():
+         panel = info.get("panel", "Other")
+         grouped_by_panel.setdefault(panel, []).append(marker)
+    # For each panel, create an expander with a multiselect for markers in that panel.
+    # We want the panels to appear in a fixed order:
+    desired_panel_order = [
+         "Hormone, Gonadotropin & Neurosteroid Panel",
+         "Thyroid, Growth Factors & Glucose",
+         "Metabolic Panel",
+         "CBC w/ Differential and Platelet",
+         "Lipid Panel"
+    ]
+    selected_markers = []
+    # First show panels in desired order (if present)
+    for panel in desired_panel_order:
+         if panel in grouped_by_panel:
+             markers_in_panel = sorted(grouped_by_panel[panel])
+             default_markers = sorted([m for m in markers_in_panel if m in preselected_markers])
+             with st.expander(panel, expanded=True):
+                 selected_from_panel = st.multiselect(f"Select markers from {panel}:", markers_in_panel, default=default_markers, key=panel)
+                 selected_markers.extend(selected_from_panel)
+    # Then display any other panels not in the desired order.
+    remaining_panels = [p for p in grouped_by_panel.keys() if p not in desired_panel_order]
+    for panel in sorted(remaining_panels):
+         markers_in_panel = sorted(grouped_by_panel[panel])
+         default_markers = sorted([m for m in markers_in_panel if m in preselected_markers])
+         with st.expander(panel, expanded=True):
+             selected_from_panel = st.multiselect(f"Select markers from {panel}:", markers_in_panel, default=default_markers, key=panel)
+             selected_markers.extend(selected_from_panel)
 else:
     st.error("Lab markers could not be loaded.")
 
@@ -495,82 +524,104 @@ if st.button("Generate PDF"):
         pdf.ln(15)
         pdf.set_text_color(0, 0, 0)
 
-        # Loop over each selected marker and add its details and chart (if available)
+        # Group the selected markers by panel for PDF printing.
+        grouped_selected_markers = {}
         for marker in selected_markers:
-            marker_info = available_markers[marker]
+            panel = available_markers[marker].get("panel", "Other")
+            grouped_selected_markers.setdefault(panel, []).append(marker)
+        # Define desired order.
+        desired_panel_order = [
+            "Hormone, Gonadotropin & Neurosteroid Panel",
+            "Thyroid, Growth Factors & Glucose",
+            "Metabolic Panel",
+            "CBC w/ Differential and Platelet",
+            "Lipid Panel"
+        ]
+        ordered_panels = []
+        for panel in desired_panel_order:
+            if panel in grouped_selected_markers:
+                ordered_panels.append(panel)
+        remaining_panels = [p for p in grouped_selected_markers.keys() if p not in desired_panel_order]
+        ordered_panels.extend(sorted(remaining_panels))
 
-            # Marker title as H2 in PRIMARY_COLOR
-            pdf.set_text_color(6, 182, 212)  # PRIMARY_COLOR
-            set_font_with_fallback(pdf, "Exo2", "B", 18, marker)
-            pdf.cell(0, 10, marker, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        # Loop over each panel and print a header followed by its markers.
+        for panel in ordered_panels:
+            # Panel header in PRIMARY_COLOR with a larger font
+            pdf.set_text_color(6, 182, 212)
+            set_font_with_fallback(pdf, "Exo2", "B", 20, panel)
+            pdf.cell(0, 12, panel, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            pdf.ln(3)
+            markers_in_panel = grouped_selected_markers[panel]
+            for marker in markers_in_panel:
+                marker_info = available_markers[marker]
 
-            # Marker description in SECONDARY_COLOR
-            pdf.set_text_color(115, 115, 115)
-            set_font_with_fallback(pdf, "Exo2", "", 10, marker_info["description"])
-            pdf.multi_cell(0, 5, marker_info["description"])
-            pdf.ln(4)
+                # Marker title as H2 in PRIMARY_COLOR
+                pdf.set_text_color(6, 182, 212)
+                set_font_with_fallback(pdf, "Exo2", "B", 18, marker)
+                pdf.cell(0, 10, marker, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
 
-            entered_value = lab_results[marker]
+                # Marker description in SECONDARY_COLOR
+                pdf.set_text_color(115, 115, 115)
+                set_font_with_fallback(pdf, "Exo2", "", 10, marker_info["description"])
+                pdf.multi_cell(0, 5, marker_info["description"])
+                pdf.ln(4)
 
-            try:
-                # Only attempt to create a chart if the user-entered value can be converted to float
-                user_numeric = float(entered_value)
-            except ValueError:
-                user_numeric = None
-            if user_numeric is not None:
-                fig = create_range_chart(marker, marker_info['units'], marker_info['clinical_range'], marker_info['optimal_range'], entered_value)
-                if fig is not None:
-                    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
-                        chart_filename = tmpfile.name
-                    fig.savefig(chart_filename, bbox_inches='tight')
-                    plt.close(fig)
-                    pdf.image(chart_filename, w=120, h=30)
-                    os.remove(chart_filename)
-                    pdf.ln(1)
+                entered_value = lab_results[marker]
+
+                try:
+                    # Only attempt to create a chart if the user-entered value can be converted to float
+                    user_numeric = float(entered_value)
+                except ValueError:
+                    user_numeric = None
+                if user_numeric is not None:
+                    fig = create_range_chart(marker, marker_info['units'], marker_info['clinical_range'], marker_info['optimal_range'], entered_value)
+                    if fig is not None:
+                        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
+                            chart_filename = tmpfile.name
+                        fig.savefig(chart_filename, bbox_inches='tight')
+                        plt.close(fig)
+                        pdf.image(chart_filename, w=120, h=30)
+                        os.remove(chart_filename)
+                        pdf.ln(1)
+                    else:
+                        pdf.cell(0, 10, "Chart not available (unable to parse ranges).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                        pdf.ln(1)
                 else:
-                    pdf.cell(0, 10, "Chart not available (unable to parse ranges).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                    pdf.cell(0, 10, "Chart not available (non-numeric result).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                     pdf.ln(1)
-            else:
-                pdf.cell(0, 10, "Chart not available (non-numeric result).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-                pdf.ln(1)
 
-            # Print the "Result:" line as before
-            result_text = f"Result: {entered_value} {marker_info['units']}"
-            pdf.set_text_color(115, 115, 115)
-            set_font_with_fallback(pdf, "Exo2", "B", 16, result_text)
-            pdf.cell(0, 10, result_text, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-            pdf.ln(2)
+                # Print the "Result:" line as before
+                result_text = f"Result: {entered_value} {marker_info['units']}"
+                pdf.set_text_color(115, 115, 115)
+                set_font_with_fallback(pdf, "Exo2", "B", 16, result_text)
+                pdf.cell(0, 10, result_text, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                pdf.ln(2)
 
-            # --- Print Clinical Range and Optimal Range on the same line ---
-            # Clinical Range label (bold, SECONDARY_COLOR)
-            clinical_label = "Clinical Range:"
-            set_font_with_fallback(pdf, "Exo2", "B", 16, clinical_label)
-            pdf.set_text_color(115, 115, 115)
-            label_width = pdf.get_string_width(clinical_label) + 2
-            pdf.cell(label_width, 10, clinical_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
+                # Print Clinical and Optimal Ranges on the same line
+                clinical_label = "Clinical Range:"
+                set_font_with_fallback(pdf, "Exo2", "B", 16, clinical_label)
+                pdf.set_text_color(115, 115, 115)
+                label_width = pdf.get_string_width(clinical_label) + 2
+                pdf.cell(label_width, 10, clinical_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
 
-            # Clinical Range value (normal, black)
-            clinical_value = f" {marker_info['clinical_range']}"
-            set_font_with_fallback(pdf, "Exo2", "", 16, clinical_value)
-            value_width = pdf.get_string_width(clinical_value) + 2
-            pdf.cell(value_width, 10, clinical_value, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
+                clinical_value = f" {marker_info['clinical_range']}"
+                set_font_with_fallback(pdf, "Exo2", "", 16, clinical_value)
+                value_width = pdf.get_string_width(clinical_value) + 2
+                pdf.cell(value_width, 10, clinical_value, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
 
-            # Spacing between the two range sections
-            pdf.cell(10, 10, "", border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
+                pdf.cell(10, 10, "", border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
 
-            # Optimal Range label (bold, PRIMARY_COLOR)
-            optimal_label = "Optimal Range:"
-            set_font_with_fallback(pdf, "Exo2", "B", 16, optimal_label)
-            pdf.set_text_color(6, 182, 212)  # PRIMARY_COLOR in RGB
-            label_width = pdf.get_string_width(optimal_label) + 2
-            pdf.cell(label_width, 10, optimal_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
+                optimal_label = "Optimal Range:"
+                set_font_with_fallback(pdf, "Exo2", "B", 16, optimal_label)
+                pdf.set_text_color(6, 182, 212)
+                label_width = pdf.get_string_width(optimal_label) + 2
+                pdf.cell(label_width, 10, optimal_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
 
-            # Optimal Range value (normal, PRIMARY_COLOR)
-            optimal_value = f" {marker_info['optimal_range']}"
-            set_font_with_fallback(pdf, "Exo2", "", 16, optimal_value)
-            value_width = pdf.get_string_width(optimal_value) + 2
-            pdf.cell(value_width, 10, optimal_value, border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-            pdf.ln(5)
+                optimal_value = f" {marker_info['optimal_range']}"
+                set_font_with_fallback(pdf, "Exo2", "", 16, optimal_value)
+                value_width = pdf.get_string_width(optimal_value) + 2
+                pdf.cell(value_width, 10, optimal_value, border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                pdf.ln(5)
 
         # Save the generated lab report PDF
         generated_pdf = "generated_lab_report.pdf"
