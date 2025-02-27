@@ -142,7 +142,7 @@ if uploaded_file:
             patient_name_extracted = f"{first} {last}"
         else:
             patient_name_extracted = first_line
-        st.write("**Patient Name (extracted):**", patient_name_extracted)
+        #st.write("**Patient Name (extracted):**", patient_name_extracted)
 
         # --- Extract Lab Marker Data ---
         # Regex from the second code base (with slight post-processing)
@@ -226,12 +226,12 @@ manual_map = {
     normalize_marker("RDW"): "Red Cell Distribution Width (RDW)",
     normalize_marker("Platelets"): "Platelet Count",
     normalize_marker("Lymphs"): "Lymphocytes",
+    normalize_marker("Lymphs (Absolute)"): "Lymphocytes",  # New mapping for unmatched "Lymphs (Absolute)"
     normalize_marker("Eos"): "Eosinophils",
+    normalize_marker("Eos (Absolute)"): "Eosinophils",     # New mapping for unmatched "Eos (Absolute)"
     normalize_marker("Basos"): "Basophils",
     normalize_marker("Neutrophils (Absolute)"): "Neutrophils",
-    normalize_marker("Lymphs (Absolute)"): "Lymphocytes",
     normalize_marker("Monocytes(Absolute)"): "Monocytes",
-    normalize_marker("Eos (Absolute)"): "Eosinophils",
     normalize_marker("Baso (Absolute)"): "Basophils",
     # For "Immature Granulocytes" and "Immature Grans (Abs)" we choose not to map (omit them)
     normalize_marker("BUN"): "Blood Urea Nitrogen (BUN)",
@@ -241,6 +241,7 @@ manual_map = {
     normalize_marker("ALT (SGPT)"): "Alanine Aminotransferase (ALT)",
     # Specific Gravity and Urobilinogen,Semi-Qn are not in the JSON—ignore them.
     normalize_marker("Cholesterol, Total"): "Total Cholesterol",
+    normalize_marker("Testosterone"): "Total Testosterone",
     normalize_marker("HDL Cholesterol"): "HDL",
     # UIBC and SDMA are not mapped (ignore them)
     normalize_marker("Testosterone, Total, LC/MS A,"): "Total Testosterone",
@@ -258,7 +259,8 @@ manual_map = {
     normalize_marker("Insulin"): "Fasting Insulin",
     # Ferritin is not mapped.
     normalize_marker("Triiodothyronine (T"): "Free T3",
-    normalize_marker("Serum"): "SHBG",
+    normalize_marker("Prostate Specific Ag"): "Prostate Specific Antigen (PSA)",
+    normalize_marker("Serum"): "SHBG"
     # Magnesium, RBC B not in Json – ignore them.
 }
 
@@ -277,7 +279,6 @@ if lab_markers:
     # For each available marker from the JSON, attempt to find a match among the extracted markers.
     for avail_marker in available_markers.keys():
         norm_avail = normalize_marker(avail_marker)
-        found_match = False
         for extracted_marker in extracted_markers_dict.keys():
             norm_extracted = normalize_marker(extracted_marker)
             # First, try direct normalized equality.
@@ -285,21 +286,31 @@ if lab_markers:
                 preselected_markers.append(avail_marker)
                 lab_results[avail_marker] = extracted_markers_dict[extracted_marker]
                 matched_extracted.add(extracted_marker)
-                found_match = True
                 break
             # Next, check if a manual mapping applies.
             if norm_extracted in manual_map and manual_map[norm_extracted] == avail_marker:
                 preselected_markers.append(avail_marker)
                 lab_results[avail_marker] = extracted_markers_dict[extracted_marker]
                 matched_extracted.add(extracted_marker)
-                found_match = True
                 break
 
-    # Identify any extracted markers that were not matched.
-    unmatched_extracted = [em for em in extracted_markers_dict.keys() if em not in matched_extracted]
-    if unmatched_extracted:
-        st.warning("The following extracted markers did not match any available markers:")
-        st.write(unmatched_extracted)
+    # Build a set of normalized extracted marker keys.
+    normalized_extracted = {normalize_marker(key): key for key in extracted_markers_dict.keys()}
+
+    # Build a set of normalized available marker keys from lab_markers.
+    normalized_available = {normalize_marker(key): key for key in available_markers.keys()}
+
+    # Build a set of normalized keys that were successfully matched.
+    matched_normalized = set()
+    for extracted_marker in matched_extracted:  # matched_extracted should have been collected during matching.
+        matched_normalized.add(normalize_marker(extracted_marker))
+
+    # Compute the difference: markers that were extracted but not matched.
+    unmatched_normalized = [normalized_extracted[norm_key] for norm_key in normalized_extracted if norm_key not in matched_normalized]
+
+    if unmatched_normalized:
+        st.warning("The following extracted markers did not match any available markers (after normalization):")
+        st.write(unmatched_normalized)
 
     st.markdown("### Select Lab Markers to Include:")
     # Group available markers by their panel attribute.
@@ -314,7 +325,9 @@ if lab_markers:
          "Thyroid, Growth Factors & Glucose",
          "Metabolic Panel",
          "CBC w/ Differential and Platelet",
-         "Lipid Panel"
+         "Lipid Panel",
+         "Iron Markers",
+         "Inflammatory Markers"
     ]
     selected_markers = []
     # First show panels in desired order (if present)
@@ -392,7 +405,7 @@ def create_range_chart(marker_name, units, clinical_range, optimal_range, user_v
 
     overall_min = min(clinical_min, optimal_min, user_numeric)
     overall_max = max(clinical_max, optimal_max, user_numeric)
-    padding = 0.1 * (overall_max - overall_min)
+    padding = 0.15 * (overall_max - overall_min)
     x_min = overall_min - padding
     x_max = overall_max + padding
 
@@ -408,13 +421,13 @@ def create_range_chart(marker_name, units, clinical_range, optimal_range, user_v
     ax.broken_barh([(optimal_min, optimal_max - optimal_min)], (optimal_y, bar_height),
                    facecolors=PRIMARY_COLOR, edgecolor='none', label='Optimal Range')
     # User value line
-    ax.axvline(user_numeric, color=vibrant_red, linewidth=3, label='User Value')
+    ax.axvline(user_numeric, color=vibrant_red, linewidth=3, label='Your Value')
 
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(0, clinical_y + bar_height)
     ax.set_yticks([])
     ax.set_xlabel(f"{marker_name} ({units})")
-    ax.legend(loc='upper center', ncol=3)
+    ax.legend(loc='best', ncol=3) #originally 'upper center'
     for spine in ax.spines.values():
         spine.set_visible(False)
     plt.tight_layout()
@@ -480,12 +493,9 @@ def merge_pdfs(template_path, generated_path, output_path):
 # Helper: Set Font with Fallback for Missing Glyphs
 # ====================================================
 def set_font_with_fallback(pdf_obj, font, style, size, text):
-    """
-    Sets the font for the PDF. If using the custom font (Exo2) and the text contains
-    the Greek letter 'γ', it switches to a Unicode fallback font (DejaVuSans) known to support the glyph.
-    """
-    fallback_font = "DejaVuSans"  # Make sure DejaVuSans.ttf and DejaVuSans-Bold.ttf are available
-    if font == "Exo2" and "γ" in text:
+    fallback_font = "DejaVuSans"  # This font includes the '●' glyph
+    # Use the fallback if the primary font (Exo2) is missing 'γ' or '●'
+    if font == "Exo2" and ("γ" in text or "●" in text):
         pdf_obj.set_font(fallback_font, style, size)
     else:
         pdf_obj.set_font(font, style, size)
@@ -502,34 +512,160 @@ if st.button("Generate PDF"):
     elif not any(str(lab_results.get(marker, "")).strip() != "" for marker in selected_markers):
         st.error("None of the lab result values have been entered. Please check your inputs.")
     else:
-        # Create the lab report using FPDF (based on the second code base)
+        # Create the lab report using FPDF
         pdf = FPDF()
         # Register fonts – ensure the font files are available in your working directory
         pdf.add_font("Exo2", "", FONT_PRIMARY)
         pdf.add_font("Exo2", "B", "Exo2-Bold.ttf")
-        # Register the Unicode fallback font (DejaVu Sans)
         pdf.add_font("DejaVuSans", "", "DejaVuSans.ttf")
         pdf.add_font("DejaVuSans", "B", "DejaVuSans-Bold.ttf")
 
+        # ---- Optimal Score Page ----
+        # Compute overall score and counts.
+        total_markers = len(selected_markers)
+        score_sum = 0
+        count_optimal = 0
+        count_inrange = 0
+        count_out = 0
+
+        for marker in selected_markers:
+            try:
+                user_numeric = float(lab_results[marker])
+            except ValueError:
+                continue
+            clinical_range_parsed = parse_range(available_markers[marker]['clinical_range'])
+            optimal_range_parsed = parse_range(available_markers[marker]['optimal_range'])
+            if (clinical_range_parsed is not None and optimal_range_parsed is not None and
+                clinical_range_parsed[0] is not None and clinical_range_parsed[1] is not None and
+                optimal_range_parsed[0] is not None and optimal_range_parsed[1] is not None):
+                clinical_min, clinical_max = clinical_range_parsed
+                optimal_min, optimal_max = optimal_range_parsed
+                if optimal_min <= user_numeric <= optimal_max:
+                    score_sum += 1
+                    count_optimal += 1
+                elif clinical_min <= user_numeric <= clinical_max:
+                    score_sum += 0.75
+                    count_inrange += 1
+                else:
+                    score_sum += 0
+                    count_out += 1
+            else:
+                score_sum += 0
+                count_out += 1
+
+        optimal_score = (score_sum / total_markers) * 100 if total_markers > 0 else 0
+
         pdf.add_page()
-        pdf.set_font("Exo2", size=12)
 
-        # Branding header (a colored rectangle and title)
-        pdf.set_fill_color(6, 182, 212)
+        # Draw header rectangle at the top, now showing the Optimal Score.
+        pdf.set_fill_color(6, 182, 212)  # PRIMARY_COLOR
         pdf.rect(0, 0, 210, 30, style='F')
-        pdf.set_text_color(255, 255, 255)
-        # Use fallback if needed for the header text
-        set_font_with_fallback(pdf, "Exo2", "B", 16, "1st Optimal Lab Results Report")
-        pdf.cell(0, 10, "1st Optimal Lab Results Report", new_x=XPos.LMARGIN, new_y=YPos.NEXT, align="C")
-        pdf.ln(15)
-        pdf.set_text_color(0, 0, 0)
+        pdf.set_y(6)
+        pdf.set_text_color(255, 255, 255)  # White text
+        set_font_with_fallback(pdf, "Exo2", "B", 22, f"Your Optimal Score: {optimal_score:.0f}")
+        pdf.cell(210, 18, f" Your Optimal Score: {optimal_score:.0f}", border=0, align="C", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        pdf.ln(10)
 
-        # Group the selected markers by panel for PDF printing.
+        # Print total markers in the upper right.
+        pdf.set_text_color(250, 240, 230)
+        pdf.set_xy(156, 0)
+        pdf.set_font("Exo2", "", 12)
+        pdf.cell(0, 10, f"{total_markers} Biomarkers Analyzed", border=0)
+
+        # Create an enlarged vertical bar chart for the marker breakdown.
+        categories = ['Out of Range', 'Optimal', 'In Range']
+        values = [count_out, count_optimal, count_inrange]
+        in_range_color = "#FFA500"  # Color for "In Range"
+        colors = ['#FF5555', PRIMARY_COLOR, in_range_color]
+
+        # Increase size here as needed
+        fig, ax = plt.subplots(figsize=(14, 22))
+
+        bars = ax.bar(categories, values, color=colors)
+        ax.set_ylabel('Number of Markers', fontsize=16)
+        #ax.set_title('Marker Range Breakdown', fontsize=16, color=PRIMARY_COLOR)
+        # Remove y-axis tick labels
+        ax.set_yticks([])
+        # Remove chart borders and tick marks for a clean look.
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+        ax.tick_params(bottom=False, left=False)
+        ax.set_xticks(range(len(categories)))  # set ticks at positions 0, 1, 2
+        ax.set_xticklabels(categories, fontsize=20)
+        # Annotate bars with counts.
+        for bar in bars:
+            yval = bar.get_height()
+            ax.text(bar.get_x() + bar.get_width()/2, yval + 0.2, int(yval), ha='center', va='bottom', fontsize=20)
+        plt.tight_layout(pad=0.1)
+
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
+            chart_filename = tmpfile.name
+        fig.savefig(chart_filename, bbox_inches='tight', pad_inches=0.1)
+        plt.close(fig)
+
+
+        # Save the chart without extra borders.
+        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
+            chart_filename = tmpfile.name
+        fig.savefig(chart_filename, bbox_inches='tight', pad_inches=0.1)
+        plt.close(fig)
+
+        # Insert the chart image.
+        pdf.image(chart_filename, x=32.5, y=32, w=160, h=192)
+        os.remove(chart_filename)
+        # ---- END Graph
+        # Add the vertically stacked legend below the chart.
+        # ---------------------------
+        # Calculate percentages for each range.
+        pct_out = (count_out / total_markers) * 100 if total_markers > 0 else 0
+        pct_optimal = (count_optimal / total_markers) * 100 if total_markers > 0 else 0
+        pct_inrange = (count_inrange / total_markers) * 100 if total_markers > 0 else 0
+
+        # Set the y-coordinate for the legend to be about 80% of the page height.
+        # For an A4 page (297 mm tall), 80% is roughly 238 mm.
+        pdf.set_y(238)
+
+        legend_start_x = 32.5
+        legend_box_size = 6   # Size of the colored square.
+        spacing = 4           # Horizontal gap between the square and the label text.
+
+        # Legend Item: Out of Range.
+        pdf.set_xy(legend_start_x, pdf.get_y())
+        pdf.set_fill_color(255, 85, 85)  # vibrant red (#FF5555)
+        pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
+        pdf.set_x(legend_start_x + legend_box_size + spacing)
+        pdf.set_text_color(0, 0, 0)
+        pdf.set_font("Exo2", "", 12)
+        pdf.cell(40, 10, "Out of Range", border=0)
+        pdf.set_text_color(115, 115, 115)  # SECONDARY_COLOR
+        pdf.cell(0, 10, f"{pct_out:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+        # Legend Item: Optimal Range.
+        pdf.set_xy(legend_start_x, pdf.get_y())
+        pdf.set_fill_color(6, 182, 212)  # PRIMARY_COLOR (#06B6D4)
+        pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
+        pdf.set_x(legend_start_x + legend_box_size + spacing)
+        pdf.set_text_color(0, 0, 0)
+        pdf.cell(40, 10, "Optimal Range", border=0)
+        pdf.set_text_color(115, 115, 115)
+        pdf.cell(0, 10, f"{pct_optimal:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+
+        # Legend Item: In Range.
+        pdf.set_xy(legend_start_x, pdf.get_y())
+        pdf.set_fill_color(255, 165, 0)  # Orange (#FFA500)
+        pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
+        pdf.set_x(legend_start_x + legend_box_size + spacing)
+        pdf.set_text_color(0, 0, 0)
+        pdf.cell(40, 10, "In Range", border=0)
+        pdf.set_text_color(115, 115, 115)
+        pdf.cell(0, 10, f"{pct_inrange:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        # ---- END FIRST PAGE ----
+
+        #Groups markers by panel
         grouped_selected_markers = {}
         for marker in selected_markers:
             panel = available_markers[marker].get("panel", "Other")
             grouped_selected_markers.setdefault(panel, []).append(marker)
-        # Define desired order.
         desired_panel_order = [
             "Hormone, Gonadotropin & Neurosteroid Panel",
             "Thyroid, Growth Factors & Glucose",
@@ -544,35 +680,55 @@ if st.button("Generate PDF"):
         remaining_panels = [p for p in grouped_selected_markers.keys() if p not in desired_panel_order]
         ordered_panels.extend(sorted(remaining_panels))
 
-        # Loop over each panel and print a header followed by its markers.
         for panel in ordered_panels:
-            # Panel header in PRIMARY_COLOR with a larger font
-            pdf.set_text_color(6, 182, 212)
+            pdf.add_page()  # Open a new page for each panel
+            marker_count = 0
+            pdf.set_fill_color(6, 182, 212)
+            pdf.rect(0, 0, 210, 20, style='F')
+            pdf.set_y(6)
+            pdf.set_text_color(255, 255, 255)
             set_font_with_fallback(pdf, "Exo2", "B", 20, panel)
-            pdf.cell(0, 12, panel, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-            pdf.ln(3)
+            pdf.cell(0, 10, panel, border=0, align="C", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+            pdf.ln(10)
             markers_in_panel = grouped_selected_markers[panel]
             for marker in markers_in_panel:
+                if marker_count == 3:
+                    pdf.add_page()
+                    marker_count = 0
+                    pdf.set_text_color(6, 182, 212)
+                    set_font_with_fallback(pdf, "Exo2", "B", 20, panel)
+                    pdf.cell(0, 12, panel, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                    pdf.set_draw_color(115, 115, 115)  # SECONDARY_COLOR
+                    pdf.set_line_width(0.5)
+                    pdf.line(10, pdf.get_y(), 200, pdf.get_y())
+                    pdf.ln(3)
+                marker_count += 1
                 marker_info = available_markers[marker]
-
-                # Marker title as H2 in PRIMARY_COLOR
                 pdf.set_text_color(6, 182, 212)
-                set_font_with_fallback(pdf, "Exo2", "B", 18, marker)
+                set_font_with_fallback(pdf, "Exo2", "B", 19, marker)
                 pdf.cell(0, 10, marker, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-
-                # Marker description in SECONDARY_COLOR
                 pdf.set_text_color(115, 115, 115)
                 set_font_with_fallback(pdf, "Exo2", "", 10, marker_info["description"])
                 pdf.multi_cell(0, 5, marker_info["description"])
-                pdf.ln(4)
-
+                pdf.ln(3)
                 entered_value = lab_results[marker]
-
+                result_text = f"Result: {entered_value} {marker_info['units']}"
                 try:
-                    # Only attempt to create a chart if the user-entered value can be converted to float
                     user_numeric = float(entered_value)
                 except ValueError:
                     user_numeric = None
+                dot_color = None
+                if user_numeric is not None:
+                    clinical_range_parsed = parse_range(marker_info['clinical_range'])
+                    optimal_range_parsed = parse_range(marker_info['optimal_range'])
+                    if (clinical_range_parsed[0] is not None and clinical_range_parsed[1] is not None and
+                        optimal_range_parsed[0] is not None and optimal_range_parsed[1] is not None):
+                        clinical_min, clinical_max = clinical_range_parsed
+                        optimal_min, optimal_max = optimal_range_parsed
+                        if optimal_min <= user_numeric <= optimal_max:
+                            dot_color = (6, 182, 212)
+                        elif user_numeric < clinical_min or user_numeric > clinical_max:
+                            dot_color = (255, 85, 85)
                 if user_numeric is not None:
                     fig = create_range_chart(marker, marker_info['units'], marker_info['clinical_range'], marker_info['optimal_range'], entered_value)
                     if fig is not None:
@@ -580,65 +736,60 @@ if st.button("Generate PDF"):
                             chart_filename = tmpfile.name
                         fig.savefig(chart_filename, bbox_inches='tight')
                         plt.close(fig)
-                        pdf.image(chart_filename, w=120, h=30)
+                        current_x = pdf.get_x()
+                        current_y = pdf.get_y()
+                        pdf.image(chart_filename, x=current_x, y=current_y, w=120, h=30)
                         os.remove(chart_filename)
-                        pdf.ln(1)
+                        pdf.set_xy(current_x + 125, current_y)
+                        pdf.set_font("Exo2", "", 12)
+                        pdf.cell(0, 30, result_text, border=0)
+                        result_text_width = pdf.get_string_width(result_text)
+                        pdf.set_xy(current_x + 125 + result_text_width + 2, current_y)
+                        if dot_color is not None:
+                            pdf.set_text_color(*dot_color)
+                            pdf.set_font("DejaVuSans", "B", 16)
+                            pdf.cell(0, 30, "●", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                            pdf.set_text_color(0, 0, 0)
+                            pdf.set_font("Exo2", "", 14)
+                        else:
+                            pdf.ln(30)
                     else:
                         pdf.cell(0, 10, "Chart not available (unable to parse ranges).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                         pdf.ln(1)
                 else:
                     pdf.cell(0, 10, "Chart not available (non-numeric result).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                     pdf.ln(1)
-
-                # Print the "Result:" line as before
-                result_text = f"Result: {entered_value} {marker_info['units']}"
-                pdf.set_text_color(115, 115, 115)
-                set_font_with_fallback(pdf, "Exo2", "B", 16, result_text)
-                pdf.cell(0, 10, result_text, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-                pdf.ln(2)
-
-                # Print Clinical and Optimal Ranges on the same line
                 clinical_label = "Clinical Range:"
-                set_font_with_fallback(pdf, "Exo2", "B", 16, clinical_label)
+                set_font_with_fallback(pdf, "Exo2", "", 14, clinical_label)
                 pdf.set_text_color(115, 115, 115)
                 label_width = pdf.get_string_width(clinical_label) + 2
                 pdf.cell(label_width, 10, clinical_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
-
                 clinical_value = f" {marker_info['clinical_range']}"
-                set_font_with_fallback(pdf, "Exo2", "", 16, clinical_value)
+                set_font_with_fallback(pdf, "Exo2", "B", 14, clinical_value)
                 value_width = pdf.get_string_width(clinical_value) + 2
                 pdf.cell(value_width, 10, clinical_value, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
-
                 pdf.cell(10, 10, "", border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
-
                 optimal_label = "Optimal Range:"
-                set_font_with_fallback(pdf, "Exo2", "B", 16, optimal_label)
+                set_font_with_fallback(pdf, "Exo2", "", 14, optimal_label)
                 pdf.set_text_color(6, 182, 212)
                 label_width = pdf.get_string_width(optimal_label) + 2
                 pdf.cell(label_width, 10, optimal_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
-
                 optimal_value = f" {marker_info['optimal_range']}"
-                set_font_with_fallback(pdf, "Exo2", "", 16, optimal_value)
+                set_font_with_fallback(pdf, "Exo2", "B", 14, optimal_value)
                 value_width = pdf.get_string_width(optimal_value) + 2
                 pdf.cell(value_width, 10, optimal_value, border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                 pdf.ln(5)
 
-        # Save the generated lab report PDF
         generated_pdf = "generated_lab_report.pdf"
         pdf.output(generated_pdf)
-
-        # --- Merge with Template PDF ---
-        # Specify the path to your template PDF (must exist in your working directory)
         template_pdf = "LabResults.pdf"
-        # Overwrite the template with member and manager information
         updated_template = overwrite_more_information(template_pdf, "updated_template.pdf", member_name, selected_manager)
         merged_pdf = "final_report.pdf"
         merge_pdfs(updated_template, generated_pdf, merged_pdf)
-
-        # Use the member's name (with spaces replaced by underscores) for the downloadable filename
         downloadable_filename = f"{member_name.replace(' ', '_')}_Lab_Results.pdf"
         with open(merged_pdf, "rb") as file:
             st.download_button("Download Final Report", file, file_name=downloadable_filename)
+
 
 # ====================================================
 # Close the Database Connection on App Exit
