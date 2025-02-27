@@ -1,9 +1,8 @@
 streamlit
-streamlit-authenticator
+pandas
 fpdf2
 pymupdf
-Pillow
 pytz
-PyGithub
 requests
 pdfplumber
+matplotlib
