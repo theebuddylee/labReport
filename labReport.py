@@ -25,6 +25,13 @@ vibrant_red = "#FF5555"        # Red for the user value indicator
 BACKGROUND_COLOR = "#EBEBEB"
 FONT_PRIMARY = "Exo2-Regular.ttf"   # Ensure this font file is available
 FONT_SECONDARY = "Source Sans Pro"   # You can adjust as needed
+# Set page config
+st.set_page_config(
+    page_title="1st Optimal Lab Results Report Generator",
+    page_icon="🧪",
+    layout="wide",  # Optional: adjust as needed
+    initial_sidebar_state="expanded",  # Optional
+)
 
 # Custom CSS styling
 st.markdown(
