@@ -267,7 +267,7 @@ manual_map = {
     # Ferritin is not mapped.
     normalize_marker("Triiodothyronine (T"): "Free T3",
     normalize_marker("Prostate Specific Ag"): "Prostate Specific Antigen (PSA)",
-    normalize_marker("Serum"): "SHBG"
+    normalize_marker("SHBG"): "Serum" #normalized wrong direction?
     # Magnesium, RBC B not in Json – ignore them.
 }
 
@@ -575,7 +575,7 @@ if st.button("Generate PDF"):
 
         # Print total markers in the upper right.
         pdf.set_text_color(250, 240, 230)
-        pdf.set_xy(156, 0)
+        pdf.set_xy(157, 0)
         pdf.set_font("Exo2", "", 12)
         pdf.cell(0, 10, f"{total_markers} Biomarkers Analyzed", border=0)
 
