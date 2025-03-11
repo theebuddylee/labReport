@@ -83,6 +83,63 @@ CREATE TABLE IF NOT EXISTS lab_results (
 """)
 conn.commit()
 
+# New Extraction Functions from ExtractResults
+def filter_metadata(text):
+    """Filter out metadata and irrelevant lines from the text."""
+    skip_keywords = [
+        "Patient", "Specimen", "Date", "Labcorp", "Physician", "Ordered", "Account", "Phone",
+        "Age", "Sex", "Fasting", "Collected", "Received", "Reported", "©", "Please", "Prediabetes",
+        "Diabetes", "Glycemic", "Branch", "Control", "NPI", "Values obtained", "Roche", "methodology",
+        "interchangeably", "Results", "evidence", "malignant", "Disclaimer", "Icon", "Performing",
+        "Details", "AUA", "prostatectomy", "recurrence", "Adult male", "Travison", "PMID",
+        "Previous Result", "Reference Interval", "Current Result", "Flag", "Units", "Enterprise",
+        "healthy nonobese males", "JCEM", "BMI", "between 19 and 39 years old", "28324103",
+        "Immature Granulocytes", "Immature Grans (Abs)", "CBC With Differential/Platelet",
+        "Comp. Metabolic Panel (14)", "Lipid Panel", "FSH and LH", "Testosterone,Free and Total",
+        "Hemoglobin A1c", "Prolactin", "Estradiol", "Prostate-Specific Ag", "Sex Horm Binding Glob, Serum",
+        "or greater followed by a subsequent confirmatory"
+    ]
+    lines = text.split("\n")
+    filtered_lines = []
+    for line in lines:
+        line = line.strip()
+        if (line and re.search(r'[0-9]', line) and not any(kw in line for kw in skip_keywords) and
+            not re.match(r'^\d+\.\d+$', line)):
+            filtered_lines.append(line)
+    return "\n".join(filtered_lines)
+
+def parse_marker_values(text):
+    """Parse marker-value pairs, including units and reference intervals."""
+    pattern = re.compile(
+        r'^([A-Za-z][A-Za-z\s\(\),./-]+?)(?:\s+\$\^\{[^{}]*\}\$)?(?:\s+0[1-3])?\s+([><]?\d+(?:\.\d+)?|High|Low)(?:\s+([\w\/\^%\.x-]+))?(?:\s+([\d\.\-,]+))?$',
+        re.MULTILINE
+    )
+    matches = pattern.findall(text)
+    marker_values = []
+    seen_markers = {}
+    for match in matches:
+        marker = match[0].strip()
+        value = match[1]
+        units = match[2] if match[2] else "N/A"
+        ref_interval = match[3] if match[3] else "N/A"
+        # Handle specific multi-word markers
+        if marker == "Sex Horm Binding Glob":
+            marker = "Sex Horm Binding Glob, Serum"
+        if marker not in seen_markers:  # Avoid duplicates
+            try:
+                numeric_value = float(value)
+                value_out = numeric_value
+            except ValueError:
+                value_out = value
+            seen_markers[marker] = True
+            marker_values.append({
+                "Marker": marker,
+                "Value": value_out,
+                "Units": units,
+                "Reference Interval": ref_interval
+            })
+    return marker_values
+
 # File Upload & Lab Marker Extraction (Updated)
 st.write("Upload your LabCorp report (PDF or TXT) to extract patient and lab marker details.")
 uploaded_file = st.file_uploader("Choose a LabCorp report file", type=["pdf", "txt"])
@@ -109,7 +166,7 @@ if uploaded_file:
         st.error("Unsupported file type.")
 
     if text:
-        # Extract Patient Name
+        # Extract Patient Name (unchanged)
         first_line = text.split("\n")[0].strip()
         if ',' in first_line:
             parts = first_line.split(',')
@@ -119,33 +176,10 @@ if uploaded_file:
         else:
             patient_name_extracted = first_line
 
-        # Filter out non-marker lines
-        skip_keywords = ["Patient ID", "Specimen ID", "Date ", "Ordered Items", "©", "Please Note", "Prediabetes", "Diabetes", "Glycemic", "Labcorp", "Phone", "Account Number", "Physician"]
-        lines = [line for line in text.split("\n") if not any(keyword in line for keyword in skip_keywords)]
-        filtered_text = "\n".join(lines)
+        # Extract Lab Markers using ExtractResults logic
+        filtered_text = filter_metadata(text)
+        extracted_data = parse_marker_values(filtered_text)
 
-        # Updated regex
-        regex = re.compile(
-            r'^(?P<marker>.+?)(?:\s+(?P<code>0[1-3])|\s*)\s+(?P<value>[><]?\d+(?:\.\d+)?|High|Low)(?:\s+\S+){0,3}\s*(?P<units>[\w\/\^%\.x-]+)?(?:\s+(?P<ref>[\d\.\-,]+))?',
-            re.MULTILINE
-        )
-        results = regex.findall(filtered_text)
-        for raw_marker, code, value, units, ref_interval in results:
-            marker = raw_marker.strip()
-            if "Test Current Result" in marker:
-                marker = marker.split("Test Current Result")[0].strip()
-            marker = re.split(r'\d', marker)[0].strip()
-            try:
-                numeric_value = float(value)
-                value_out = numeric_value
-            except ValueError:
-                value_out = value
-            extracted_data.append({
-                "Marker": marker,
-                "Value": value_out,
-                "Units": units or "N/A",
-                "Reference Interval": ref_interval or "N/A"
-            })
         if extracted_data:
             st.subheader("Extracted Lab Results")
             df_extracted = pd.DataFrame(extracted_data)
@@ -170,7 +204,7 @@ else:
 default_member_name = patient_name_extracted if patient_name_extracted else ""
 member_name = st.sidebar.text_input("Enter Member/Patient Name", value=default_member_name)
 
-# Marker Group Selection and Input (Updated Normalization and Manual Map)
+# Marker Group Selection and Input (Updated Manual Map)
 def normalize_marker(marker):
     marker = marker.lower().strip()
     marker = re.sub(r'\([^)]*\)', '', marker)
@@ -228,7 +262,59 @@ manual_map = {
     "vldl cholesterol cal": "VLDL (calculated)",
     "ldl chol calc nih": "LDL (calculated)",
     "psa value": "Prostate Specific Antigen (PSA)",
-    "hematocri": "Hematocrit"
+    "hematocri": "Hematocrit",
+    # Added from ExtractResults aliases
+    "WBC": "White Blood Cell (WBC) Count",
+    "RBC": "Red Blood Cell (RBC) Count",
+    "Hemoglobin": "Hemoglobin (Hgb)",
+    "Hematocrit": "Hematocrit",
+    "MCV": "Mean Corpuscular Volume (MCV)",
+    "MCH": "Mean Corpuscular Hemoglobin (MCH)",
+    "MCHC": "Mean Corpuscular Hemoglobin Concentration (MCHC)",
+    "ROM": "Red Cell Distribution Width (RDW)",
+    "RDW": "Red Cell Distribution Width (RDW)",
+    "Platelets": "Platelet Count",
+    "Neutrophils": "Neutrophils",
+    "Lymphs": "Lymphocytes",
+    "Monocytes": "Monocytes",
+    "Eos": "Eosinophils",
+    "Basos": "Basophils",
+    "Neutrophils (Absolute)": "Neutrophils",
+    "Lymphs (Absolute)": "Lymphocytes",
+    "Monocytes(Absolute)": "Monocytes",
+    "Eos (Absolute)": "Eosinophils",
+    "Baso (Absolute)": "Basophils",
+    "Glucose": "Glucose",
+    "BUN": "Blood Urea Nitrogen (BUN)",
+    "Creatinine": "Creatinine",
+    "eGFR": "Estimated Glomerular Filtration Rate (eGFR)",
+    "BUN/Creatinine Ratio": "BUN/Creatinine Ratio",
+    "Sodium": "Sodium",
+    "Potassium": "Potassium",
+    "Chloride": "Chloride",
+    "Carbon Dioxide, Total": "Carbon Dioxide (CO₂), Total",
+    "Calcium": "Calcium",
+    "Protein, Total": "Total Protein",
+    "Albumin": "Albumin",
+    "Globulin, Total": "Globulin, Total",
+    "Bilirubin, Total": "Total Bilirubin",
+    "Alkaline Phosphatase": "Alkaline Phosphatase",
+    "AST (SGOT)": "Aspartate Aminotransferase (AST)",
+    "ALT (SGPT)": "Alanine Aminotransferase (ALT)",
+    "Cholesterol, Total": "Total Cholesterol",
+    "Triglycerides": "Triglycerides",
+    "HDL Cholesterol": "HDL",
+    "VLDL Cholesterol Cal": "VLDL (calculated)",
+    "LDL Chol Calc (NIH)": "LDL (calculated)",
+    "LH": "Luteinizing Hormone (LH)",
+    "FSH": "Follicle-Stimulating Hormone (FSH)",
+    "Testosterone": "Total Testosterone",
+    "Free Testosterone(Direct)": "Free Testosterone",
+    "Hemoglobin A1c": "HbA1c",
+    "Prolactin": "Prolactin",
+    "Estradiol": "Estradiol",
+    "Prostate Specific Ag": "Prostate Specific Antigen (PSA)",
+    "Sex Horm Binding Glob, Serum": "Sex Hormone Binding Globulin (SHBG)"
 }
 
 selected_markers = []
