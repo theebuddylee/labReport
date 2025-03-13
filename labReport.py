@@ -726,3 +726,5 @@ if st.button("Generate PDF"):
 
 # Close Database (unchanged)
 conn.close()
+db_path = os.path.abspath("lab_results.db")
+print("Database Path:", db_path)
