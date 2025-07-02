@@ -6,3 +6,4 @@ pytz
 requests
 pdfplumber
 matplotlib
+python-dotenv
