@@ -19,6 +19,27 @@ from dotenv import load_dotenv
 # Load environment variables for local testing
 load_dotenv()
 
+# Authentication Setup (Built-in OIDC/OAuth)
+if not st.user.is_logged_in:
+    st.markdown("# Welcome to Lab Results Report Generator")
+    if st.button("Log in with Google"):
+        st.login()  # Redirects to Google for auth
+    st.stop()  # Halt app until logged in
+else:
+    # Check domain restriction (fallback for External OAuth app)
+    if not st.user.email.endswith('@1stoptimal.com'):
+        st.error("Access denied: Only @1stoptimal.com emails are allowed.")
+        if st.button("Log out"):
+            st.logout()
+        st.stop()
+
+    # Add logout button in sidebar
+    if st.sidebar.button("Log out"):
+        st.logout()
+
+    # Personalized greeting
+    st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
+
 # Branding and Styling
 PRIMARY_COLOR = "#06B6D4"
 SECONDARY_COLOR = "#737373"
@@ -93,7 +114,7 @@ try:
 except sqlite3.Error as e:
     st.error(f"Database error: {e}")
 
-# Manual Mapping
+# Manual Mapping (expanded for variants)
 manual_map = {
     "t": "Free T4",
     "wbc": "White Blood Cell (WBC) Count",
@@ -120,11 +141,14 @@ manual_map = {
     "lh": "Luteinizing Hormone (LH)",
     "fsh": "Follicle-Stimulating Hormone (FSH)",
     "prolactin": "Prolactin",
-    "estradiol": "Estradiol",
-    "ESTRADIOL (SERUM)": "Estradiol",
-    "PROLACTIN_TEST": "Prolactin",
-    "Estradiol": "Estradiol",
     "Prolactin": "Prolactin",
+    "PROLACTIN": "Prolactin",
+    "PROLACTIN_TEST": "Prolactin",
+    "estradiol": "Estradiol",
+    "Estradiol": "Estradiol",
+    "ESTRADIOL": "Estradiol",
+    "ESTRADIOL (SERUM)": "Estradiol",
+    "estradiol (serum)": "Estradiol",
     "ggt": "Glutamyl Transferase (GGT)",
     "insulin": "Fasting Insulin",
     "triiodothyronine t": "Free T3",
@@ -197,7 +221,31 @@ manual_map = {
     "Alkaline Phosphatase, S": "Alkaline Phosphatase",
     "Prostate Specific Ag, Serum": "Prostate Specific Antigen (PSA)",
     "Immature Granulocytes": "Immature Granulocytes",
-    "Immature Grans (Abs)": "Immature Granulocytes (Absolute)"
+    "Immature Grans (Abs)": "Immature Granulocytes (Absolute)",
+    "C-Reactive Protein, Cardiac": "C-Reactive Protein, High Sensitivity (hsCRP)",
+    "Cortisol": "Cortisol",
+    "Estradiol, Sensitive": "Estradiol, Sensitive / Ultrasensitive (LC/MS)",
+    "Ferritin, Serum": "Ferritin",
+    "Iron Bind.Cap.(TIBC)": "TIBC (Total Iron Binding Capacity)",
+    "Iron Saturation": "Transferrin Saturation",
+    "Iron, Serum": "Iron",
+    "UIBC": "UIBC (Unsaturated Iron Binding Capacity)",
+    "Hb A1c Diabetic Assessment": "Hemoglobin A1c",
+    "Testosterone, Total, LC/MS": "Total Testosterone (LC/MS) [uncapped]",
+    "Triiodothyronine,Free,Serum": "Free T3",
+    "T4,Free(Direct)": "Free T4",
+    "Vitamin D, 25-Hydroxy": "Vitamin D (25-OH)",
+    "DHEA-Sulfate": "Dehydroepiandrosterone Sulfate (DHEA-S)",
+    "LDL Chol Calc (NIH)": "LDL (calculated)",
+    "LDL/HDL Ratio": "LDL/HDL Ratio",
+    "Lipoprotein (a)": "Lipoprotein (a)",
+    "Insulin": "Fasting Insulin",
+    "Insulin-Like Growth Factor I": "Insulin-Like Growth Factor I (IGF-1)",
+    "Progesterone": "Progesterone",
+    "TSH": "TSH",
+    "GGT": "Glutamyl Transferase (GGT)",
+    "Apolipoprotein B": "Apolipoprotein B",
+    "Transferrin": "Transferrin"
 }
 
 # CharmHealth API Functions
@@ -380,15 +428,23 @@ if st.sidebar.button("Search Patients"):
                 st.sidebar.warning("No patients found or error in search results.")
         else:
             st.sidebar.error("Cannot proceed without a valid access token.")
-
 patient_options = [(patient['patient_id'], patient.get('full_name', 'Unknown')) for patient in st.session_state.patients]
-selected_patient = st.sidebar.selectbox("Select a Patient",
-                                        options=[f"{name} (ID: {pid})" for pid, name in patient_options],
-                                        index=0 if patient_options else None,
-                                        key="patient_selectbox")
+selected_patient = st.sidebar.selectbox(
+    "Select a Patient",
+    options=[f"{name} (ID: {pid})" for pid, name in patient_options],
+    index=0 if patient_options else None,
+    key="patient_selectbox"
+)
 if selected_patient:
     st.session_state.selected_patient = selected_patient
+patient_sex = None
+if selected_patient:
+    patient_id = next(pid for pid, name in patient_options if f"{name} (ID: {pid})" == selected_patient)
+    patient_data = next(p for p in st.session_state.patients if p['patient_id'] == patient_id)
+    patient_sex = patient_data.get('sex', '').lower()
 
+# Fetch Lab Results Button
+api_markers_dict = {}
 if selected_patient and st.sidebar.button("Fetch Lab Results from API"):
     with st.spinner("Fetching lab results..."):
         patient_id = next(pid for pid, name in patient_options if f"{name} (ID: {pid})" == selected_patient)
@@ -408,7 +464,7 @@ if selected_patient and st.sidebar.button("Fetch Lab Results from API"):
             st.session_state.api_markers_dict = {}
             st.sidebar.error("Cannot proceed without a valid access token.")
 
-# File Upload
+# File Upload Section
 st.header("Upload LabCorp Report")
 uploaded_file = st.file_uploader("Choose a LabCorp report file", type=["pdf", "txt"])
 extracted_data = []
@@ -452,10 +508,10 @@ else:
     if "extracted_markers_dict" not in st.session_state:
         st.session_state.extracted_markers_dict = {}
 
+# Combine Data Sources
 combined_markers_dict = st.session_state.get("extracted_markers_dict", {}).copy()
 if "api_markers_dict" in st.session_state:
     combined_markers_dict.update(st.session_state.api_markers_dict)
-st.write("Combined markers:", combined_markers_dict)
 
 # Marker Selection and Input
 def normalize_marker(marker):
@@ -478,8 +534,14 @@ def normalize_marker(marker):
 selected_markers = []
 lab_results = {}
 if lab_markers:
+    default_group = "Men" if patient_sex == "male" else "Women" if patient_sex == "female" else "Post Menopausal Women"
+    try:
+        default_index = list(lab_markers.keys()).index(default_group)
+    except ValueError:
+        default_index = 0
+        st.warning(f"Default group '{default_group}' not found in lab_markers. Using first available group.")
     st.markdown("### Select Group of Lab Markers:")
-    selected_group = st.selectbox("Choose a group:", list(lab_markers.keys()))
+    selected_group = st.selectbox("Choose a group:", list(lab_markers.keys()), index=default_index)
     st.session_state.selected_group = selected_group
     available_markers = lab_markers[selected_group]
 
@@ -521,14 +583,14 @@ if lab_markers:
         if panel in grouped_by_panel:
             markers_in_panel = sorted(grouped_by_panel[panel])
             default_markers = sorted([m for m in markers_in_panel if m in preselected_markers])
-            with st.expander(panel, False):
+            with st.expander(panel, expanded=False):
                 selected_from_panel = st.multiselect(f"Select markers from {panel}:", markers_in_panel, default=default_markers, key=panel)
                 selected_markers.extend(selected_from_panel)
     remaining_panels = [p for p in grouped_by_panel.keys() if p not in desired_panel_order]
     for panel in sorted(remaining_panels):
         markers_in_panel = sorted(grouped_by_panel[panel])
         default_markers = sorted([m for m in markers_in_panel if m in preselected_markers])
-        with st.expander(panel, False):
+        with st.expander(panel, expanded=False):
             selected_from_panel = st.multiselect(f"Select markers from {panel}:", markers_in_panel, default=default_markers, key=panel)
             selected_markers.extend(selected_from_panel)
 else:
@@ -537,8 +599,12 @@ else:
 if selected_markers:
     st.markdown("### Input Lab Results:")
     for marker in selected_markers:
-        default_val = lab_results.get(marker, "")
-        lab_results[marker] = st.text_input(f"Enter result for {marker}:", value=str(default_val))
+        default_val = lab_results.get(marker, None)
+        try:
+            default_float = float(default_val) if default_val is not None else None
+        except ValueError:
+            default_float = None
+        lab_results[marker] = st.number_input(f"Enter result for {marker}:", value=default_float)
 
 # Visualization Functions
 def parse_range(range_str):
@@ -591,8 +657,11 @@ def log_analytics(selected_manager, selected_markers, lab_results, available_mar
         local_timezone = pytz.timezone("UTC")
         timestamp = datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")
         for marker in selected_markers:
+            user_value = lab_results.get(marker)
+            if user_value is None:
+                continue
             try:
-                user_numeric = float(lab_results[marker])
+                user_numeric = float(user_value)
             except ValueError:
                 continue
             clinical_range = parse_range(available_markers[marker]['clinical_range'])
@@ -665,8 +734,8 @@ if st.button("Generate PDF"):
         st.error("Please enter a Member/Patient Name before generating the PDF.")
     elif not selected_markers:
         st.warning("No lab markers selected.")
-    elif not any(str(lab_results.get(marker, "")).strip() for marker in selected_markers):
-        st.error("No lab results entered.")
+    elif not any(lab_results.get(marker) is not None for marker in selected_markers):
+        st.error("No valid numeric lab results entered.")
     else:
         pdf = FPDF()
         pdf.add_font("Exo2", "", FONT_PRIMARY)
@@ -679,10 +748,11 @@ if st.button("Generate PDF"):
         count_inrange = 0
         count_out = 0
         for marker in selected_markers:
-            try:
-                user_numeric = float(lab_results[marker])
-            except ValueError:
+            user_value = lab_results.get(marker)
+            if user_value is None:
+                count_out += 1
                 continue
+            user_numeric = float(user_value)
             clinical_range = parse_range(available_markers[marker]['clinical_range'])
             optimal_range = parse_range(available_markers[marker]['optimal_range'])
             if clinical_range and optimal_range:
@@ -770,14 +840,8 @@ if st.button("Generate PDF"):
         for marker in selected_markers:
             panel = available_markers[marker].get('panel', 'Other')
             grouped_markers.setdefault(panel, []).append(marker)
-        panel_order = [
-            "Hormone-Testing Panel",
-            "Thyroid Panel",
-            "Metabolic Panel",
-            "CBC w/ Differential",
-            "Lipid Panel"
-        ]
-        for panel in panel_order + [p for p in grouped_markers if p not in panel_order]:
+        # Standardize panel order to match marker selection
+        for panel in desired_panel_order + [p for p in grouped_markers if p not in desired_panel_order]:
             if panel in grouped_markers:
                 pdf.add_page()
                 marker_count = 0
@@ -807,55 +871,54 @@ if st.button("Generate PDF"):
                     set_font_with_fallback(pdf, "Exo2", "", 12, marker)
                     pdf.multi_cell(0, 6, available_markers[marker].get('description', ''))
                     pdf.ln(2)
-                    value = lab_results.get(marker, '')
-                    try:
-                        user_numeric = float(value)
-                    except ValueError:
-                        user_numeric = None
+                    value = lab_results.get(marker)
+                    if value is None:
+                        pdf.cell(0, 10, "No value entered.", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                        pdf.ln(5)
+                        continue
+                    user_numeric = float(value)
                     dot_color = None
-                    if user_numeric is not None:
-                        clinical_range = parse_range(available_markers[marker]['clinical_range'])
-                        optimal_range = parse_range(available_markers[marker]['optimal_range'])
-                        if clinical_range and optimal_range:
-                            clinical_min, clinical_max = clinical_range
-                            optimal_min, optimal_max = optimal_range
-                            if optimal_min <= user_numeric <= optimal_max:
-                                dot_color = (6, 182, 212)
-                            elif user_numeric < clinical_min or user_numeric > clinical_max:
-                                dot_color = (255, 85, 85)
-                    if user_numeric is not None:
-                        fig = create_range_chart(
-                            marker,
-                            available_markers[marker]['units'],
-                            available_markers[marker]['clinical_range'],
-                            available_markers[marker]['optimal_range'],
-                            user_numeric
-                        )
-                        if fig:
-                            with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
-                                chart_file = tmpfile.name
-                                fig.savefig(chart_file, bbox_inches='tight')
-                            plt.close(fig)
-                            current_x = pdf.get_x()
-                            current_y = pdf.get_y()
-                            pdf.image(chart_file, x=current_x, y=current_y, w=120, h=30)
-                            os.remove(chart_file)
-                            result_text = f"Result: {value} {available_markers[marker]['units']}"
-                            pdf.set_xy(current_x + 125, current_y)
-                            pdf.set_font("Exo2", "", 12)
-                            pdf.cell(0, 30, result_text, border=0)
-                            result_text_width = pdf.get_string_width(result_text) + 2
-                            pdf.set_xy(current_x + 125 + result_text_width, current_y)
-                            if dot_color:
-                                pdf.set_text_color(*dot_color)
-                                pdf.set_font("DejaVuSans", "B", 16)
-                                pdf.cell(0, 30, "●", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-                                pdf.set_text_color(0, 0, 0)
-                                pdf.set_font("Exo2", "", 14)
-                            else:
-                                pdf.ln(30)
+                    clinical_range = parse_range(available_markers[marker]['clinical_range'])
+                    optimal_range = parse_range(available_markers[marker]['optimal_range'])
+                    if clinical_range and optimal_range:
+                        clinical_min, clinical_max = clinical_range
+                        optimal_min, optimal_max = optimal_range
+                        if optimal_min <= user_numeric <= optimal_max:
+                            dot_color = (6, 182, 212)
+                        elif user_numeric < clinical_min or user_numeric > clinical_max:
+                            dot_color = (255, 85, 85)
+                    fig = create_range_chart(
+                        marker,
+                        available_markers[marker]['units'],
+                        available_markers[marker]['clinical_range'],
+                        available_markers[marker]['optimal_range'],
+                        user_numeric
+                    )
+                    if fig:
+                        with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
+                            chart_file = tmpfile.name
+                            fig.savefig(chart_file, bbox_inches='tight')
+                        plt.close(fig)
+                        current_x = pdf.get_x()
+                        current_y = pdf.get_y()
+                        pdf.image(chart_file, x=current_x, y=current_y, w=120, h=30)
+                        os.remove(chart_file)
+                        result_text = f"Result: {value} {available_markers[marker]['units']}"
+                        pdf.set_xy(current_x + 125, current_y)
+                        pdf.set_font("Exo2", "", 12)
+                        pdf.cell(0, 30, result_text, border=0)
+                        result_text_width = pdf.get_string_width(result_text) + 2
+                        pdf.set_xy(current_x + 125 + result_text_width, current_y)
+                        if dot_color:
+                            pdf.set_text_color(*dot_color)
+                            pdf.set_font("DejaVuSans", "B", 16)
+                            pdf.cell(0, 30, "●", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                            pdf.set_text_color(0, 0, 0)
+                            pdf.set_font("Exo2", "", 14)
+                        else:
+                            pdf.ln(30)
                     else:
-                        pdf.cell(0, 10, "Chart not available (non-numeric result).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                        pdf.cell(0, 10, "Chart not available (unable to parse ranges).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                         pdf.ln(1)
                     clinical_label = "Clinical Range:"
                     set_font_with_fallback(pdf, "Exo2", "", 14, clinical_label)
