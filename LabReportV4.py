@@ -266,8 +266,8 @@ def refresh_access_token():
             return None
 
     # Debug: Log credential usage (non-sensitive parts)
-    st.write(f"Using CLIENT_ID: {client_id[:10]}... (first 10 chars)")
-    st.write(f"Using REFRESH_TOKEN: {refresh_token[:10]}... (first 10 chars)")
+    # st.write(f"Using CLIENT_ID: {client_id[:10]}... (first 10 chars)")
+    # st.write(f"Using REFRESH_TOKEN: {refresh_token[:10]}... (first 10 chars)")
 
     # Use V3's URL query string and Cookie header
     url = f'https://accounts.charmtracker.com/oauth/v2/token?refresh_token={refresh_token}&client_id={client_id}&client_secret={client_secret}&grant_type=refresh_token'
@@ -411,10 +411,10 @@ st.sidebar.markdown("### Search Patient via CharmHealth API")
 if 'patients' not in st.session_state:
     st.session_state.patients = []
 search_term = st.sidebar.text_input("Search Patient by Name (or partial name)", value="")
-st.sidebar.markdown("### Debug: Manual Credential Input")
-st.session_state["refresh_token"] = st.sidebar.text_input("Refresh Token", value="", key="refresh_token_input")
-st.session_state["client_id"] = st.sidebar.text_input("Client ID", value="", key="client_id_input")
-st.session_state["client_secret"] = st.sidebar.text_input("Client Secret", value="", type="password", key="client_secret_input")
+#st.sidebar.markdown("### Debug: Manual Credential Input")
+#st.session_state["refresh_token"] = st.sidebar.text_input("Refresh Token", value="", key="refresh_token_input")
+#st.session_state["client_id"] = st.sidebar.text_input("Client ID", value="", key="client_id_input")
+#st.session_state["client_secret"] = st.sidebar.text_input("Client Secret", value="", type="password", key="client_secret_input")
 if st.sidebar.button("Search Patients"):
     with st.spinner("Searching patients..."):
         access_token = refresh_access_token()
@@ -954,3 +954,4 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
