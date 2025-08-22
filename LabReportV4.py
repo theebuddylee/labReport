@@ -534,7 +534,14 @@ def normalize_marker(marker):
 selected_markers = []
 lab_results = {}
 if lab_markers:
-    default_group = "Men" if patient_sex == "male" else "Women" if patient_sex == "female" else "Post Menopausal Women"
+    # Determine if data is from API or PDF
+    is_api_data = "selected_patient" in st.session_state and st.session_state["selected_patient"]
+    if is_api_data:
+        # Default to "Men" for API data
+        default_group = "Men"
+    else:
+        # Preserve existing logic for PDF uploads
+        default_group = "Men" if patient_sex == "male" else "Women" if patient_sex == "female" else "Post Menopausal Women"
     try:
         default_index = list(lab_markers.keys()).index(default_group)
     except ValueError:
@@ -954,4 +961,5 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
