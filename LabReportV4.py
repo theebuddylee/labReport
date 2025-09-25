@@ -704,9 +704,9 @@ def overwrite_more_information(template_path, output_path, member_name, selected
         manager_phone = manager_info.get("phone", "N/A")
         doc = fitz.open(template_path)
         first_page = doc[0]
-        first_page.insert_text((73, 598), f"{manager_name} exclusively for {member_name or 'Not Provided'}", fontsize=21, color=(1, 1, 1))
-        first_page.insert_text((73, 636), f"{manager_phone}", fontsize=21, color=(1, 1, 1))
-        first_page.insert_text((73, 673.5), f"{manager_email}", fontsize=21, color=(1,1,1))
+        first_page.insert_text((73, 550), f"{manager_name} exclusively for {member_name or 'Not Provided'}", fontsize=18, color=(73, 73, 73))
+        first_page.insert_text((73, 636), f"{manager_phone}", fontsize=18, color=(73, 73, 73))
+        first_page.insert_text((73, 673.5), f"{manager_email}", fontsize=18, color=(73, 73, 73))
         doc.save(output_path)
         return output_path
     except Exception as e:
@@ -961,6 +961,7 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
 
 
