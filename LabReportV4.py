@@ -245,7 +245,45 @@ manual_map = {
     "TSH": "TSH",
     "GGT": "Glutamyl Transferase (GGT)",
     "Apolipoprotein B": "Apolipoprotein B",
-    "Transferrin": "Transferrin"
+    "Transferrin": "Transferrin",
+    # New mappings for Quest labs 
+    "Hgb A1c MFr Bld": "HbA1c",
+    "GGT SerPl-cCnc": "Glutamyl Transferase (GGT)",
+    "T3Free SerPl-mCnc": "Free T3",
+    "LPa SerPl-sCnc": "Lipoprotein (a)",
+    "25(OH)D SerPl-mCnc": "Vitamin D (25-OH)",
+    "Vitamin D3 SerPl-mCnc": "Vitamin D3", 
+    "Vitamin D2 SerPl-mCnc": "Vitamin D2",  
+    "WBC # Bld Auto": "White Blood Cell (WBC) Count",
+    "RBC # Bld Auto": "Red Blood Cell (RBC) Count",
+    "Hgb Bld-mCnc": "Hemoglobin (Hgb)",
+    "Hct VFr Bld Auto": "Hematocrit",
+    "MCV RBC Auto": "Mean Corpuscular Volume (MCV)",
+    "MCH RBC Qn Auto": "Mean Corpuscular Hemoglobin (MCH)",
+    "MCHC RBC Auto-mCnc": "Mean Corpuscular Hemoglobin Concentration (MCHC)",
+    "RDW RBC Auto-Rto": "Red Cell Distribution Width (RDW)",
+    "Platelet # Bld Auto": "Platelet Count",
+    "PMV Bld Rees-Ecker": "Mean Platelet Volume (MPV)",  
+    "Neutrophils # Bld Auto": "Neutrophils",
+    "Neuts Band # Bld": "Neutrophils",
+    "Cholest SerPl-mCnc": "Total Cholesterol",
+    "HDLc SerPl-mCnc": "HDL",
+    "Trigl SerPl-mCnc": "Triglycerides",
+    "LDLc SerPl Calc-mCnc": "LDL (calculated)",
+    "LDLc/HDLc SerPl-mRto": "LDL/HDL Ratio",
+    "TSH SerPl-aCnc": "TSH",
+    "T4 Free SerPl-mCnc": "Free T4",
+    "Apo B SerPl-mCnc": "Apolipoprotein B",
+    "Glucose SerPl-mCnc": "Glucose",
+    "BUN SerPl-mCnc": "Blood Urea Nitrogen (BUN)",
+    "Creat SerPl-mCnc": "Creatinine",
+    "eGFRcr SerPlBld CKD-EPI 2021": "Estimated Glomerular Filtration Rate (eGFR)",
+    "BUN/Creat SerPl": "BUN/Creatinine Ratio",
+    "Sodium SerPl-sCnc": "Sodium",
+    "Potassium SerPl-sCnc": "Potassium",
+    "Chloride SerPl-sCnc": "Chloride",
+    "CO2 SerPl-sCnc": "Carbon Dioxide (CO₂), Total",
+    "Calcium SerPl-mCnc": "Calcium"
 }
 
 # CharmHealth API Functions
@@ -961,6 +999,7 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
 
 
