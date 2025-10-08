@@ -265,7 +265,7 @@ manual_map = {
     "Platelet # Bld Auto": "Platelet Count",
     "PMV Bld Rees-Ecker": "Mean Platelet Volume (MPV)",  
     "Neutrophils # Bld Auto": "Neutrophils",
-    "Neuts Band # Bld": "Neutrophils",
+    #"Neuts Band # Bld": "Neutrophils",
     "Cholest SerPl-mCnc": "Total Cholesterol",
     "HDLc SerPl-mCnc": "HDL",
     "Trigl SerPl-mCnc": "Triglycerides",
@@ -999,6 +999,7 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
 
 
