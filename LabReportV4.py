@@ -798,11 +798,10 @@ if st.button("Generate PDF"):
                 count_out += 1
                 continue
             user_numeric = float(user_value)
-            clinical_range = parse_range(available_markers[marker]['clinical_range'])
-            optimal_range = parse_range(available_markers[marker]['optimal_range'])
-            if clinical_range and optimal_range:
-                clinical_min, clinical_max = clinical_range
-                optimal_min, optimal_max = optimal_range
+            clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
+            optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
+            if (clinical_min is not None and clinical_max is not None and
+                optimal_min is not None and optimal_max is not None):
                 if optimal_min <= user_numeric <= optimal_max:
                     score_sum += 1
                     count_optimal += 1
@@ -999,6 +998,7 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
 
 
