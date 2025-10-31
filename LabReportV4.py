@@ -709,13 +709,12 @@ def log_analytics(selected_manager, selected_markers, lab_results, available_mar
                 user_numeric = float(user_value)
             except ValueError:
                 continue
-            clinical_range = parse_range(available_markers[marker]['clinical_range'])
-            optimal_range = parse_range(available_markers[marker]['optimal_range'])
+            clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
+            optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
             is_optimal_out = 0
             is_clinical_out = 0
-            if clinical_range and optimal_range:
-                clinical_min, clinical_max = clinical_range
-                optimal_min, optimal_max = optimal_range
+            if (clinical_min is not None and clinical_max is not None and
+                optimal_min is not None and optimal_max is not None):
                 if not (optimal_min <= user_numeric <= optimal_max):
                     is_optimal_out = 1
                 if not (clinical_min <= user_numeric <= clinical_max):
@@ -997,6 +996,7 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
 
 
