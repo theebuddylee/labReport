@@ -922,11 +922,10 @@ if st.button("Generate PDF"):
                         continue
                     user_numeric = float(value)
                     dot_color = None
-                    clinical_range = parse_range(available_markers[marker]['clinical_range'])
-                    optimal_range = parse_range(available_markers[marker]['optimal_range'])
-                    if clinical_range and optimal_range:
-                        clinical_min, clinical_max = clinical_range
-                        optimal_min, optimal_max = optimal_range
+                    clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
+                    optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
+                    if (clinical_min is not None and clinical_max is not None and
+                        optimal_min is not None and optimal_max is not None):
                         if optimal_min <= user_numeric <= optimal_max:
                             dot_color = (6, 182, 212)
                         elif user_numeric < clinical_min or user_numeric > clinical_max:
@@ -998,6 +997,7 @@ if st.button("Generate PDF"):
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
+
 
 
 
