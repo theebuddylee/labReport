@@ -572,8 +572,14 @@ def normalize_marker(marker):
 selected_markers = []
 lab_results = {}
 if lab_markers:
-    # Hardcode default group to "Men" (no auto-detection)
-    default_group = "Men"
+    # Determine if data is from API or PDF
+    is_api_data = "selected_patient" in st.session_state and st.session_state["selected_patient"]
+    if is_api_data:
+        # Default to "Men" for API data
+        default_group = "Men"
+    else:
+        # Preserve existing logic for PDF uploads
+        default_group = "Men" if patient_sex == "male" else "Women" if patient_sex == "female" else "Post Menopausal Women"
     try:
         default_index = list(lab_markers.keys()).index(default_group)
     except ValueError:
@@ -583,6 +589,7 @@ if lab_markers:
     selected_group = st.selectbox("Choose a group:", list(lab_markers.keys()), index=default_index)
     st.session_state.selected_group = selected_group
     available_markers = lab_markers[selected_group]
+
     preselected_markers = []
     matched_extracted = set()
     for avail_marker in available_markers.keys():
@@ -599,6 +606,7 @@ if lab_markers:
                 lab_results[avail_marker] = combined_markers_dict[extracted_marker]
                 matched_extracted.add(extracted_marker)
                 break
+
     normalized_extracted = {normalize_marker(key): key for key in combined_markers_dict.keys()}
     normalized_available = {normalize_marker(key): key for key in available_markers.keys()}
     matched_normalized = {normalize_marker(key) for key in matched_extracted}
@@ -606,6 +614,7 @@ if lab_markers:
     if unmatched_normalized:
         st.warning("The following extracted markers did not match any available markers (after normalization):")
         st.write(unmatched_normalized)
+
     st.markdown("### Select Lab Markers to Include:")
     grouped_by_panel = {}
     for marker, info in available_markers.items():
@@ -631,6 +640,7 @@ if lab_markers:
             selected_markers.extend(selected_from_panel)
 else:
     st.error("Lab markers could not be loaded.")
+
 if selected_markers:
     st.markdown("### Input Lab Results:")
     for marker in selected_markers:
