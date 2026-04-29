@@ -9,3 +9,4 @@ matplotlib
 numpy
 python-dotenv
 authlib==1.6.5
+httpx>=0.28.0
