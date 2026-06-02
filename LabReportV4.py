@@ -20,7 +20,7 @@ from dotenv import load_dotenv
 if not st.user.is_logged_in:
     st.markdown("# Welcome to Lab Results Report Generator")
     if st.button("Log in with Google", type="primary"):
-        st.login(provider="google")
+        st.login()
     st.stop()
 
 if not st.user.email.endswith("@1stoptimal.com"):
