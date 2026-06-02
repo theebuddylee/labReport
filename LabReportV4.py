@@ -18,20 +18,25 @@ from dotenv import load_dotenv
 
 # Load environment variables for local testing
 load_dotenv()
+import streamlit as st
 
-# Authentication Setup (Built-in OIDC/OAuth)
+# === Authentication ===
 if not st.user.is_logged_in:
     st.markdown("# Welcome to Lab Results Report Generator")
-    if st.button("Log in with Google"):
-        st.login()  # Redirects to Google for auth
-    st.stop()  # Halt app until logged in
-else:
-    # Check domain restriction (fallback for External OAuth app)
-    if not st.user.email.endswith('@1stoptimal.com'):
-        st.error("Access denied: Only @1stoptimal.com emails are allowed.")
-        if st.button("Log out"):
-            st.logout()
-        st.stop()
+    if st.button("Log in with Google", type="primary"):
+        st.login(provider="google")
+    st.stop()
+
+if not st.user.email.endswith("@1stoptimal.com"):
+    st.error("Access denied: Only @1stoptimal.com emails are allowed.")
+    if st.button("Log out"):
+        st.logout()
+    st.stop()
+
+if st.sidebar.button("Log out"):
+    st.logout()
+
+st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
 
     # Add logout button in sidebar
     if st.sidebar.button("Log out"):
