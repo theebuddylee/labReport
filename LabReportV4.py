@@ -16,10 +16,6 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 from dotenv import load_dotenv
 
-# Load environment variables for local testing
-load_dotenv()
-import streamlit as st
-
 # === Authentication ===
 if not st.user.is_logged_in:
     st.markdown("# Welcome to Lab Results Report Generator")
@@ -38,12 +34,12 @@ if st.sidebar.button("Log out"):
 
 st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
 
-    # Add logout button in sidebar
-    if st.sidebar.button("Log out"):
-        st.logout()
+# Add logout button in sidebar
+if st.sidebar.button("Log out"):
+    st.logout()
 
-    # Personalized greeting
-    st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
+# Personalized greeting
+st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
 
 # Branding and Styling
 PRIMARY_COLOR = "#06B6D4"
