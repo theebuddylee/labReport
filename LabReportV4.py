@@ -16,32 +16,36 @@ from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 from dotenv import load_dotenv
 
-# === Authentication ===
+# Load environment variables for local testing
+load_dotenv()
+
+# ============================================================
+# ==================== AUTHENTICATION ========================
+# ============================================================
+
 if not st.user.is_logged_in:
     st.markdown("# Welcome to Lab Results Report Generator")
     if st.button("Log in with Google", type="primary"):
-        st.login()
+        st.login(provider="google")
     st.stop()
 
+# Domain restriction - only allow @1stoptimal.com emails
 if not st.user.email.endswith("@1stoptimal.com"):
     st.error("Access denied: Only @1stoptimal.com emails are allowed.")
     if st.button("Log out"):
         st.logout()
     st.stop()
 
+# Logout button in sidebar
 if st.sidebar.button("Log out"):
     st.logout()
 
+# Personalized greeting in sidebar
 st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
 
-# Add logout button in sidebar
-if st.sidebar.button("Log out"):
-    st.logout()
-
-# Personalized greeting
-st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
-
-# Branding and Styling
+# ============================================================
+# ==================== BRANDING & STYLING ====================
+# ============================================================
 PRIMARY_COLOR = "#06B6D4"
 SECONDARY_COLOR = "#737373"
 vibrant_red = "#FF5555"
