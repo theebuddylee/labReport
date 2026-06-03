@@ -23,25 +23,54 @@ load_dotenv()
 # ==================== AUTHENTICATION ========================
 # ============================================================
 
-if not st.user.is_logged_in:
-    st.markdown("# Welcome to Lab Results Report Generator")
-    if st.button("Log in with Google", type="primary"):
-        st.login(provider="google")
-    st.stop()
+#if not st.user.is_logged_in:
+#    st.markdown("# Welcome to Lab Results Report Generator")
+#    if st.button("Log in with Google", type="primary"):
+#        st.login(provider="google")
+#    st.stop()
 
 # Domain restriction
-if not st.user.email.endswith("@1stoptimal.com"):
-    st.error("Access denied: Only @1stoptimal.com emails are allowed.")
-    if st.button("Log out"):
-        st.logout()
-    st.stop()
+#if not st.user.email.endswith("@1stoptimal.com"):
+#    st.error("Access denied: Only @1stoptimal.com emails are allowed.")
+#    if st.button("Log out"):
+#        st.logout()
+#    st.stop()
 
 # Logout button in sidebar (with unique key to avoid duplicate ID error)
-if st.sidebar.button("Log out", key="logout_btn"):
-    st.logout()
+#if st.sidebar.button("Log out", key="logout_btn"):
+#    st.logout()
 
 # Personalized greeting
-st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
+#st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
+
+# ============================================================
+# ==================== PASSWORD PROTECTION (via Secrets) =====
+# ============================================================
+
+import streamlit as st
+
+# Read password from Streamlit Secrets (never exposed in GitHub)
+APP_PASSWORD = st.secrets.get("APP_PASSWORD", "")
+
+if "authenticated" not in st.session_state:
+    st.session_state.authenticated = False
+
+if not st.session_state.authenticated:
+    st.markdown("# Welcome to Lab Results Report Generator")
+    st.info("This app is currently in limited access mode.")
+
+    password = st.text_input("Enter access password", type="password", key="pwd_input")
+
+    if st.button("Enter", type="primary"):
+        if password == APP_PASSWORD and APP_PASSWORD != "":
+            st.session_state.authenticated = True
+            st.rerun()
+        else:
+            st.error("Incorrect password. Please try again.")
+    st.stop()
+
+# If user reaches here, they are authenticated
+st.sidebar.success("✅ Access granted")
 
 # ============================================================
 # ==================== BRANDING & STYLING ====================
