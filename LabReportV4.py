@@ -29,18 +29,18 @@ if not st.user.is_logged_in:
         st.login(provider="google")
     st.stop()
 
-# Domain restriction - only allow @1stoptimal.com emails
+# Domain restriction
 if not st.user.email.endswith("@1stoptimal.com"):
     st.error("Access denied: Only @1stoptimal.com emails are allowed.")
     if st.button("Log out"):
         st.logout()
     st.stop()
 
-# Logout button in sidebar
-if st.sidebar.button("Log out"):
+# Logout button in sidebar (with unique key to avoid duplicate ID error)
+if st.sidebar.button("Log out", key="logout_btn"):
     st.logout()
 
-# Personalized greeting in sidebar
+# Personalized greeting
 st.sidebar.markdown(f"Welcome, {st.user.name}! ({st.user.email})")
 
 # ============================================================
