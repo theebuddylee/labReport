@@ -765,9 +765,9 @@ def overwrite_more_information(template_path, output_path, member_name, selected
         manager_phone = manager_info.get("phone", "N/A")
         doc = fitz.open(template_path)
         first_page = doc[0]
-        first_page.insert_text((70, 538), f"{member_name or 'Not Provided'}", fontsize=17, color=(0.451, 0.451, 0.451))
-        first_page.insert_text((70, 577), f"{manager_phone}", fontsize=17, color=(0.451, 0.451, 0.451))
-        first_page.insert_text((70, 615), f"{manager_email}", fontsize=17, color=(0.451, 0.451, 0.451))
+        first_page.insert_text((70, 538), f"{member_name or 'Not Provided'}", fontsize=17, color=(1, 1, 1))
+        first_page.insert_text((70, 577), f"{manager_phone}", fontsize=17, color=(1, 1, 1))
+        first_page.insert_text((70, 615), f"{manager_email}", fontsize=17, color=(1, 1, 1))
         doc.save(output_path)
         return output_path
     except Exception as e:
