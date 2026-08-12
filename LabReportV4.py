@@ -781,7 +781,7 @@ def merge_pdfs(template_path, generated_path, output_path):
         output_pdf = fitz.open()
         output_pdf.insert_pdf(template_pdf, from_page=0, to_page=2)
         output_pdf.insert_pdf(generated_pdf)
-        output_pdf.insert_pdf(template_pdf, from_page=3, to_page=3)
+        output_pdf.insert_pdf(template_pdf, from_page=3, to_page=6)
         output_pdf.save(output_path)
         output_pdf.close()
         template_pdf.close()
@@ -1010,7 +1010,7 @@ if st.button("Generate PDF"):
                     pdf.ln(5)
         generated_pdf = "generated_lab_report.pdf"
         pdf.output(generated_pdf)
-        template_pdf = "LabResultsV2.pdf"
+        template_pdf = "LabResultsV3.pdf"
         updated_template = overwrite_more_information(template_pdf, "updated_template.pdf", member_name, selected_manager)
         merged_pdf = "final_report.pdf"
         merge_pdfs(updated_template, generated_pdf, merged_pdf)
