@@ -765,9 +765,13 @@ def overwrite_more_information(template_path, output_path, member_name, selected
         manager_phone = manager_info.get("phone", "N/A")
         doc = fitz.open(template_path)
         first_page = doc[0]
-        first_page.insert_text((70, 538), f"{member_name or 'Not Provided'}", fontsize=17, color=(1, 1, 1))
-        first_page.insert_text((70, 577), f"{manager_phone}", fontsize=17, color=(1, 1, 1))
-        first_page.insert_text((70, 615), f"{manager_email}", fontsize=17, color=(1, 1, 1))
+        for text, y in [
+            (member_name or 'Not Provided', 523),
+            (manager_phone, 567),
+            (manager_email, 610),
+        ]:
+            font_size = min(17, 470 / max(fitz.get_text_length(text, fontname="helv", fontsize=1), 1))
+            first_page.insert_text((84, y), text, fontsize=font_size, color=(1, 1, 1), fontname="helv")
         doc.save(output_path)
         return output_path
     except Exception as e:
@@ -781,7 +785,7 @@ def merge_pdfs(template_path, generated_path, output_path):
         output_pdf = fitz.open()
         output_pdf.insert_pdf(template_pdf, from_page=0, to_page=2)
         output_pdf.insert_pdf(generated_pdf)
-        output_pdf.insert_pdf(template_pdf, from_page=3, to_page=6)
+        output_pdf.insert_pdf(template_pdf, from_page=3)
         output_pdf.save(output_path)
         output_pdf.close()
         template_pdf.close()
