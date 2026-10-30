@@ -15,6 +15,9 @@ from datetime import datetime
 from fpdf import FPDF
 from fpdf.enums import XPos, YPos
 from dotenv import load_dotenv
+from lab_preload import (accept_api_payload, clear_patient_state, sync_form_state, remember_result, fingerprint, finite_number, prepare_api_import)
+from lab_catalog import build_lab_catalog
+from lab_reference import score_lab_results, classify_result, reference_label
 
 # Load environment variables for local testing
 load_dotenv()
@@ -117,18 +120,16 @@ GITHUB_BASE_URL = "https://raw.githubusercontent.com/theebuddylee/HealthReport/m
 @st.cache_data
 def load_json_from_github(filename):
     url = f"{GITHUB_BASE_URL}{filename}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        try:
+    try:
+        response = requests.get(url, timeout=20, allow_redirects=False)
+        if response.status_code == 200:
             return response.json()
-        except json.JSONDecodeError:
-            st.error(f"Error decoding JSON from {url}")
-            return {}
-    else:
         st.error(f"Failed to load {filename}. HTTP {response.status_code}")
-        return {}
+    except (requests.RequestException, ValueError):
+        st.error(f"Could not load {filename}. Please try again.")
+    return {}
 contact_info = load_json_from_github("contact_info.json")
-lab_markers = load_json_from_github("lab_markers.json")
+lab_markers = build_lab_catalog(load_json_from_github("lab_markers.json"))
 
 # Database Initialization
 try:
@@ -158,9 +159,9 @@ manual_map = {
     "mchc": "Mean Corpuscular Hemoglobin Concentration (MCHC)",
     "rdw": "Red Cell Distribution Width (RDW)",
     "platelets": "Platelet Count",
-    "lymphs": "Lymphocytes",
-    "eos": "Eosinophils",
-    "basos": "Basophils",
+    "lymphs": "Lymphocytes (%)",
+    "eos": "Eosinophils (%)",
+    "basos": "Basophils (%)",
     "bun": "Blood Urea Nitrogen (BUN)",
     "protein total": "Total Protein",
     "bilirubin total": "Total Bilirubin",
@@ -169,7 +170,7 @@ manual_map = {
     "cholesterol total": "Total Cholesterol",
     "testosterone": "Total Testosterone",
     "hdl cholesterol": "HDL",
-    "testosterone total lcms a": "Total Testosterone",
+    "testosterone total lcms a": "Total Testosterone (LC/MS) [uncapped]",
     "hemoglobin a": "Hemoglobin (Hgb)",
     "dheasulfate": "Dehydroepiandrosterone Sulfate (DHEA-S)",
     "lh": "Luteinizing Hormone (LH)",
@@ -188,11 +189,11 @@ manual_map = {
     "triiodothyronine t": "Free T3",
     "prostate specific ag": "Prostate Specific Antigen (PSA)",
     "shbg": "Sex Hormone Binding Globulin (SHBG)",
-    "neutrophils absolute": "Neutrophils",
-    "lymphs absolute": "Lymphocytes",
-    "monocytesabsolute": "Monocytes",
-    "eos absolute": "Eosinophils",
-    "baso absolute": "Basophils",
+    "neutrophils absolute": "Neutrophils (Absolute)",
+    "lymphs absolute": "Lymphocytes (Absolute)",
+    "monocytesabsolute": "Monocytes (Absolute)",
+    "eos absolute": "Eosinophils (Absolute)",
+    "baso absolute": "Basophils (Absolute)",
     "vldl cholesterol cal": "VLDL (calculated)",
     "ldl chol calc nih": "LDL (calculated)",
     "psa value": "Prostate Specific Antigen (PSA)",
@@ -206,16 +207,16 @@ manual_map = {
     "MCHC": "Mean Corpuscular Hemoglobin Concentration (MCHC)",
     "RDW": "Red Cell Distribution Width (RDW)",
     "Platelets": "Platelet Count",
-    "Neutrophils": "Neutrophils",
-    "Lymphs": "Lymphocytes",
-    "Monocytes": "Monocytes",
-    "Eos": "Eosinophils",
-    "Basos": "Basophils",
-    "Neutrophils (Absolute)": "Neutrophils",
-    "Lymphs (Absolute)": "Lymphocytes",
-    "Monocytes(Absolute)": "Monocytes",
-    "Eos (Absolute)": "Eosinophils",
-    "Baso (Absolute)": "Basophils",
+    "Neutrophils": "Neutrophils (%)",
+    "Lymphs": "Lymphocytes (%)",
+    "Monocytes": "Monocytes (%)",
+    "Eos": "Eosinophils (%)",
+    "Basos": "Basophils (%)",
+    "Neutrophils (Absolute)": "Neutrophils (Absolute)",
+    "Lymphs (Absolute)": "Lymphocytes (Absolute)",
+    "Monocytes(Absolute)": "Monocytes (Absolute)",
+    "Eos (Absolute)": "Eosinophils (Absolute)",
+    "Baso (Absolute)": "Basophils (Absolute)",
     "Glucose": "Glucose",
     "BUN": "Blood Urea Nitrogen (BUN)",
     "Creatinine": "Creatinine",
@@ -224,7 +225,7 @@ manual_map = {
     "Sodium": "Sodium",
     "Potassium": "Potassium",
     "Chloride": "Chloride",
-    "Carbon Dioxide, Total": "Carbon Dioxide (CO₂), Total",
+    "Carbon Dioxide, Total": "Carbon Dioxide (CO\u2082), Total",
     "Calcium": "Calcium",
     "Protein, Total": "Total Protein",
     "Albumin": "Albumin",
@@ -240,7 +241,7 @@ manual_map = {
     "LDL Cholesterol Calc": "LDL (calculated)",
     "LH": "Luteinizing Hormone (LH)",
     "FSH": "Follicle-Stimulating Hormone (FSH)",
-    "Free Testosterone(Direct)": "Free Testosterone",
+    "Free Testosterone(Direct)": "Free Testosterone (Direct assay)",
     "Hemoglobin A1c": "HbA1c",
     "Sex Horm Binding Glob, Serum": "Sex Hormone Binding Globulin (SHBG)",
     "Testosterone, Serum": "Total Testosterone",
@@ -280,14 +281,13 @@ manual_map = {
     "GGT": "Glutamyl Transferase (GGT)",
     "Apolipoprotein B": "Apolipoprotein B",
     "Transferrin": "Transferrin",
-    # New mappings for Quest labs 
     "Hgb A1c MFr Bld": "HbA1c",
     "GGT SerPl-cCnc": "Glutamyl Transferase (GGT)",
     "T3Free SerPl-mCnc": "Free T3",
     "LPa SerPl-sCnc": "Lipoprotein (a)",
     "25(OH)D SerPl-mCnc": "Vitamin D (25-OH)",
-    "Vitamin D3 SerPl-mCnc": "Vitamin D3", 
-    "Vitamin D2 SerPl-mCnc": "Vitamin D2",  
+    "Vitamin D3 SerPl-mCnc": "Vitamin D3",
+    "Vitamin D2 SerPl-mCnc": "Vitamin D2",
     "WBC # Bld Auto": "White Blood Cell (WBC) Count",
     "RBC # Bld Auto": "Red Blood Cell (RBC) Count",
     "Hgb Bld-mCnc": "Hemoglobin (Hgb)",
@@ -297,9 +297,8 @@ manual_map = {
     "MCHC RBC Auto-mCnc": "Mean Corpuscular Hemoglobin Concentration (MCHC)",
     "RDW RBC Auto-Rto": "Red Cell Distribution Width (RDW)",
     "Platelet # Bld Auto": "Platelet Count",
-    "PMV Bld Rees-Ecker": "Mean Platelet Volume (MPV)",  
-    "Neutrophils # Bld Auto": "Neutrophils",
-    #"Neuts Band # Bld": "Neutrophils",
+    "PMV Bld Rees-Ecker": "Mean Platelet Volume (MPV)",
+    "Neutrophils # Bld Auto": "Neutrophils (Absolute)",
     "Cholest SerPl-mCnc": "Total Cholesterol",
     "HDLc SerPl-mCnc": "HDL",
     "Trigl SerPl-mCnc": "Triglycerides",
@@ -316,105 +315,67 @@ manual_map = {
     "Sodium SerPl-sCnc": "Sodium",
     "Potassium SerPl-sCnc": "Potassium",
     "Chloride SerPl-sCnc": "Chloride",
-    "CO2 SerPl-sCnc": "Carbon Dioxide (CO₂), Total",
+    "CO2 SerPl-sCnc": "Carbon Dioxide (CO\u2082), Total",
     "Calcium SerPl-mCnc": "Calcium"
 }
 
 # CharmHealth API Functions
+
+def charm_response(request, action, *args, **kwargs):
+    """Bound HTTPS calls and suppress response bodies containing private details."""
+    try:
+        response = request(*args, timeout=20, allow_redirects=False, **kwargs)
+        if response.status_code != 200:
+            st.error(f"{action} failed (HTTP {response.status_code}). Please try again.")
+            return None
+        data = response.json()
+        if not isinstance(data, dict):
+            st.error(f"{action} returned an unsupported response. Please try again.")
+            return None
+        return data
+    except (requests.RequestException, ValueError):
+        st.error(f"{action} could not complete. Check your connection and try again.")
+        return None
+
+
 def refresh_access_token():
-    # Try sidebar inputs first for debugging
     refresh_token = st.session_state.get("refresh_token", "")
     client_id = st.session_state.get("client_id", "")
     client_secret = st.session_state.get("client_secret", "")
-
-    # Fall back to st.secrets or .env
     if not (refresh_token and client_id and client_secret):
-        try:
-            refresh_token = st.secrets.get("REFRESH_TOKEN", os.getenv("REFRESH_TOKEN"))
-            client_id = st.secrets.get("CLIENT_ID", os.getenv("CLIENT_ID"))
-            client_secret = st.secrets.get("CLIENT_SECRET", os.getenv("CLIENT_SECRET"))
-        except Exception:
-            st.error("Credentials not found in st.secrets or .env file.")
-            return None
-
-    # Debug: Log credential usage (non-sensitive parts)
-    # st.write(f"Using CLIENT_ID: {client_id[:10]}... (first 10 chars)")
-    # st.write(f"Using REFRESH_TOKEN: {refresh_token[:10]}... (first 10 chars)")
-
-    # Use V3's URL query string and Cookie header
-    url = f'https://accounts.charmtracker.com/oauth/v2/token?refresh_token={refresh_token}&client_id={client_id}&client_secret={client_secret}&grant_type=refresh_token'
-    headers = {
-        'Content-Type': 'application/json',
-        'Cookie': '_zcsr_tmp=24918cc4-64c5-49be-b6f4-edc5ee7d2068; iamcsr=24918cc4-64c5-49be-b6f4-edc5ee7d2068'
-    }
-    response = requests.post(url, headers=headers, json={})
-    if response.status_code == 200:
-        return response.json().get("access_token")
-    else:
-        st.error(f"Failed to refresh token: {response.status_code} - {response.text}")
+        refresh_token = st.secrets.get("REFRESH_TOKEN", os.getenv("REFRESH_TOKEN"))
+        client_id = st.secrets.get("CLIENT_ID", os.getenv("CLIENT_ID"))
+        client_secret = st.secrets.get("CLIENT_SECRET", os.getenv("CLIENT_SECRET"))
+    if not (refresh_token and client_id and client_secret):
+        st.error("The existing API configuration is incomplete.")
         return None
+    data = charm_response(requests.post, "Token refresh",
+        'https://accounts.charmtracker.com/oauth/v2/token', data={
+            'refresh_token': refresh_token, 'client_id': client_id,
+            'client_secret': client_secret, 'grant_type': 'refresh_token'})
+    if data is None:
+        return None
+    token = data.get('access_token')
+    if not token:
+        st.error("Token refresh returned no access token.")
+    return token
+
 
 def search_patients(access_token, search_term):
-    url = f'http://apiehr.charmtracker.com/api/ehr/v1/patients?facility_id=ALL&full_name_contains={search_term}'
-    headers = {
-        'Authorization': f'Bearer {access_token}',
-        'api_key': st.secrets.get("API_KEY", os.getenv("API_KEY"))
-    }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        st.error(f"Failed to search patients: {response.status_code} - {response.text}")
-        return None
+    return charm_response(requests.get, "Patient search",
+        'https://apiehr.charmtracker.com/api/ehr/v1/patients',
+        params={'facility_id': 'ALL', 'full_name_contains': search_term},
+        headers={'Authorization': f'Bearer {access_token}',
+                 'api_key': st.secrets.get("API_KEY", os.getenv("API_KEY"))})
+
 
 def get_lab_results(access_token, patient_id):
-    url = f'http://apiehr.charmtracker.com/api/ehr/v1/fhir/patients/{patient_id}/labresults'
-    headers = {
-        'Authorization': f'Bearer {access_token}',
-        'api_key': st.secrets.get("API_KEY", os.getenv("API_KEY"))
-    }
-    response = requests.get(url, headers=headers)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        st.error(f"Failed to get lab results: {response.status_code} - {response.text}")
-        return None
+    return charm_response(requests.get, "Lab retrieval",
+        f'https://apiehr.charmtracker.com/api/ehr/v1/fhir/patients/{patient_id}/labresults',
+        headers={'Authorization': f'Bearer {access_token}',
+                 'api_key': st.secrets.get("API_KEY", os.getenv("API_KEY"))})
 
-def format_lab_results_to_markers(lab_data):
-    if not lab_data or 'data' not in lab_data or 'entry' not in lab_data['data']:
-        st.warning("No lab data provided or invalid structure.")
-        return {}
-    marker_values = {}
-    unmapped_markers = set()
-    entries = lab_data['data']['entry']
-    for entry in entries:
-        resource = entry.get('resource', {})
-        components = resource.get('component', [])
-        for comp in components:
-            api_marker = comp.get('code', {}).get('text', 'Unknown')
-            value = comp.get('valueQuantity', {}).get('value', 'N/A')
-            if api_marker in manual_map:
-                standard_marker = manual_map[api_marker]
-                try:
-                    marker_values[standard_marker] = float(value)
-                except (ValueError, TypeError):
-                    marker_values[standard_marker] = None
-            else:
-                unmapped_markers.add(api_marker)
-        if 'valueQuantity' in resource:
-            api_marker = resource.get('code', {}).get('text', 'Unknown')
-            value = resource.get('valueQuantity', {}).get('value', 'N/A')
-            if api_marker in manual_map:
-                standard_marker = manual_map[api_marker]
-                try:
-                    marker_values[standard_marker] = float(value)
-                except (ValueError, TypeError):
-                    marker_values[standard_marker] = None
-            else:
-                unmapped_markers.add(api_marker)
-    if unmapped_markers:
-        st.warning(f"Unmapped API markers: {sorted(unmapped_markers)}")
-    return marker_values
+# API imports retain collection dates, units and duplicate observations in lab_preload.py.
 
 # Extraction Functions
 def filter_metadata(text):
@@ -468,17 +429,6 @@ if contact_info:
 else:
     selected_manager = st.sidebar.selectbox("Select Membership Manager", ["Manager1", "Manager2"])
 
-default_member_name = ""
-if "patients" in st.session_state and st.session_state.patients and "selected_patient" in st.session_state:
-    patient_options = [(p['patient_id'], p.get('full_name', 'Unknown')) for p in st.session_state.patients]
-    selected_patient = st.session_state.get("selected_patient", None)
-    if selected_patient:
-        for pid, name in patient_options:
-            if f"{name} (ID: {pid})" == selected_patient:
-                default_member_name = name
-                break
-member_name = st.sidebar.text_input("Enter Member/Patient Name", value=default_member_name, key="member_name_input")
-
 st.sidebar.markdown("### Search Patient via CharmHealth API")
 if 'patients' not in st.session_state:
     st.session_state.patients = []
@@ -507,38 +457,47 @@ selected_patient = st.sidebar.selectbox(
     index=0 if patient_options else None,
     key="patient_selectbox"
 )
-if selected_patient:
-    st.session_state.selected_patient = selected_patient
+patient_id = None
 patient_sex = None
+patient_name = ""
 if selected_patient:
     patient_id = next(pid for pid, name in patient_options if f"{name} (ID: {pid})" == selected_patient)
     patient_data = next(p for p in st.session_state.patients if p['patient_id'] == patient_id)
+    patient_name = patient_data.get('full_name', '')
     patient_sex = patient_data.get('sex', '').lower()
+st.session_state.selected_patient = selected_patient
+clear_patient_state(st.session_state, patient_id, patient_name)
+member_name = st.sidebar.text_input("Enter Member/Patient Name", key="member_name_input")
 
-# Fetch Lab Results Button
-api_markers_dict = {}
 if selected_patient and st.sidebar.button("Fetch Lab Results from API"):
     with st.spinner("Fetching lab results..."):
-        patient_id = next(pid for pid, name in patient_options if f"{name} (ID: {pid})" == selected_patient)
         access_token = refresh_access_token()
         if access_token:
             lab_data = get_lab_results(access_token, patient_id)
-            if lab_data:
-                api_markers_dict = format_lab_results_to_markers(lab_data)
-                st.session_state.api_markers_dict = api_markers_dict
-                st.sidebar.success("Lab results fetched successfully!")
-                st.subheader("API Lab Results")
-                st.dataframe(pd.DataFrame(api_markers_dict.items(), columns=["Marker", "Value"]))
+            if lab_data is not None:
+                accept_api_payload(st.session_state, lab_data)
+                st.sidebar.success("Lab results fetched. Review the result set and preloaded values below.")
             else:
-                st.session_state.api_markers_dict = {}
-                st.sidebar.warning("No lab results available to display.")
+                st.sidebar.warning("Fetch failed; existing results were retained. Check the selected source before proceeding.")
         else:
-            st.session_state.api_markers_dict = {}
-            st.sidebar.error("Cannot proceed without a valid access token.")
+            st.sidebar.error("Cannot proceed without a valid access token. Existing results were retained.")
+
+api_batches = st.session_state.get('api_batches', [])
+selected_api_batch = None
+if api_batches:
+    labels = {batch['id']: batch['label'] for batch in api_batches}
+    batch_id = st.sidebar.selectbox("Choose API collection/result set", list(labels),
+                                    index=None, key='api_batch_choice', format_func=labels.get,
+                                    placeholder="Choose one collection/result set")
+    selected_api_batch = next((b for b in api_batches if b['id'] == batch_id), None)
+    if selected_api_batch:
+        st.caption(f"API source: {selected_api_batch['label']}")
+    else:
+        st.info("Multiple API result sets were found. Choose one collection/result set before values are preloaded. Dates are never combined automatically.")
 
 # File Upload Section
 st.header("Upload LabCorp Report")
-uploaded_file = st.file_uploader("Choose a LabCorp report file", type=["pdf", "txt"])
+uploaded_file = st.file_uploader("Choose a LabCorp report file", type=["pdf", "txt"], key=f"lab_upload:{patient_id}")
 extracted_data = []
 extracted_markers_dict = {}
 patient_name_extracted = None
@@ -580,11 +539,6 @@ else:
     if "extracted_markers_dict" not in st.session_state:
         st.session_state.extracted_markers_dict = {}
 
-# Combine Data Sources
-combined_markers_dict = st.session_state.get("extracted_markers_dict", {}).copy()
-if "api_markers_dict" in st.session_state:
-    combined_markers_dict.update(st.session_state.api_markers_dict)
-
 # Marker Selection and Input
 def normalize_marker(marker):
     marker = marker.lower().strip()
@@ -606,74 +560,76 @@ def normalize_marker(marker):
 selected_markers = []
 lab_results = {}
 if lab_markers:
-    # Hardcode default group to "Men" (no auto-detection)
-    default_group = "Men"
-    try:
-        default_index = list(lab_markers.keys()).index(default_group)
-    except ValueError:
-        default_index = 0
-        st.warning(f"Default group '{default_group}' not found in lab_markers. Using first available group.")
+    groups = list(lab_markers)
     st.markdown("### Select Group of Lab Markers:")
-    selected_group = st.selectbox("Choose a group:", list(lab_markers.keys()), index=default_index)
+    selected_group = st.selectbox("Choose a group:", groups, index=groups.index('Men') if 'Men' in groups else 0)
     st.session_state.selected_group = selected_group
     available_markers = lab_markers[selected_group]
-    preselected_markers = []
-    matched_extracted = set()
-    for avail_marker in available_markers.keys():
-        for extracted_marker in combined_markers_dict.keys():
-            if extracted_marker in manual_map and manual_map[extracted_marker] == avail_marker:
-                preselected_markers.append(avail_marker)
-                lab_results[avail_marker] = combined_markers_dict[extracted_marker]
-                matched_extracted.add(extracted_marker)
-                break
-            norm_avail = normalize_marker(avail_marker)
-            norm_extracted = normalize_marker(extracted_marker)
-            if norm_avail == norm_extracted:
-                preselected_markers.append(avail_marker)
-                lab_results[avail_marker] = combined_markers_dict[extracted_marker]
-                matched_extracted.add(extracted_marker)
-                break
-    normalized_extracted = {normalize_marker(key): key for key in combined_markers_dict.keys()}
-    normalized_available = {normalize_marker(key): key for key in available_markers.keys()}
-    matched_normalized = {normalize_marker(key) for key in matched_extracted}
-    unmatched_normalized = [normalized_extracted[norm_key] for norm_key in normalized_extracted if norm_key not in matched_normalized]
-    if unmatched_normalized:
-        st.warning("The following extracted markers did not match any available markers (after normalization):")
-        st.write(unmatched_normalized)
+    api_values, api_issues, available_markers = prepare_api_import(selected_api_batch, manual_map, available_markers)
+    st.session_state.api_markers_dict = api_values
+    for issue in api_issues:
+        st.warning(issue)
+    if selected_api_batch:
+        st.subheader("API Lab Results — selected result set")
+        st.dataframe(pd.DataFrame([{'Marker': row['marker'], 'Value': row['value'], 'Units': row['unit'],
+                                   'Reported interval': reference_label(row.get('reference_range')),
+                                   'Method': row.get('method') or 'Not supplied',
+                                   'Laboratory': row.get('lab_source') or 'Not supplied'} for row in selected_api_batch['rows']]))
+    extracted = st.session_state.get('extracted_markers_dict', {})
+    # Avoid mixing an uploaded report with an API collection without a date match.
+    # Uploaded-file extraction has no reliable collection-date model in this app.
+    if api_batches and extracted:
+        st.warning("An uploaded report is also present. Only the selected API result set is preloaded; uploaded values are not combined with it.")
+    combined = api_values if api_batches else extracted
+    matched_values = {}
+    unmatched = []
+    for name, value in combined.items():
+        marker = manual_map.get(name, name)
+        if marker not in available_markers and not api_batches:
+            matches = [m for m in available_markers if normalize_marker(m) == normalize_marker(name)]
+            marker = matches[0] if len(matches) == 1 else None
+        if marker in available_markers and finite_number(value) is not None:
+            matched_values[marker] = finite_number(value)
+        else:
+            unmatched.append(name)
+    if unmatched:
+        st.warning("Some extracted markers could not be preloaded. Review the source and enter valid results manually.")
+        st.write(unmatched)
+    signature = (patient_id, selected_group, st.session_state.get('api_payload_fingerprint'),
+                 selected_api_batch['id'] if selected_api_batch else None, fingerprint(combined))
+    sync_form_state(st.session_state, signature, available_markers, matched_values)
     st.markdown("### Select Lab Markers to Include:")
     grouped_by_panel = {}
     for marker, info in available_markers.items():
-        panel = info.get("panel", "Other")
-        grouped_by_panel.setdefault(panel, []).append(marker)
+        grouped_by_panel.setdefault(info.get('panel', 'Other'), []).append(marker)
     desired_panel_order = [
         "Hormone, Gonadotropin & Neurosteroid Panel", "Thyroid, Growth Factors & Glucose", "Metabolic Panel",
         "CBC w/ Differential and Platelet", "Lipid Panel", "Iron Markers", "Inflammatory Markers"
     ]
-    for panel in desired_panel_order:
-        if panel in grouped_by_panel:
-            markers_in_panel = sorted(grouped_by_panel[panel])
-            default_markers = sorted([m for m in markers_in_panel if m in preselected_markers])
-            with st.expander(panel, expanded=False):
-                selected_from_panel = st.multiselect(f"Select markers from {panel}:", markers_in_panel, default=default_markers, key=panel)
-                selected_markers.extend(selected_from_panel)
-    remaining_panels = [p for p in grouped_by_panel.keys() if p not in desired_panel_order]
-    for panel in sorted(remaining_panels):
-        markers_in_panel = sorted(grouped_by_panel[panel])
-        default_markers = sorted([m for m in markers_in_panel if m in preselected_markers])
-        with st.expander(panel, expanded=False):
-            selected_from_panel = st.multiselect(f"Select markers from {panel}:", markers_in_panel, default=default_markers, key=panel)
-            selected_markers.extend(selected_from_panel)
+    panels = [p for p in desired_panel_order if p in grouped_by_panel]
+    panels += sorted(p for p in grouped_by_panel if p not in desired_panel_order)
+    for panel in panels:
+        widget_key = f'lab_panel:{selected_group}:{panel}'
+        with st.expander(panel, expanded=bool(st.session_state.get(widget_key))):
+            selected_markers.extend(st.multiselect(f"Select markers from {panel}:", sorted(grouped_by_panel[panel]), key=widget_key))
 else:
     st.error("Lab markers could not be loaded.")
 if selected_markers:
     st.markdown("### Input Lab Results:")
     for marker in selected_markers:
-        default_val = lab_results.get(marker, None)
-        try:
-            default_float = float(default_val) if default_val is not None else None
-        except ValueError:
-            default_float = None
-        lab_results[marker] = st.number_input(f"Enter result for {marker}:", value=default_float)
+        widget_key = f'lab_value:{selected_group}:{marker}'
+        if widget_key not in st.session_state:
+            st.session_state[widget_key] = st.session_state.get('lab_manual_values', {}).get(marker)
+        lab_results[marker] = st.number_input(f"Enter result for {marker}:", value=None, key=widget_key,
+                                             on_change=remember_result, args=(st.session_state, marker, widget_key),
+                                             help=f"Units: {available_markers[marker].get('units', 'not specified')}. {available_markers[marker].get('description', '')} No automatic unit conversion is applied.")
+        info = available_markers[marker]
+        scoring_label = 'Unscored — no established numeric interval' if classify_result(lab_results[marker], info) is None else 'Uses reported lab interval as temporary target'
+        st.caption(f"Lab interval: {info.get('clinical_range', 'Not supplied')} {info.get('units', '')} · {scoring_label}")
+        if info.get('assumed_ratio_unit'):
+            st.caption('Dimensionless BUN/Creatinine ratio: an absent API unit is accepted for this marker.')
+        if info.get('assay_method') or info.get('source_method'):
+            st.caption(f"Assay: {info.get('source_method') or info.get('assay_method')} · Laboratory: {info.get('lab_source', 'Not supplied')}")
 
 # Visualization Functions
 def parse_range(range_str):
@@ -706,9 +662,9 @@ def create_range_chart(marker_name, units, clinical_range, optimal_range, user_v
     optimal_y = 0.0
     clinical_y = optimal_y + bar_height
     ax.broken_barh([(clinical_min, clinical_max - clinical_min)], (clinical_y, bar_height),
-                   facecolors=in_range_color, edgecolor='none', label='Clinical Range')
+                   facecolors=in_range_color, edgecolor='none', label='Lab Reference')
     ax.broken_barh([(optimal_min, optimal_max - optimal_min)], (optimal_y, bar_height),
-                   facecolors=PRIMARY_COLOR, edgecolor='none', label='Optimal Range')
+                   facecolors=PRIMARY_COLOR, edgecolor='none', label='Temporary Target')
     ax.axvline(user_numeric, color=vibrant_red, linewidth=3, label='Your Value')
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(0, clinical_y + bar_height)
@@ -727,22 +683,15 @@ def log_analytics(selected_manager, selected_markers, lab_results, available_mar
         timestamp = datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")
         for marker in selected_markers:
             user_value = lab_results.get(marker)
-            if user_value is None:
+            if classify_result(user_value, available_markers[marker]) is None:
                 continue
             try:
                 user_numeric = float(user_value)
             except ValueError:
                 continue
-            clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
-            optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
-            is_optimal_out = 0
-            is_clinical_out = 0
-            if (clinical_min is not None and clinical_max is not None and
-                optimal_min is not None and optimal_max is not None):
-                if not (optimal_min <= user_numeric <= optimal_max):
-                    is_optimal_out = 1
-                if not (clinical_min <= user_numeric <= clinical_max):
-                    is_clinical_out = 1
+            reference_state = classify_result(user_numeric, available_markers[marker])
+            is_optimal_out = int(reference_state is False)
+            is_clinical_out = int(reference_state is False)
             cursor.execute(
                 """
                 INSERT INTO report_analytics (membership_manager, marker, is_optimal_out, is_clinical_out, timestamp)
@@ -814,48 +763,31 @@ if st.button("Generate PDF"):
         pdf.add_font("Exo2", "B", "Exo2-Bold.ttf")
         pdf.add_font("DejaVuSans", "", "DejaVuSans.ttf")
         pdf.add_font("DejaVuSans", "B", "DejaVuSans-Bold.ttf")
-        total_markers = len(selected_markers)
-        score_sum = 0
-        count_optimal = 0
-        count_inrange = 0
-        count_out = 0
-        for marker in selected_markers:
-            user_value = lab_results.get(marker)
-            if user_value is None:
-                count_out += 1
-                continue
-            user_numeric = float(user_value)
-            clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
-            optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
-            if (clinical_min is not None and clinical_max is not None and
-                optimal_min is not None and optimal_max is not None):
-                if optimal_min <= user_numeric <= optimal_max:
-                    score_sum += 1
-                    count_optimal += 1
-                elif clinical_min <= user_numeric <= clinical_max:
-                    score_sum += 0.75
-                    count_inrange += 1
-                else:
-                    count_out += 1
-            else:
-                count_out += 1
-        optimal_score = (score_sum / total_markers) * 100 if total_markers > 0 else 0
+        metrics = score_lab_results(selected_markers, lab_results, available_markers)
+        total_markers = metrics['total']
+        count_optimal, count_out, count_unscored = metrics['within'], metrics['outside'], metrics['unscored']
+        count_inrange = count_unscored
+        optimal_score = metrics['score_percent']
+        score_label = f"{optimal_score:.0f}" if optimal_score is not None else 'N/A'
         log_analytics(selected_manager, selected_markers, lab_results, available_markers)
         pdf.add_page()
         pdf.set_fill_color(6, 182, 212)
         pdf.rect(0, 0, 210, 30, style='F')
         pdf.set_y(6)
         pdf.set_text_color(255, 255, 255)
-        set_font_with_fallback(pdf, "Exo2", "B", 22, f"Your Optimal Score: {optimal_score:.0f}")
-        pdf.cell(210, 18, f" Your Optimal Score: {optimal_score:.0f}", align="C", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        set_font_with_fallback(pdf, "Exo2", "B", 22, f"Lab Reference Score: {score_label}")
+        pdf.cell(210, 18, f" Lab Reference Score: {score_label}", align="C", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.ln(10)
         pdf.set_text_color(250, 240, 230)
         pdf.set_xy(157, 0)
         pdf.set_font("Exo2", "", 12)
         pdf.cell(0, 10, f"{total_markers} Biomarkers Analyzed", border=0)
-        categories = ['Out of Range', 'Optimal', 'In Range']
-        values = [count_out, count_optimal, count_inrange]
-        colors = ['#FF5555', '#06B6D4', '#FFA500']
+        pdf.set_xy(10, 24)
+        pdf.set_font('Exo2', '', 10)
+        pdf.cell(190, 5, f"Score uses {metrics['scored']} scorable results; {metrics['unscored']} unscored results are excluded.", align='C')
+        categories = ['Outside Lab Range', 'Within Lab Range', 'Unscored']
+        values = [count_out, count_optimal, count_unscored]
+        colors = ['#FF5555', '#06B6D4', '#B0B0B0']
         fig, ax = plt.subplots(figsize=(14, 22))
         bars = ax.bar(categories, values, color=colors)
         ax.set_ylabel('Number of Markers', fontsize=16)
@@ -888,7 +820,7 @@ if st.button("Generate PDF"):
         pdf.set_x(legend_start_x + legend_box_size + spacing)
         pdf.set_text_color(0, 0, 0)
         pdf.set_font("Exo2", "", 12)
-        pdf.cell(40, 10, "Out of Range", border=0)
+        pdf.cell(40, 10, "Outside Lab Range", border=0)
         pdf.set_text_color(115, 115, 115)
         pdf.cell(0, 10, f"{pct_out:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_xy(legend_start_x, pdf.get_y())
@@ -896,15 +828,15 @@ if st.button("Generate PDF"):
         pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
         pdf.set_x(legend_start_x + legend_box_size + spacing)
         pdf.set_text_color(0, 0, 0)
-        pdf.cell(40, 10, "Optimal Range", border=0)
+        pdf.cell(40, 10, "Within Lab Range", border=0)
         pdf.set_text_color(115, 115, 115)
         pdf.cell(0, 10, f"{pct_optimal:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.set_xy(legend_start_x, pdf.get_y())
-        pdf.set_fill_color(255, 165, 0)
+        pdf.set_fill_color(176, 176, 176)
         pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
         pdf.set_x(legend_start_x + legend_box_size + spacing)
         pdf.set_text_color(0, 0, 0)
-        pdf.cell(40, 10, "In Range", border=0)
+        pdf.cell(40, 10, "Unscored", border=0)
         pdf.set_text_color(115, 115, 115)
         pdf.cell(0, 10, f"{pct_inrange:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         grouped_markers = {}
@@ -924,7 +856,9 @@ if st.button("Generate PDF"):
                 pdf.cell(0, 10, panel, align="C", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                 pdf.ln(10)
                 for marker in grouped_markers[panel]:
-                    if marker_count == 3:
+                    pdf.set_font('Exo2', '', 12)
+                    description_height = pdf.multi_cell(0, 6, available_markers[marker].get('description', ''), dry_run=True, output='HEIGHT')
+                    if marker_count == 3 or pdf.will_page_break(description_height + 85):
                         pdf.add_page()
                         marker_count = 0
                         pdf.set_text_color(6, 182, 212)
@@ -949,21 +883,20 @@ if st.button("Generate PDF"):
                         continue
                     user_numeric = float(value)
                     dot_color = None
+                    reference_state = classify_result(user_numeric, available_markers[marker])
                     clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
                     optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
-                    if (clinical_min is not None and clinical_max is not None and
-                        optimal_min is not None and optimal_max is not None):
-                        if optimal_min <= user_numeric <= optimal_max:
-                            dot_color = (6, 182, 212)
-                        elif user_numeric < clinical_min or user_numeric > clinical_max:
-                            dot_color = (255, 85, 85)
+                    if reference_state is True:
+                        dot_color = (6, 182, 212)
+                    elif reference_state is False:
+                        dot_color = (255, 85, 85)
                     fig = create_range_chart(
                         marker,
                         available_markers[marker]['units'],
                         available_markers[marker]['clinical_range'],
                         available_markers[marker]['optimal_range'],
                         user_numeric
-                    )
+                    ) if reference_state is not None else None
                     if fig:
                         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
                             chart_file = tmpfile.name
@@ -988,39 +921,37 @@ if st.button("Generate PDF"):
                         else:
                             pdf.ln(30)
                     else:
-                        pdf.cell(0, 10, "Chart not available (unable to parse ranges).", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                        pdf.multi_cell(0, 7, f"Result: {value} {available_markers[marker]['units']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                        note = 'Not scored: no established numeric lab reference interval.' if reference_state is None else 'Reference interval shown below.'
+                        pdf.multi_cell(0, 7, note, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                         pdf.ln(1)
-                    clinical_label = "Clinical Range:"
+                    clinical_label = "Lab Reference:"
                     set_font_with_fallback(pdf, "Exo2", "", 14, clinical_label)
                     pdf.set_text_color(115, 115, 115)
-                    label_width = pdf.get_string_width(clinical_label) + 2
-                    pdf.cell(label_width, 10, clinical_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
                     clinical_value = f" {available_markers[marker]['clinical_range']}"
-                    set_font_with_fallback(pdf, "Exo2", "B", 14, clinical_value)
-                    pdf.set_text_color(255, 165, 0)
-                    value_width = pdf.get_string_width(clinical_value) + 2
-                    pdf.cell(value_width, 10, clinical_value, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
-                    pdf.cell(10, 10, "", border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
-                    optimal_label = "Optimal Range:"
+                    pdf.multi_cell(0, 7, clinical_label + clinical_value, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                    optimal_label = "Temporary Target:"
                     set_font_with_fallback(pdf, "Exo2", "", 14, optimal_label)
                     pdf.set_text_color(115, 115, 115)
-                    label_width = pdf.get_string_width(optimal_label) + 2
-                    pdf.cell(label_width, 10, optimal_label, border=0, new_x=XPos.RIGHT, new_y=YPos.TOP)
                     optimal_value = f" {available_markers[marker]['optimal_range']}"
-                    set_font_with_fallback(pdf, "Exo2", "B", 14, optimal_value)
-                    pdf.set_text_color(6, 182, 212)
-                    value_width = pdf.get_string_width(optimal_value) + 2
-                    pdf.cell(value_width, 10, optimal_value, border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+                    pdf.multi_cell(0, 7, optimal_label + optimal_value, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                     pdf.ln(5)
-        generated_pdf = "generated_lab_report.pdf"
-        pdf.output(generated_pdf)
-        template_pdf = "LabResultsV3.pdf"
-        updated_template = overwrite_more_information(template_pdf, "updated_template.pdf", member_name, selected_manager)
-        merged_pdf = "final_report.pdf"
-        merge_pdfs(updated_template, generated_pdf, merged_pdf)
-        downloadable_filename = f"{member_name.replace(' ', '_')}_Lab_Results.pdf"
-        with open(merged_pdf, "rb") as file:
-            st.download_button("Download Final Report", file, file_name=downloadable_filename)
+        # Each report owns its output paths, even when coaches generate concurrently.
+        with tempfile.TemporaryDirectory(prefix="lab-report-") as report_dir:
+            generated_pdf = os.path.join(report_dir, "generated_lab_report.pdf")
+            pdf.output(generated_pdf)
+            template_pdf = "LabResultsV3.pdf"
+            updated_template = overwrite_more_information(template_pdf,
+                os.path.join(report_dir, "updated_template.pdf"), member_name, selected_manager)
+            if updated_template:
+                merged_pdf = os.path.join(report_dir, "final_report.pdf")
+                merge_pdfs(updated_template, generated_pdf, merged_pdf)
+                if os.path.isfile(merged_pdf):
+                    downloadable_filename = f"{member_name.replace(' ', '_')}_Lab_Results.pdf"
+                    with open(merged_pdf, "rb") as file:
+                        report_bytes = file.read()
+                    st.download_button("Download Final Report", report_bytes,
+                                       file_name=downloadable_filename, mime="application/pdf")
 
 st.text(f"Last updated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 conn.close()
