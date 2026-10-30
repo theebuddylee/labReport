@@ -502,6 +502,9 @@ extracted_data = []
 extracted_markers_dict = {}
 patient_name_extracted = None
 if uploaded_file:
+    # Extraction belongs only to the file currently present in this uploader.
+    # Empty/failed replacements must not retain the preceding file's values.
+    st.session_state.extracted_markers_dict = {}
     text = ""
     if uploaded_file.name.lower().endswith(".pdf"):
         try:
@@ -536,8 +539,7 @@ if uploaded_file:
             st.session_state.extracted_markers_dict = {}
             st.error("No lab marker data found.")
 else:
-    if "extracted_markers_dict" not in st.session_state:
-        st.session_state.extracted_markers_dict = {}
+    st.session_state.extracted_markers_dict = {}
 
 # Marker Selection and Input
 def normalize_marker(marker):
