@@ -1,4 +1,4 @@
-"""Marker catalog corrections. API-attached intervals take precedence at import."""
+"""Marker catalog with protected original Optimal ranges and scoped new-marker targets."""
 from copy import deepcopy
 
 CBC_FAMILIES = {
@@ -22,67 +22,98 @@ FREE_PROFILES = {
 }
 
 def build_lab_catalog(base):
+    """Preserve existing targets verbatim; only genuinely new fields use lab targets."""
+    from lab_preload import units_match
     result = deepcopy(base)
     for group, markers in result.items():
-        # Interim user policy: catalog clinical intervals are the temporary target;
-        # imported results replace these with their own laboratory intervals.
-        for info in markers.values():
-            info['optimal_range'] = info.get('clinical_range', 'Not supplied')
-            info['target_policy'] = 'laboratory reference interval (temporary target)'
+        for name, info in markers.items():
+            info.setdefault('optimal_origin', 'legacy')
+            info.setdefault('optimal_units', info.get('units', ''))
+            info.setdefault('clinical_units', info.get('units', ''))
+            info.setdefault('legacy_marker', name)
+            info.setdefault('optimal_identity_confirmed', True)
+            info.setdefault('optimal_units_compatible', True)
+            info.setdefault('clinical_units_compatible', True)
+            info.setdefault('target_policy', 'Original Optimal range retained')
+
+        def profile(name, unit, panel, description, source=None):
+            if source and source in markers:
+                info = deepcopy(markers[source])
+                info.update(legacy_marker=markers[source].get('legacy_marker', source), optimal_origin=markers[source].get('optimal_origin', 'legacy'),
+                            optimal_units=markers[source].get('optimal_units', markers[source].get('units', '')),
+                            target_policy=markers[source].get('target_policy', 'Original Optimal range retained'))
+                if source != name:
+                    markers[source]['selectable'] = False
+            else:
+                info = {'clinical_range':'Not supplied','optimal_range':'Not supplied',
+                        'optimal_origin':'new','optimal_units':unit,
+                        'requires_report_reference':True,
+                        'target_policy':'Reported lab interval as temporary Optimal range'}
+            info.setdefault('clinical_units', unit)
+            info.setdefault('legacy_marker', name)
+            info.setdefault('optimal_identity_confirmed', True)
+            info.update(units=unit, panel=panel, description=description, selectable=True)
+            info['optimal_units_compatible'] = units_match(name, [info.get('optimal_units')], unit)
+            info['clinical_units_compatible'] = units_match(name, [info.get('clinical_units', unit)], unit)
+            return info
+
         for family, definition in CBC_FAMILIES.items():
-            previous = markers.pop(family, markers.get(family + ' (Absolute)', {}))
-            absolute = deepcopy(previous)
-            if '%' in str(previous.get('units', '')):
-                absolute['clinical_range'] = 'Not supplied'
-            absolute.update(description=definition + ' This field is an absolute cell count per unit volume, not a percentage.',
-                            units='x10E3 cells/µL', panel='CBC w/ Differential and Platelet',
-                            requires_report_reference=True, reference_sources=[CBC_SOURCE], clinical_range='Not supplied')
-            absolute['optimal_range'] = absolute.get('clinical_range', 'Not supplied')
-            markers[family + ' (Absolute)'] = absolute
-            markers[family + ' (%)'] = {
-                'description': definition + ' This field is the percentage of total white blood cells. Percentages and absolute counts are separate results; changes in other white-cell populations can affect a percentage.',
-                'units': '%', 'panel': 'CBC w/ Differential and Platelet',
-                'clinical_range': 'Not established', 'optimal_range': 'Not established',
-                'requires_report_reference': True, 'reference_sources': [CBC_SOURCE],
-                'target_policy': 'reported laboratory interval; unscored if not established',
-            }
+            source = family if family in markers else None
+            absolute_name = family + ' (Absolute)'
+            # A second build retains the alias's original source and exact target.
+            if source is None and absolute_name in markers:
+                source = absolute_name
+            markers[absolute_name] = profile(absolute_name, 'x10E3 cells/\u00b5L',
+                'CBC w/ Differential and Platelet',
+                definition + ' This is an absolute count per unit volume, separate from its percentage.', source)
+            name = family + ' (%)'
+            if name not in markers:
+                markers[name] = profile(name, '%', 'CBC w/ Differential and Platelet',
+                    definition + ' This is the percentage of total white blood cells. Percentages and absolute counts are separate results.')
+                markers[name].update(clinical_range='Not established', optimal_range='Not established',
+                                     reference_sources=[CBC_SOURCE])
+
+        direct_source = next((n for n in ('Free Testosterone (LabCorp EIA)',
+                             'Free Testosterone (Lab Corp)', 'Free Testosterone') if n in markers), None)
+        quest_source = 'Free Testosterone (Quest LC/MS-MS or Calculated)'
+        ultra_source = 'Free Testosterone (Equilibrium Ultrafiltration) [uncapped]'
+        sources = {'Free Testosterone (Direct assay)':direct_source,
+                   'Free Testosterone (Equilibrium dialysis)':quest_source,
+                   'Free Testosterone (Calculated)':quest_source,
+                   'Free Testosterone (Equilibrium ultrafiltration)':ultra_source}
         for name in list(markers):
-            if name.lower().startswith('free testosterone'):
-                del markers[name]
+            if name.lower().startswith('free testosterone') and name not in FREE_PROFILES:
+                markers[name]['selectable'] = False
         for name, (unit, method, definition) in FREE_PROFILES.items():
-            markers[name] = {
-                'description': 'Free testosterone is the unbound fraction of circulating testosterone. ' + definition,
-                'units': unit, 'assay_method': method,
-                'clinical_range': 'Not supplied', 'optimal_range': 'Not supplied',
-                'requires_report_reference': True, 'panel': 'Hormone, Gonadotropin & Neurosteroid Panel',
-                'reference_sources': [DIRECT_SOURCE, 'https://testdirectory.questdiagnostics.com/test/test-detail/36170/testosterone-free-dialysis-and-total-ms'],
-                'target_policy': 'reported laboratory interval; no universal assay interval',
-            }
-        if 'Total Testosterone' in markers:
-            markers['Total Testosterone (LC/MS) [uncapped]'] = {
-                **deepcopy(markers.get('Total Testosterone (LC/MS) [uncapped]',
-                            {'units':'ng/dL','clinical_range':'Not supplied','optimal_range':'Not supplied',
-                             'panel':'Hormone, Gonadotropin & Neurosteroid Panel'})),
-                'description': 'Total testosterone measured using a mass-spectrometry assay. Use the reporting laboratory\'s attached reference interval; do not substitute an immunoassay interval.',
-                'requires_report_reference': True,
-            }
-        ggt_names = [n for n in markers if 'ggt' in n.lower() or 'glutamyl transferase' in n.lower()]
-        for name in ggt_names:
-            del markers[name]
-        markers['Glutamyl Transferase (GGT)'] = {
-            'description': 'GGT is an enzyme associated with liver and bile-duct tissues. It is reported as enzyme activity per volume. Use the reporting laboratory\'s age-, sex- and method-appropriate reference interval; U/L and IU/L are supported activity labels for this marker.',
-            'units': 'U/L', 'clinical_range': 'Not supplied', 'optimal_range': 'Not supplied',
-            'requires_report_reference': True, 'panel': 'Thyroid, Growth Factors & Glucose',
-            'reference_sources': GGT_SOURCES, 'target_policy': 'reported laboratory interval',
-        }
-        ratio = markers.setdefault('BUN/Creatinine Ratio', {'clinical_range':'Not supplied', 'optimal_range':'Not supplied', 'panel':'Metabolic Panel'})
-        if ratio:
-            ratio.update(units='ratio', allow_missing_unit=True,
-                         description='The ratio of blood urea nitrogen to creatinine. This is a dimensionless ratio. An absent API unit is accepted only for this explicitly identified marker; the numerical result is unchanged.')
-        if 'Immature Granulocytes' in markers:
-            markers['Immature Granulocytes']['description'] = 'Immature granulocytes are developing white blood cells. This field is their percentage of white blood cells; it is separate from the absolute immature-granulocyte count. Use the reported laboratory interval, and do not score a result when no numeric interval is established.'
-        if 'Immature Granulocytes (Absolute)' in markers:
-            markers['Immature Granulocytes (Absolute)']['description'] = 'The absolute number of immature granulocytes per unit volume of blood. This result is separate from the percentage and uses its own reported laboratory reference interval.'
-        for info in markers.values():
-            info.setdefault('target_policy', 'laboratory reference interval (temporary target)')
+            source = sources.get(name)
+            source = source if source in markers else None
+            if method == 'equilibrium ultrafiltration' and source:
+                unit = markers[source].get('units', unit)
+            # An unspecified existing assay is not evidence of a genuinely new one.
+            unresolved = 'Reported assay,' in name
+            info = profile(name, unit, 'Hormone, Gonadotropin & Neurosteroid Panel',
+                'Free testosterone is the unbound fraction of circulating testosterone. ' + definition, source)
+            info.update(assay_method=method, reference_sources=[DIRECT_SOURCE,
+                'https://testdirectory.questdiagnostics.com/test/test-detail/36170/testosterone-free-dialysis-and-total-ms'])
+            if unresolved:
+                info.update(optimal_origin='unresolved', optimal_identity_confirmed=False,
+                    optimal_range='Not established - assay identity unresolved',
+                    target_policy='Assay identity unresolved; no Optimal range guessed')
+            markers[name] = info
+
+        if 'Total Testosterone' in markers and 'Total Testosterone (LC/MS) [uncapped]' not in markers:
+            markers['Total Testosterone (LC/MS) [uncapped]'] = profile(
+                'Total Testosterone (LC/MS) [uncapped]', 'ng/dL',
+                'Hormone, Gonadotropin & Neurosteroid Panel',
+                'Total testosterone measured by mass spectrometry. Use this assay separately from generic total testosterone.')
+
+        name = 'Glutamyl Transferase (GGT)'
+        source = name if name in markers else None
+        markers[name] = profile(name, 'U/L', 'Thyroid, Growth Factors & Glucose',
+            'GGT is an enzyme associated with liver and bile-duct tissues, reported as activity per volume. The reported lab interval and original Optimal target retain their own units; incompatible units are not converted or scored.', source)
+        markers[name]['reference_sources'] = GGT_SOURCES
+        ratio = markers.setdefault('BUN/Creatinine Ratio', profile('BUN/Creatinine Ratio', 'ratio',
+            'Metabolic Panel', 'Dimensionless ratio of blood urea nitrogen to creatinine.'))
+        ratio.update(allow_missing_unit=True,
+            description='The dimensionless ratio of blood urea nitrogen to creatinine. A missing API unit is accepted only for this marker; the numerical value is unchanged.')
     return result

@@ -188,11 +188,17 @@ def prepare_api_import(batch, manual_map, available_markers):
         elif not units_match(marker, units, expected):
             reason = f"unit is missing or differs from the selected group's {available_markers[marker].get('units', 'unit')}"
         reference = reference_from_api(row, lambda unit: units_match(marker, [unit], expected))
-        reference.update(optimal_range=reference['clinical_range'], units=expected,
+        reference.update(units=expected, clinical_units=expected, clinical_units_compatible=True,
                          lab_source=row.get('lab_source') or 'Not identified in API',
                          source_marker=name, source_method=row.get('method') or info.get('assay_method', 'Not specified'),
                          reference_source='Interval attached to API result',
                          assumed_ratio_unit=marker == 'BUN/Creatinine Ratio' and not units)
+        # The lab interval never replaces a pre-existing Optimal target.
+        if info.get('optimal_origin') == 'new':
+            reference.update(optimal_range=reference['clinical_range'], optimal_units=expected,
+                             optimal_reference_bounds=reference['reference_bounds'], optimal_units_compatible=True)
+        else:
+            reference['optimal_units_compatible'] = units_match(marker, [info.get('optimal_units', info.get('units'))], expected)
         candidates.setdefault(marker, []).append((value, reason, reference))
     for marker, rows in candidates.items():
         reasons = {reason for _, reason, _ in rows if reason}
@@ -207,9 +213,10 @@ def prepare_api_import(batch, manual_map, available_markers):
                 available_markers[marker].update(rows[0][2])
             else:
                 available_markers[marker].update(clinical_range='Multiple result definitions — review required',
-                                               optimal_range='Multiple result definitions — review required',
                                                reference_bounds=None,
-                                               reference_note='Repeated results have differing source definitions; not scored.')
+                                               reference_note='Repeated laboratory reference definitions require review.')
+                if available_markers[marker].get('optimal_origin') == 'new':
+                    available_markers[marker].update(optimal_range='Multiple result definitions - review required', optimal_reference_bounds=None)
     return values, issues, available_markers
 
 def prepare_api_values(batch, manual_map, available_markers):

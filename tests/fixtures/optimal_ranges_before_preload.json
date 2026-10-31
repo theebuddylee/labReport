@@ -1,0 +1,1493 @@
+{
+  "provenance": {
+    "runtime_app_commit": "8af65776a0af9cb3c3decca5ed12988c7bdc4950",
+    "catalog_repository": "theebuddylee/HealthReport",
+    "catalog_commit_before_app_baseline": "1ce211435aba01fa933d212d29546ecf9f1833d2",
+    "catalog_blob": "d0649ffef87cb60577db0b26587c89e91bad7cc3",
+    "data_kind": "public marker definitions, no patient data"
+  },
+  "catalog": {
+    "Men": {
+      "Free Testosterone (LabCorp EIA)": {
+        "optimal_range": "18.0 -27.0",
+        "clinical_range": "6.8 - 21.5",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone (Quest LC/MS-MS or Calculated)": {
+        "optimal_range": "100 - 250",
+        "clinical_range": "50 - 210",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Total Testosterone": {
+        "optimal_range": "600 - 1400",
+        "clinical_range": "264 - 916",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone": {
+        "optimal_range": "18.0 -27.0",
+        "clinical_range": "6.8 - 21.5",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Estradiol": {
+        "optimal_range": "7.6 - 55.0",
+        "clinical_range": "7.6 - 42.6",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Sex Hormone Binding Globulin (SHBG)": {
+        "optimal_range": "19.3 - 55.9",
+        "clinical_range": "19.3 - 76.4",
+        "units": "nmol/L",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Prolactin": {
+        "optimal_range": "3.6 - 12.0",
+        "clinical_range": "3.6 - 25.2",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Luteinizing Hormone (LH)": {
+        "optimal_range": "1.7 - 6.0",
+        "clinical_range": "1.7 - 8.6",
+        "units": "mIU/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Follicle-Stimulating Hormone (FSH)": {
+        "optimal_range": "1.5 - 12.4",
+        "clinical_range": "1.5 - 12.4",
+        "units": "mIU/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Dehydroepiandrosterone Sulfate (DHEA-S)": {
+        "optimal_range": "300.0 - 500.0",
+        "clinical_range": "102.6 - 416.3",
+        "units": "ug/dl",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Prostate Specific Antigen (PSA)": {
+        "optimal_range": "0.2 - 2.5",
+        "clinical_range": "0.0 - 4.0",
+        "units": "ng/ml",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "TSH": {
+        "optimal_range": "1.0 - 2.0",
+        "clinical_range": "0.45 - 4.5",
+        "units": "µIU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Free T3": {
+        "optimal_range": "3.5 - 4.8",
+        "clinical_range": "2.0 - 4.4",
+        "units": "pg/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Free T4": {
+        "optimal_range": "0.82 - 1.77",
+        "clinical_range": "0.82 - 1.77",
+        "units": "ng/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Insulin-Like Growth Factor I (IGF-1)": {
+        "optimal_range": "250 - 400",
+        "clinical_range": "125 - 300",
+        "units": "ng/ml",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "HbA1c": {
+        "optimal_range": "4.8 - 5.2",
+        "clinical_range": "4.8 - 5.6",
+        "units": "%",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Fasting Insulin": {
+        "optimal_range": "2.6 - 10.0",
+        "clinical_range": "2.6 - 24.9",
+        "units": "uIU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Vitamin D (25-OH)": {
+        "optimal_range": "60 - 80",
+        "clinical_range": "30 - 100",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Glutamyl Transferase (GGT)": {
+        "optimal_range": "9.0 - 25.0",
+        "clinical_range": "0.0 - 65.0",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Glucose": {
+        "optimal_range": "70 - 85",
+        "clinical_range": "70 - 99",
+        "units": "mg/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Calcium": {
+        "optimal_range": "8.5 - 10.5",
+        "clinical_range": "8.5 - 10.5",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Sodium": {
+        "optimal_range": "135 - 145",
+        "clinical_range": "135 - 145",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Potassium": {
+        "optimal_range": "3.5 - 5.0",
+        "clinical_range": "3.5 - 5.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Chloride": {
+        "optimal_range": "98 - 107",
+        "clinical_range": "98.0 - 107.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Carbon Dioxide (CO₂), Total": {
+        "optimal_range": "22 - 29",
+        "clinical_range": "22 - 29",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Blood Urea Nitrogen (BUN)": {
+        "optimal_range": "7.0 - 27.0",
+        "clinical_range": "8.0 - 27.0",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Creatinine": {
+        "optimal_range": "0.6 - 1.3",
+        "clinical_range": "0.6 - 1.3",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "BUN/Creatinine Ratio": {
+        "optimal_range": "10 - 20",
+        "clinical_range": "10 - 20",
+        "units": ":1 (Ratio)",
+        "panel": "Metabolic Panel"
+      },
+      "Total Protein": {
+        "optimal_range": "6.0 - 8.3",
+        "clinical_range": "6.0 - 8.3",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Albumin": {
+        "optimal_range": "3.5 - 5.0",
+        "clinical_range": "3.5 - 5.0",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Globulin, Total": {
+        "optimal_range": "2.0 - 3.5",
+        "clinical_range": "2.0 - 3.5",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Albumin/Globulin (A/G) Ratio": {
+        "optimal_range": "1.0 - 2.5",
+        "clinical_range": "1.0 - 2.5",
+        "units": "Ratio",
+        "panel": "Metabolic Panel"
+      },
+      "Total Bilirubin": {
+        "optimal_range": "0.1 - 1.2",
+        "clinical_range": "0.1 - 1.2",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Alkaline Phosphatase": {
+        "optimal_range": "44 - 147",
+        "clinical_range": "44 - 147",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Aspartate Aminotransferase (AST)": {
+        "optimal_range": "10.0 - 25.0",
+        "clinical_range": "10.0 - 40.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Alanine Aminotransferase (ALT)": {
+        "optimal_range": "7.0 - 26.0",
+        "clinical_range": "7.0 - 56.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Estimated Glomerular Filtration Rate (eGFR)": {
+        "optimal_range": "80 - 140",
+        "clinical_range": "60 - 150",
+        "units": "mL/min/1.73 m²",
+        "panel": "Metabolic Panel"
+      },
+      "White Blood Cell (WBC) Count": {
+        "optimal_range": "3.4 - 11.0",
+        "clinical_range": "3.4 - 10.8",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Red Blood Cell (RBC) Count": {
+        "optimal_range": "4.9 - 5.9",
+        "clinical_range": "4.2 - 5.9",
+        "units": "million cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Hemoglobin (Hgb)": {
+        "optimal_range": "13.8 - 17.2",
+        "clinical_range": "13.8 - 17.2",
+        "units": "g/dL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Hematocrit": {
+        "optimal_range": "41.5 - 50.4",
+        "clinical_range": "35.9 - 50.4",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Volume (MCV)": {
+        "optimal_range": "80 - 100",
+        "clinical_range": "80 - 100",
+        "units": "fL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Hemoglobin (MCH)": {
+        "optimal_range": "27.0 - 32.0",
+        "clinical_range": "27.0 - 32.0",
+        "units": "pg",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Hemoglobin Concentration (MCHC)": {
+        "optimal_range": "32 - 36",
+        "clinical_range": "32 - 36",
+        "units": "g/dL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Red Cell Distribution Width (RDW)": {
+        "optimal_range": "11.0 - 15.0",
+        "clinical_range": "11.0 - 15.0",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Platelet Count": {
+        "optimal_range": "180 - 400",
+        "clinical_range": "150 - 450",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Platelet Volume (MPV)": {
+        "optimal_range": "7.0 - 9.0",
+        "clinical_range": "7.0 - 9.0",
+        "units": "fL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Neutrophils": {
+        "optimal_range": "1.4 - 7.0",
+        "clinical_range": "1.4 - 7.0",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Lymphocytes": {
+        "optimal_range": "0.7  - 3.1",
+        "clinical_range": "0.7  - 3.1",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Monocytes": {
+        "optimal_range": "0.1 - 0.9",
+        "clinical_range": "0.1 - 0.9",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Eosinophils": {
+        "optimal_range": "0.0 - 0.4",
+        "clinical_range": "0.0 - 0.4",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Basophils": {
+        "optimal_range": "0.0 - 0.2",
+        "clinical_range": "0.0 - 0.2",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Total Cholesterol": {
+        "optimal_range": "100 - 170",
+        "clinical_range": "100 - 199",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "HDL": {
+        "optimal_range": "60.0 - 120.0",
+        "clinical_range": "39.0 - 120.0",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "LDL (calculated)": {
+        "optimal_range": "0- 99",
+        "clinical_range": "0 - 129",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Triglycerides": {
+        "optimal_range": "0 - 100",
+        "clinical_range": "0 - 149",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "VLDL (calculated)": {
+        "optimal_range": "05 - 15",
+        "clinical_range": "05 - 40",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Total Cholesterol/HDL Ratio": {
+        "optimal_range": "0.0 - 3.5",
+        "clinical_range": "0.0 - 5.0",
+        "units": "ratio",
+        "panel": "Lipid Panel"
+      },
+      "LDL/HDL Ratio": {
+        "optimal_range": "0.0 - 2.0",
+        "clinical_range": "0.0 - 5.0",
+        "units": "ratio",
+        "panel": "Lipid Panel"
+      },
+      "Apolipoprotein B": {
+        "optimal_range": "0.0 - 90",
+        "clinical_range": "0.0 - 90",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Apolipoprotein A-1": {
+        "optimal_range": "150.0 - 180.0",
+        "clinical_range": "101.0 - 178.0",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Total Testosterone (LC/MS) [uncapped]": {
+        "optimal_range": "600 - 1400",
+        "clinical_range": "264 - 916",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone (Equilibrium Ultrafiltration) [uncapped]": {
+        "optimal_range": "18.0 -27.0",
+        "clinical_range": "6.8 - 21.5",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Estradiol, Sensitive / Ultrasensitive (LC/MS)": {
+        "optimal_range": "20.0 - 30.0",
+        "clinical_range": "8.0 - 35.0",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Cortisol": {
+        "optimal_range": "10.0 - 16.0",
+        "clinical_range": "6.2 - 19.4",
+        "units": "µg/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Progesterone": {
+        "optimal_range": "0.3 - 1.0",
+        "clinical_range": "0.2 - 1.4",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Pregnenolone": {
+        "optimal_range": "50 - 150",
+        "clinical_range": "10 - 200",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Thyroglobulin Antibody (tgAb)": {
+        "optimal_range": "0.0 - 0.9",
+        "clinical_range": "0.0 - 0.9",
+        "units": "IU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Thyroid Peroxidase Antibody (TPOab)": {
+        "optimal_range": "0.0 - 9.0",
+        "clinical_range": "0.0 - 34.0",
+        "units": "IU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Reverse T3": {
+        "optimal_range": "10.0 - 18.5",
+        "clinical_range": "9.2 - 24.1",
+        "units": "ng/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Lipoprotein (a)": {
+        "optimal_range": "0.0 - 35",
+        "clinical_range": "0.0 - 75",
+        "units": "nmol/L",
+        "panel": "Lipid Panel"
+      },
+      "Iron": {
+        "optimal_range": "85 - 125",
+        "clinical_range": "59 - 175",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "Transferrin Saturation": {
+        "optimal_range": "25 - 40",
+        "clinical_range": "15 - 55",
+        "units": "%",
+        "panel": "Iron Markers"
+      },
+      "TIBC (Total Iron Binding Capacity)": {
+        "optimal_range": "280 - 340",
+        "clinical_range": "250 - 450",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "UIBC (Unsaturated Iron Binding Capacity)": {
+        "optimal_range": "160 - 280",
+        "clinical_range": "112 - 347",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "C-Reactive Protein, High Sensitivity (hsCRP)": {
+        "optimal_range": "0.0 - 1.0",
+        "clinical_range": "0.0 - 3.0",
+        "units": "mg/L",
+        "panel": "Inflammatory Markers"
+      },
+      "Ferritin": {
+        "optimal_range": "50 - 150",
+        "clinical_range": "12 - 300",
+        "units": "ng/mL",
+        "panel": "Iron Markers"
+      },
+      "Immature Granulocytes": {
+        "optimal_range": "0.0 - 0.3",
+        "clinical_range": "0.0 - 0.6",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Immature Granulocytes (Absolute)": {
+        "optimal_range": "0.0 - 0.05",
+        "clinical_range": "0.0 - 0.1",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Vitamin D2": {
+        "optimal_range": "10 - 20",
+        "clinical_range": "4 - 20",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Vitamin D3": {
+        "optimal_range": "30 - 50",
+        "clinical_range": "20 - 50",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Transferrin": {
+        "optimal_range": "215 - 365",
+        "clinical_range": "200 - 360",
+        "units": "mg/dL",
+        "panel": "Iron Markers"
+      }
+    },
+    "Women": {
+      "Free Testosterone (Quest LC/MS-MS or Calculated)": {
+        "optimal_range": "5.0- 14.0",
+        "clinical_range": "3.2 - 8.4",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Total Testosterone": {
+        "optimal_range": "25 - 75",
+        "clinical_range": "4.0 - 50.0",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone (Lab Corp)": {
+        "optimal_range": "2.0 - 4.2",
+        "clinical_range": "0.0 - 4.2",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Estradiol": {
+        "optimal_range": "50.0 - 211.0",
+        "clinical_range": "43.8 - 211.0",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Sex Hormone Binding Globulin (SHBG)": {
+        "optimal_range": "80 - 120",
+        "clinical_range": "24.6 - 122.0",
+        "units": "nmol/L",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "TSH": {
+        "optimal_range": "0.5 - 2.5",
+        "clinical_range": "0.45 - 4.5",
+        "units": "mIU/L",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Prolactin": {
+        "optimal_range": "3.6 - 10.0",
+        "clinical_range": "3.6 - 25.2",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Luteinizing Hormone (LH)": {
+        "optimal_range": "1.0 - 11.4",
+        "clinical_range": "1.0 - 11.4",
+        "units": "mIU/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Follicle-Stimulating Hormone (FSH)": {
+        "optimal_range": "1.7 - 7.7",
+        "clinical_range": "1.7 - 7.7",
+        "units": "mIU/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Dehydroepiandrosterone Sulfate (DHEA-S)": {
+        "optimal_range": "150 - 300.0",
+        "clinical_range": "41.2 - 378.0",
+        "units": "ug/dl",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Progesterone (Luteal Phase)": {
+        "optimal_range": "11.0 - 29.9",
+        "clinical_range": "1.8 - 23.9",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free T3": {
+        "optimal_range": "3.2 -4.2",
+        "clinical_range": "2.0 - 4.4",
+        "units": "pg/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Free T4": {
+        "optimal_range": "1.0 - 1.5",
+        "clinical_range": "0.82 - 1.77",
+        "units": "ng/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Insulin-Like Growth Factor I (IGF-1)": {
+        "optimal_range": "200 - 300",
+        "clinical_range": "125 - 300",
+        "units": "ng/ml",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "HbA1c": {
+        "optimal_range": "4.8 - 5.2",
+        "clinical_range": "4.8 - 5.6",
+        "units": "%",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Fasting Insulin": {
+        "optimal_range": "2.6 - 10.0",
+        "clinical_range": "2.6 - 24.9",
+        "units": "uIU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Vitamin D (25-OH)": {
+        "optimal_range": "60 - 80",
+        "clinical_range": "30 - 100",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Glutamyl Transferase (GGT)": {
+        "optimal_range": "9.0 - 25.0",
+        "clinical_range": "9.0 - 48.0",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Glucose": {
+        "optimal_range": "70-85",
+        "clinical_range": "70-99",
+        "units": "mg/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Calcium": {
+        "optimal_range": "8.5 - 10.5",
+        "clinical_range": "8.5 - 10.5",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Sodium": {
+        "optimal_range": "135 - 145",
+        "clinical_range": "135 - 145",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Potassium": {
+        "optimal_range": "3.5 - 5.0",
+        "clinical_range": "3.5 - 5.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Chloride": {
+        "optimal_range": "98 - 107",
+        "clinical_range": "98 - 107",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Carbon Dioxide (CO₂), Total": {
+        "optimal_range": "22 - 29",
+        "clinical_range": "22 - 29",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Blood Urea Nitrogen (BUN)": {
+        "optimal_range": "7.0 - 20.0",
+        "clinical_range": "8.0 - 27.0",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Creatinine": {
+        "optimal_range": "0.6 - 1.3",
+        "clinical_range": "0.6 - 1.3",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "BUN/Creatinine Ratio": {
+        "optimal_range": "10 - 20",
+        "clinical_range": "10 - 20",
+        "units": ":1 Ratio",
+        "panel": "Metabolic Panel"
+      },
+      "Total Protein": {
+        "optimal_range": "6.0 - 8.3",
+        "clinical_range": "6.0 - 8.3",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Albumin": {
+        "optimal_range": "3.5 -5.0",
+        "clinical_range": "3.5 - 5.0",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Globulin, Total": {
+        "optimal_range": "2.0 - 3.5",
+        "clinical_range": "2.0 -3.5",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Albumin/Globulin (A/G) Ratio": {
+        "optimal_range": "1.0 - 2.5",
+        "clinical_range": "1.0 - 2.5",
+        "units": "Ratio",
+        "panel": "Metabolic Panel"
+      },
+      "Total Bilirubin": {
+        "optimal_range": "0.1 - 1.2",
+        "clinical_range": "0.1 - 1.2",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Alkaline Phosphatase": {
+        "optimal_range": "44 - 147",
+        "clinical_range": "44 - 147",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Aspartate Aminotransferase (AST)": {
+        "optimal_range": "10.0 - 25.0",
+        "clinical_range": "10.0 - 40.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Alanine Aminotransferase (ALT)": {
+        "optimal_range": "7.0 - 26.0",
+        "clinical_range": "7.0 - 56.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Estimated Glomerular Filtration Rate (eGFR)": {
+        "optimal_range": "80 - 140",
+        "clinical_range": "60 - 150",
+        "units": "mL/min/1.73 m²",
+        "panel": "Metabolic Panel"
+      },
+      "White Blood Cell (WBC) Count": {
+        "optimal_range": "4.5 - 11",
+        "clinical_range": "4.5 - 11",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Red Blood Cell (RBC) Count": {
+        "optimal_range": "4.8 - 5.1",
+        "clinical_range": "3.77 - 5.28",
+        "units": "million cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Hemoglobin (Hgb)": {
+        "optimal_range": "11.1 - 15.9",
+        "clinical_range": "11.1 - 15.9",
+        "units": "g/dL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Hematocrit (Hct)": {
+        "optimal_range": "34.0 - 46.6",
+        "clinical_range": "34.0 - 46.6",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Volume (MCV)": {
+        "optimal_range": "79 - 97",
+        "clinical_range": "79 - 97",
+        "units": "fL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Hemoglobin (MCH)": {
+        "optimal_range": "26.6 - 33.0",
+        "clinical_range": "26.6 - 33.0",
+        "units": "pg",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Hemoglobin Concentration (MCHC)": {
+        "optimal_range": "32 - 36",
+        "clinical_range": "32 - 36",
+        "units": "g/dL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Red Cell Distribution Width (RDW)": {
+        "optimal_range": "11.0 - 15.0",
+        "clinical_range": "11.0 - 15.0",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Platelet Count": {
+        "optimal_range": "150 - 375",
+        "clinical_range": "150 - 400",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Platelet Volume (MPV)": {
+        "optimal_range": "7.0 - 9.0",
+        "clinical_range": "7.0 - 9.0",
+        "units": "fL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Neutrophils": {
+        "optimal_range": "1.84 - 5.0",
+        "clinical_range": "1.84 - 7.8",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Lymphocytes": {
+        "optimal_range": "0.8 - 4.2",
+        "clinical_range": "0.72 - 5.2",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Monocytes": {
+        "optimal_range": "0.2 - 0.82",
+        "clinical_range": "0.12 - 1.0",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Eosinophils": {
+        "optimal_range": "0.0 - .41",
+        "clinical_range": "0.0 - 0.6",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Basophils": {
+        "optimal_range": "0.0 - 0.26",
+        "clinical_range": "0.0 - 0.3",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Total Cholesterol": {
+        "optimal_range": "100 - 170",
+        "clinical_range": "100 - 199",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "HDL": {
+        "optimal_range": "60 - 150",
+        "clinical_range": "50 - 150",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "LDL (calculated)": {
+        "optimal_range": "0 - 99",
+        "clinical_range": "0 - 129",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Triglycerides": {
+        "optimal_range": "0 - 100",
+        "clinical_range": "0 - 149",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "VLDL (calculated)": {
+        "optimal_range": "5.0 - 15.0",
+        "clinical_range": "5.0 - 40.0",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Total Cholesterol/HDL Ratio": {
+        "optimal_range": "0.0 - 3.0",
+        "clinical_range": "0.0 - 4.4",
+        "units": "ratio",
+        "panel": "Lipid Panel"
+      },
+      "LDL/HDL Ratio": {
+        "optimal_range": "0.0 - 1.8",
+        "clinical_range": "0.0 - 3.2",
+        "units": "ratio",
+        "panel": "Lipid Panel"
+      },
+      "Estradiol, Sensitive / Ultrasensitive (LC/MS)": {
+        "optimal_range": "100 - 250",
+        "clinical_range": "15.0 - 350.0",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Cortisol": {
+        "optimal_range": "10.0 - 15.0",
+        "clinical_range": "6.2 - 19.4",
+        "units": "µg/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Apolipoprotein B": {
+        "optimal_range": "00.0 - 60.0",
+        "clinical_range": "54 - 133",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Apolipoprotein A-1": {
+        "optimal_range": "140.0 - 200.0",
+        "clinical_range": "130.0 - 180.0",
+        "units": "nmol/L",
+        "panel": "Lipid Panel"
+      },
+      "Ferritin": {
+        "optimal_range": "40.0 - 100",
+        "clinical_range": "15.0 - 150",
+        "units": "ng/mL",
+        "panel": "Iron Markers"
+      },
+      "Iron": {
+        "optimal_range": "60.0 - 100.0",
+        "clinical_range": "38.0 - 169.0",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "Transferrin Saturation": {
+        "optimal_range": "25.0 - 35.0",
+        "clinical_range": "15.0 - 55",
+        "units": "%",
+        "panel": "Iron Markers"
+      },
+      "TIBC (Total Iron Binding Capacity)": {
+        "optimal_range": "280 - 340",
+        "clinical_range": "250 - 450",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "UIBC (Unsaturated Iron Binding Capacity)": {
+        "optimal_range": "180 - 240",
+        "clinical_range": "112 - 347",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "C-Reactive Protein, High Sensitivity (hsCRP)": {
+        "optimal_range": "0.0 - 1.0",
+        "clinical_range": "0.0 - 3.0",
+        "units": "mg/L",
+        "panel": "Inflammatory Markers"
+      },
+      "Total Testosterone (LC/MS) [uncapped]": {
+        "optimal_range": "25 - 55",
+        "clinical_range": "2 - 45",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone (Equilibrium Ultrafiltration) [uncapped]": {
+        "optimal_range": "1.0 - 4.0",
+        "clinical_range": "0.2 - 5.0",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Prostate Specific Antigen (PSA)": {
+        "optimal_range": "0.0 - 0.05",
+        "clinical_range": "0.0 - 0.1",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Pregnenolone": {
+        "optimal_range": "125 - 175",
+        "clinical_range": "10 - 230",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Thyroglobulin Antibody (tgAb)": {
+        "optimal_range": "0.0 - 0.9",
+        "clinical_range": "0.0 - 0.9",
+        "units": "IU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Thyroid Peroxidase Antibody (TPOab)": {
+        "optimal_range": "0.0 - 9.0",
+        "clinical_range": "0.0 - 34.0",
+        "units": "IU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Reverse T3": {
+        "optimal_range": "10.0 - 18.5",
+        "clinical_range": "9.2 - 24.1",
+        "units": "ng/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Lipoprotein (a)": {
+        "optimal_range": "0.0 - 50.0",
+        "clinical_range": "0.0 - 75.0",
+        "units": "nmol/L",
+        "panel": "Lipid Panel"
+      },
+      "Immature Granulocytes": {
+        "optimal_range": "0.0 - 0.3",
+        "clinical_range": "0.0 - 0.6",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Immature Granulocytes (Absolute)": {
+        "optimal_range": "0.0 - 0.05",
+        "clinical_range": "0.0 - 0.1",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Vitamin D2": {
+        "optimal_range": "10 - 20",
+        "clinical_range": "4 - 20",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Vitamin D3": {
+        "optimal_range": "30 - 50",
+        "clinical_range": "20 - 50",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Transferrin": {
+        "optimal_range": "215 - 365",
+        "clinical_range": "200 - 360",
+        "units": "mg/dL",
+        "panel": "Iron Markers"
+      }
+    },
+    "Post Menopausal Women": {
+      "Free Testosterone (Quest LC/MS-MS or Calculated)": {
+        "optimal_range": "5.0- 14.0",
+        "clinical_range": "3.2 - 8.4",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Total Testosterone": {
+        "optimal_range": "25 - 75",
+        "clinical_range": "4.0 - 50.0",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone (Lab Corp)": {
+        "optimal_range": "2.0 - 4.2",
+        "clinical_range": "0.0 - 4.2",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Estradiol": {
+        "optimal_range": "40.0 - 240.0",
+        "clinical_range": "0.0 - 54.7",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "SHBG": {
+        "optimal_range": "70.0 - 110.0",
+        "clinical_range": "24.6 - 122.0",
+        "units": "nmol/L",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Prolactin": {
+        "optimal_range": "3.6 - 15",
+        "clinical_range": "3.6 - 25.2",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Luteinizing Hormone (LH)": {
+        "optimal_range": "10 - 35",
+        "clinical_range": "15 - 65",
+        "units": "mIU/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Follicle-Stimulating Hormone (FSH)": {
+        "optimal_range": "20 - 70",
+        "clinical_range": "25 - 135",
+        "units": "mIU/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "DHEA-S": {
+        "optimal_range": "80.0 - 200.0",
+        "clinical_range": "13.9 - 221.0",
+        "units": "µg/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Progesterone": {
+        "optimal_range": "0.1 - 5.0",
+        "clinical_range": "0.1 - 1.0",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free T3": {
+        "optimal_range": "3.2 - 4.2",
+        "clinical_range": "2.0 - 4.4",
+        "units": "pg/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Free T4": {
+        "optimal_range": "0.82 - 1.77",
+        "clinical_range": "0.82 - 1.77",
+        "units": "ng/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "IGF-1": {
+        "optimal_range": "100 - 200",
+        "clinical_range": "125 - 300",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "HbA1c": {
+        "optimal_range": "4.8 - 5.3",
+        "clinical_range": "4.8 - 5.6",
+        "units": "%",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Fasting Insulin": {
+        "optimal_range": "2.6 - 8.0",
+        "clinical_range": "2.6 - 24.9",
+        "units": "uIU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Vitamin D (25-OH)": {
+        "optimal_range": "60 - 80",
+        "clinical_range": "30 - 100",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Glutamyl Transferase (GGT)": {
+        "optimal_range": "9.0 - 20.0",
+        "clinical_range": "9.0 - 48.0",
+        "units": "U/L",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Glucose": {
+        "optimal_range": "70 - 85",
+        "clinical_range": "70 - 99",
+        "units": "mg/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Calcium": {
+        "optimal_range": "8.5 - 10.5",
+        "clinical_range": "8.5 - 10.5",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Sodium": {
+        "optimal_range": "135.0 - 145.0",
+        "clinical_range": "135.0 - 145.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Potassium": {
+        "optimal_range": "3.5 - 5.0",
+        "clinical_range": "3.5 - 5.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Chloride": {
+        "optimal_range": "98.0 - 107.0",
+        "clinical_range": "98.0 - 107.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Carbon Dioxide (CO₂), Total": {
+        "optimal_range": "22.0 - 29.0",
+        "clinical_range": "22.0 - 29.0",
+        "units": "mmol/L",
+        "panel": "Metabolic Panel"
+      },
+      "Blood Urea Nitrogen (BUN)": {
+        "optimal_range": "7.0 - 20.0",
+        "clinical_range": "8.0 - 27.0",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Creatinine": {
+        "optimal_range": "0.6 - 1.3",
+        "clinical_range": "0.6 - 1.3",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "BUN/Creatinine Ratio": {
+        "optimal_range": "10 - 20",
+        "clinical_range": "10 - 20",
+        "units": ":1 Ratio",
+        "panel": "Metabolic Panel"
+      },
+      "Total Protein": {
+        "optimal_range": "6.0 - 8.3",
+        "clinical_range": "6.0 - 8.3",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Albumin": {
+        "optimal_range": "3.5 - 5.0",
+        "clinical_range": "3.5 - 5.0",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Globulin, Total": {
+        "optimal_range": "2.0 - 3.5",
+        "clinical_range": "2.0 - 3.5",
+        "units": "g/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Albumin/Globulin (A/G) Ratio": {
+        "optimal_range": "1.0 - 2.5",
+        "clinical_range": "1.0 - 2.5",
+        "units": "ratio",
+        "panel": "Metabolic Panel"
+      },
+      "Total Bilirubin": {
+        "optimal_range": "0.1 - 1.2",
+        "clinical_range": "0.1 - 1.2",
+        "units": "mg/dL",
+        "panel": "Metabolic Panel"
+      },
+      "Alkaline Phosphatase": {
+        "optimal_range": "44.0 - 147.0",
+        "clinical_range": "44.0 - 147.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Aspartate Aminotransferase (AST)": {
+        "optimal_range": "10.0 -25.0",
+        "clinical_range": "10.0 - 40.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Alanine Aminotransferase (ALT)": {
+        "optimal_range": "7.0 - 26.0",
+        "clinical_range": "7.0 - 56.0",
+        "units": "IU/L",
+        "panel": "Metabolic Panel"
+      },
+      "Estimated Glomerular Filtration Rate (eGFR)": {
+        "optimal_range": "75 - 140",
+        "clinical_range": "60 - 150",
+        "units": "mL/min/1.73 m²",
+        "panel": "Metabolic Panel"
+      },
+      "White Blood Cell (WBC) Count": {
+        "optimal_range": "4.5 - 11",
+        "clinical_range": "4.5 - 11",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Red Blood Cell (RBC) Count": {
+        "optimal_range": "4.80 - 5.10",
+        "clinical_range": "3.77 - 5.28",
+        "units": "million cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Hemoglobin (Hgb)": {
+        "optimal_range": "11.1 - 15.9",
+        "clinical_range": "11.1 - 15.9",
+        "units": "g/dL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Hematocrit (Hct)": {
+        "optimal_range": "34.0 - 46.6",
+        "clinical_range": "34.0 - 46.6",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Volume (MCV)": {
+        "optimal_range": "79 - 97",
+        "clinical_range": "79 - 97",
+        "units": "fL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Hemoglobin (MCH)": {
+        "optimal_range": "26.6 - 33.0",
+        "clinical_range": "26.6 - 33.0",
+        "units": "pg",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Corpuscular Hemoglobin Concentration (MCHC)": {
+        "optimal_range": "32 - 36",
+        "clinical_range": "32 - 36",
+        "units": "g/dL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Red Cell Distribution Width (RDW)": {
+        "optimal_range": "11.0 - 15.0",
+        "clinical_range": "11.0 - 15.0",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Platelet Count": {
+        "optimal_range": "180 - 350",
+        "clinical_range": "150 - 400",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Mean Platelet Volume (MPV)": {
+        "optimal_range": "7.0 to 9.0",
+        "clinical_range": "7.0 to 9.0",
+        "units": "fL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Neutrophils": {
+        "optimal_range": "1.8 - 5.0",
+        "clinical_range": "1.84 - 7.8",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Lymphocytes": {
+        "optimal_range": "0.8 - 4.0",
+        "clinical_range": "0.72 - 5.2",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Monocytes": {
+        "optimal_range": "0.2 - 0.76",
+        "clinical_range": "0.12 - 1.0",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Eosinophils": {
+        "optimal_range": "0.0 - .41",
+        "clinical_range": "0.0 - 0.6",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Basophils": {
+        "optimal_range": "0.0 - 0.26",
+        "clinical_range": "0.0 - 0.3",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Total Cholesterol": {
+        "optimal_range": "100 - 190",
+        "clinical_range": "100 - 199",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "HDL": {
+        "optimal_range": "60 - 150",
+        "clinical_range": "50 - 150",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "LDL (calculated)": {
+        "optimal_range": "0 - 110",
+        "clinical_range": "0 - 129",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Triglycerides": {
+        "optimal_range": "0 - 120",
+        "clinical_range": "0 - 149",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "VLDL (calculated)": {
+        "optimal_range": "5.0 - 20.0",
+        "clinical_range": "5.0 - 40.0",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Total Cholesterol/HDL Ratio": {
+        "optimal_range": "0.0 - 3.5",
+        "clinical_range": "0.0 - 4.4",
+        "units": "ratio",
+        "panel": "Lipid Panel"
+      },
+      "LDL/HDL Ratio": {
+        "optimal_range": "0.0 - 2.0",
+        "clinical_range": "0.0 - 3.2",
+        "units": "ratio",
+        "panel": "Lipid Panel"
+      },
+      "Estradiol, Sensitive / Ultrasensitive (LC/MS)": {
+        "optimal_range": "15.0 - 25.0",
+        "clinical_range": "5.9 - 54.0",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Cortisol": {
+        "optimal_range": "10.0 - 15.0",
+        "clinical_range": "6.2 - 19.4",
+        "units": "µg/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "TSH": {
+        "optimal_range": "0.5 - 2.5",
+        "clinical_range": "0.45 - 4.5",
+        "units": "mIU/L",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Apolipoprotein B": {
+        "optimal_range": "20.0 - 80.0",
+        "clinical_range": "54.0 - 133.0",
+        "units": "mg/dL",
+        "panel": "Lipid Panel"
+      },
+      "Apolipoprotein A-1": {
+        "optimal_range": "150.0 - 200.0",
+        "clinical_range": "140.0 - 180.0",
+        "units": "nmol/L",
+        "panel": "Lipid Panel"
+      },
+      "Ferritin": {
+        "optimal_range": "50.0 - 120.0",
+        "clinical_range": "20.0 - 250.0",
+        "units": "ng/mL",
+        "panel": "Iron Markers"
+      },
+      "Iron": {
+        "optimal_range": "60 - 110.0",
+        "clinical_range": "27.0 - 159.9",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "Transferrin Saturation": {
+        "optimal_range": "25.0 - 40.0",
+        "clinical_range": "15.0 - 55.0",
+        "units": "%",
+        "panel": "Iron Markers"
+      },
+      "TIBC (Total Iron Binding Capacity)": {
+        "optimal_range": "280 - 340",
+        "clinical_range": "250 - 450",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "UIBC (Unsaturated Iron Binding Capacity)": {
+        "optimal_range": "180 - 240",
+        "clinical_range": "112 - 347",
+        "units": "µg/dL",
+        "panel": "Iron Markers"
+      },
+      "C-Reactive Protein, High Sensitivity (hsCRP)": {
+        "optimal_range": "0.0 - 1.0",
+        "clinical_range": "0.0 - 3.0",
+        "units": "mg/dL",
+        "panel": "Inflammatory Markers"
+      },
+      "Total Testosterone (LC/MS) [uncapped]": {
+        "optimal_range": "15 - 40",
+        "clinical_range": "2 - 40",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Free Testosterone (Equilibrium Ultrafiltration) [uncapped]": {
+        "optimal_range": "1.0 - 3.0",
+        "clinical_range": "0.1 - 6.4",
+        "units": "pg/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Prostate Specific Antigen (PSA)": {
+        "optimal_range": "0.0 - 0.05",
+        "clinical_range": "0.0 - 0.1",
+        "units": "ng/mL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Pregnenolone": {
+        "optimal_range": "100 - 150",
+        "clinical_range": "10 - 150",
+        "units": "ng/dL",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      },
+      "Thyroglobulin Antibody (tgAb)": {
+        "optimal_range": "0.0 - 0.9",
+        "clinical_range": "0.0 - 0.9",
+        "units": "IU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Thyroid Peroxidase Antibody (TPOab)": {
+        "optimal_range": "0.0 - 9.0",
+        "clinical_range": "0.0 - 34.0",
+        "units": "IU/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Reverse T3": {
+        "optimal_range": "10.0 - 18.5",
+        "clinical_range": "9.2 - 24.1",
+        "units": "ng/dL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Lipoprotein (a)": {
+        "optimal_range": "0.0 - 50.0",
+        "clinical_range": "0.0 - 75.0",
+        "units": "nmol/L",
+        "panel": "Lipid Panel"
+      },
+      "Immature Granulocytes": {
+        "optimal_range": "0.0 - 0.3",
+        "clinical_range": "0.0 - 0.6",
+        "units": "%",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Immature Granulocytes (Absolute)": {
+        "optimal_range": "0.0 - 0.05",
+        "clinical_range": "0.0 - 0.1",
+        "units": "x10E3 cells/µL",
+        "panel": "CBC w/ Differential and Platelet"
+      },
+      "Insulin-Like Growth Factor I (IGF-1)": {
+        "optimal_range": "90 - 140",
+        "clinical_range": "71 - 290",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Transferrin": {
+        "optimal_range": "220 - 300",
+        "clinical_range": "192 - 364",
+        "units": "mg/dL",
+        "panel": "Iron Markers"
+      },
+      "Vitamin D2": {
+        "optimal_range": "12 - 20",
+        "clinical_range": "4 - 20",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Vitamin D3": {
+        "optimal_range": "35 - 50",
+        "clinical_range": "20 - 50",
+        "units": "ng/mL",
+        "panel": "Thyroid, Growth Factors & Glucose"
+      },
+      "Sex Hormone Binding Globulin (SHBG)": {
+        "optimal_range": "30 - 70",
+        "clinical_range": "17.3 - 125.0",
+        "units": "nmol/L",
+        "panel": "Hormone, Gonadotropin & Neurosteroid Panel"
+      }
+    }
+  }
+}

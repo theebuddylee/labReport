@@ -17,7 +17,7 @@ from fpdf.enums import XPos, YPos
 from dotenv import load_dotenv
 from lab_preload import (accept_api_payload, clear_patient_state, sync_form_state, remember_result, fingerprint, finite_number, prepare_api_import)
 from lab_catalog import build_lab_catalog
-from lab_reference import score_lab_results, classify_result, reference_label
+from lab_reference import score_lab_results, classify_result, reference_label, assess_result, parse_interval
 
 # Load environment variables for local testing
 load_dotenv()
@@ -603,6 +603,8 @@ if lab_markers:
     st.markdown("### Select Lab Markers to Include:")
     grouped_by_panel = {}
     for marker, info in available_markers.items():
+        if not info.get('selectable', True):
+            continue
         grouped_by_panel.setdefault(info.get('panel', 'Other'), []).append(marker)
     desired_panel_order = [
         "Hormone, Gonadotropin & Neurosteroid Panel", "Thyroid, Growth Factors & Glucose", "Metabolic Panel",
@@ -626,8 +628,17 @@ if selected_markers:
                                              on_change=remember_result, args=(st.session_state, marker, widget_key),
                                              help=f"Units: {available_markers[marker].get('units', 'not specified')}. {available_markers[marker].get('description', '')} No automatic unit conversion is applied.")
         info = available_markers[marker]
-        scoring_label = 'Unscored — no established numeric interval' if classify_result(lab_results[marker], info) is None else 'Uses reported lab interval as temporary target'
-        st.caption(f"Lab interval: {info.get('clinical_range', 'Not supplied')} {info.get('units', '')} · {scoring_label}")
+        assessment = assess_result(lab_results[marker], info)
+        target_label = 'Optimal range (temporary lab target)' if info.get('optimal_origin') == 'new' else 'Optimal range'
+        st.caption(f"Lab interval: {info.get('clinical_range', 'Not supplied')} {info.get('clinical_units', info.get('units', ''))}")
+        st.caption(f"{target_label}: {info.get('optimal_range', 'Not supplied')} {info.get('optimal_units', info.get('units', ''))}")
+        if assessment['category'] == 'unscored':
+            if not info.get('optimal_units_compatible', True) or not info.get('optimal_identity_confirmed', True):
+                st.warning('Unscored: ' + assessment['reason'])
+            else:
+                st.caption('Unscored: ' + assessment['reason'])
+        else:
+            st.caption(f"Assessment: {assessment['category'].capitalize()} ({assessment['points']:g} points)")
         if info.get('assumed_ratio_unit'):
             st.caption('Dimensionless BUN/Creatinine ratio: an absent API unit is accepted for this marker.')
         if info.get('assay_method') or info.get('source_method'):
@@ -635,17 +646,13 @@ if selected_markers:
 
 # Visualization Functions
 def parse_range(range_str):
-    if '-' in range_str:
-        parts = range_str.split('-')
-        try:
-            low = float(parts[0].strip())
-            high = float(parts[1].strip())
-            return low, high
-        except ValueError:
-            return None, None
+    bounds = parse_interval(range_str)
+    if bounds and bounds['low'] is not None and bounds['high'] is not None:
+        return bounds['low'], bounds['high']
     return None, None
 
-def create_range_chart(marker_name, units, clinical_range, optimal_range, user_value):
+
+def create_range_chart(marker_name, units, clinical_range, optimal_range, user_value, temporary_target=False):
     clinical_min, clinical_max = parse_range(clinical_range)
     optimal_min, optimal_max = parse_range(optimal_range)
     try:
@@ -664,9 +671,9 @@ def create_range_chart(marker_name, units, clinical_range, optimal_range, user_v
     optimal_y = 0.0
     clinical_y = optimal_y + bar_height
     ax.broken_barh([(clinical_min, clinical_max - clinical_min)], (clinical_y, bar_height),
-                   facecolors=in_range_color, edgecolor='none', label='Lab Reference')
+                   facecolors=in_range_color, edgecolor='none', label='Clinical Range')
     ax.broken_barh([(optimal_min, optimal_max - optimal_min)], (optimal_y, bar_height),
-                   facecolors=PRIMARY_COLOR, edgecolor='none', label='Temporary Target')
+                   facecolors=PRIMARY_COLOR, edgecolor='none', label='Optimal (temporary)' if temporary_target else 'Optimal Range')
     ax.axvline(user_numeric, color=vibrant_red, linewidth=3, label='Your Value')
     ax.set_xlim(x_min, x_max)
     ax.set_ylim(0, clinical_y + bar_height)
@@ -685,15 +692,15 @@ def log_analytics(selected_manager, selected_markers, lab_results, available_mar
         timestamp = datetime.now(local_timezone).strftime("%Y-%m-%d %H:%M:%S")
         for marker in selected_markers:
             user_value = lab_results.get(marker)
-            if classify_result(user_value, available_markers[marker]) is None:
+            assessment = assess_result(user_value, available_markers[marker])
+            if assessment['points'] is None:
                 continue
             try:
                 user_numeric = float(user_value)
             except ValueError:
                 continue
-            reference_state = classify_result(user_numeric, available_markers[marker])
-            is_optimal_out = int(reference_state is False)
-            is_clinical_out = int(reference_state is False)
+            is_optimal_out = int(assessment['category'] != 'optimal')
+            is_clinical_out = int(assessment['clinical'] is False)
             cursor.execute(
                 """
                 INSERT INTO report_analytics (membership_manager, marker, is_optimal_out, is_clinical_out, timestamp)
@@ -767,8 +774,8 @@ if st.button("Generate PDF"):
         pdf.add_font("DejaVuSans", "B", "DejaVuSans-Bold.ttf")
         metrics = score_lab_results(selected_markers, lab_results, available_markers)
         total_markers = metrics['total']
-        count_optimal, count_out, count_unscored = metrics['within'], metrics['outside'], metrics['unscored']
-        count_inrange = count_unscored
+        count_optimal, count_inrange = metrics['optimal'], metrics['clinical']
+        count_out, count_unscored = metrics['outside'], metrics['unscored']
         optimal_score = metrics['score_percent']
         score_label = f"{optimal_score:.0f}" if optimal_score is not None else 'N/A'
         log_analytics(selected_manager, selected_markers, lab_results, available_markers)
@@ -777,8 +784,8 @@ if st.button("Generate PDF"):
         pdf.rect(0, 0, 210, 30, style='F')
         pdf.set_y(6)
         pdf.set_text_color(255, 255, 255)
-        set_font_with_fallback(pdf, "Exo2", "B", 22, f"Lab Reference Score: {score_label}")
-        pdf.cell(210, 18, f" Lab Reference Score: {score_label}", align="C", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        set_font_with_fallback(pdf, "Exo2", "B", 22, f"Your Optimal Score: {score_label}")
+        pdf.cell(210, 18, f" Your Optimal Score: {score_label}", align="C", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
         pdf.ln(10)
         pdf.set_text_color(250, 240, 230)
         pdf.set_xy(157, 0)
@@ -787,9 +794,9 @@ if st.button("Generate PDF"):
         pdf.set_xy(10, 24)
         pdf.set_font('Exo2', '', 10)
         pdf.cell(190, 5, f"Score uses {metrics['scored']} scorable results; {metrics['unscored']} unscored results are excluded.", align='C')
-        categories = ['Outside Lab Range', 'Within Lab Range', 'Unscored']
-        values = [count_out, count_optimal, count_unscored]
-        colors = ['#FF5555', '#06B6D4', '#B0B0B0']
+        categories = ['Out of Range', 'Optimal', 'Clinical Range', 'Unscored']
+        values = [count_out, count_optimal, count_inrange, count_unscored]
+        colors = ['#FF5555', '#06B6D4', '#FFA500', '#B0B0B0']
         fig, ax = plt.subplots(figsize=(14, 22))
         bars = ax.bar(categories, values, color=colors)
         ax.set_ylabel('Number of Markers', fontsize=16)
@@ -809,38 +816,26 @@ if st.button("Generate PDF"):
         plt.close(fig)
         pdf.image(chart_file, x=32.5, y=32, w=160, h=192)
         os.remove(chart_file)
-        pct_out = (count_out / total_markers) * 100 if total_markers > 0 else 0
-        pct_optimal = (count_optimal / total_markers) * 100 if total_markers > 0 else 0
-        pct_inrange = (count_inrange / total_markers) * 100 if total_markers > 0 else 0
-        pdf.set_y(238)
+        pdf.set_y(234)
         legend_start_x = 32.5
         legend_box_size = 6
         spacing = 4
-        pdf.set_xy(legend_start_x, pdf.get_y())
-        pdf.set_fill_color(255, 85, 85)
-        pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
-        pdf.set_x(legend_start_x + legend_box_size + spacing)
-        pdf.set_text_color(0, 0, 0)
-        pdf.set_font("Exo2", "", 12)
-        pdf.cell(40, 10, "Outside Lab Range", border=0)
-        pdf.set_text_color(115, 115, 115)
-        pdf.cell(0, 10, f"{pct_out:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_xy(legend_start_x, pdf.get_y())
-        pdf.set_fill_color(6, 182, 212)
-        pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
-        pdf.set_x(legend_start_x + legend_box_size + spacing)
-        pdf.set_text_color(0, 0, 0)
-        pdf.cell(40, 10, "Within Lab Range", border=0)
-        pdf.set_text_color(115, 115, 115)
-        pdf.cell(0, 10, f"{pct_optimal:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-        pdf.set_xy(legend_start_x, pdf.get_y())
-        pdf.set_fill_color(176, 176, 176)
-        pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style="F")
-        pdf.set_x(legend_start_x + legend_box_size + spacing)
-        pdf.set_text_color(0, 0, 0)
-        pdf.cell(40, 10, "Unscored", border=0)
-        pdf.set_text_color(115, 115, 115)
-        pdf.cell(0, 10, f"{pct_inrange:.0f}%", border=0, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
+        for label, count, color in [
+            ('Out of Range', count_out, (255,85,85)),
+            ('Optimal Range', count_optimal, (6,182,212)),
+            ('Clinical Range', count_inrange, (255,165,0)),
+            ('Unscored', count_unscored, (176,176,176)),
+        ]:
+            pdf.set_xy(legend_start_x, pdf.get_y())
+            pdf.set_fill_color(*color)
+            pdf.rect(pdf.get_x(), pdf.get_y(), legend_box_size, legend_box_size, style='F')
+            pdf.set_x(legend_start_x + legend_box_size + spacing)
+            pdf.set_text_color(0,0,0)
+            pdf.set_font('Exo2','',12)
+            pdf.cell(40,10,label,border=0)
+            pdf.set_text_color(115,115,115)
+            percentage = 100 * count / total_markers if total_markers else 0
+            pdf.cell(0,10,f'{percentage:.0f}%',border=0,new_x=XPos.LMARGIN,new_y=YPos.NEXT)
         grouped_markers = {}
         for marker in selected_markers:
             panel = available_markers[marker].get('panel', 'Other')
@@ -885,20 +880,17 @@ if st.button("Generate PDF"):
                         continue
                     user_numeric = float(value)
                     dot_color = None
-                    reference_state = classify_result(user_numeric, available_markers[marker])
+                    assessment = assess_result(user_numeric, available_markers[marker])
                     clinical_min, clinical_max = parse_range(available_markers[marker]['clinical_range'])
                     optimal_min, optimal_max = parse_range(available_markers[marker]['optimal_range'])
-                    if reference_state is True:
-                        dot_color = (6, 182, 212)
-                    elif reference_state is False:
-                        dot_color = (255, 85, 85)
+                    dot_color = {'optimal':(6,182,212), 'clinical':(255,165,0), 'outside':(255,85,85)}.get(assessment['category'])
                     fig = create_range_chart(
                         marker,
                         available_markers[marker]['units'],
                         available_markers[marker]['clinical_range'],
                         available_markers[marker]['optimal_range'],
-                        user_numeric
-                    ) if reference_state is not None else None
+                        user_numeric, temporary_target=available_markers[marker].get('optimal_origin') == 'new'
+                    ) if assessment['points'] is not None else None
                     if fig:
                         with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmpfile:
                             chart_file = tmpfile.name
@@ -924,18 +916,18 @@ if st.button("Generate PDF"):
                             pdf.ln(30)
                     else:
                         pdf.multi_cell(0, 7, f"Result: {value} {available_markers[marker]['units']}", new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-                        note = 'Not scored: no established numeric lab reference interval.' if reference_state is None else 'Reference interval shown below.'
+                        note = ('Not scored: ' + assessment['reason']) if assessment['points'] is None else 'Clinical and Optimal ranges shown below.'
                         pdf.multi_cell(0, 7, note, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                         pdf.ln(1)
                     clinical_label = "Lab Reference:"
                     set_font_with_fallback(pdf, "Exo2", "", 14, clinical_label)
                     pdf.set_text_color(115, 115, 115)
-                    clinical_value = f" {available_markers[marker]['clinical_range']}"
+                    clinical_value = f" {available_markers[marker]['clinical_range']} {available_markers[marker].get('clinical_units', available_markers[marker]['units'])}"
                     pdf.multi_cell(0, 7, clinical_label + clinical_value, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
-                    optimal_label = "Temporary Target:"
+                    optimal_label = "Optimal Range (temporary lab target):" if available_markers[marker].get("optimal_origin") == "new" else "Optimal Range:"
                     set_font_with_fallback(pdf, "Exo2", "", 14, optimal_label)
                     pdf.set_text_color(115, 115, 115)
-                    optimal_value = f" {available_markers[marker]['optimal_range']}"
+                    optimal_value = f" {available_markers[marker]['optimal_range']} {available_markers[marker].get('optimal_units', available_markers[marker]['units'])}"
                     pdf.multi_cell(0, 7, optimal_label + optimal_value, new_x=XPos.LMARGIN, new_y=YPos.NEXT)
                     pdf.ln(5)
         # Each report owns its output paths, even when coaches generate concurrently.
